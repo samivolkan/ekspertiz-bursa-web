@@ -40,7 +40,7 @@ export const packages: PackageItem[] = [
     badge: "Gövde kontrolü",
     description:
       "Aracın kaporta ve boya yüzeyindeki görünür durumun parça bazında değerlendirilmesi için.",
-    duration: "Süre teyit edilecek",
+    duration: "15 dk",
     price: null,
     features: [
       "Kaporta kontrolü",
@@ -57,7 +57,7 @@ export const packages: PackageItem[] = [
     badge: "Mekanik kontrol",
     description:
       "Motor bölümü ve temel mekanik başlıklara odaklanan ekspertiz seçeneği.",
-    duration: "Süre teyit edilecek",
+    duration: "20 dk",
     price: null,
     features: [
       "Motor kontrolü",
@@ -74,7 +74,7 @@ export const packages: PackageItem[] = [
     badge: "Başlangıç",
     description:
       "Kaporta, motor, mekanik ve beyin kontrollerini tek pakette birleştiren başlangıç seçeneği.",
-    duration: "Süre teyit edilecek",
+    duration: "25 dk",
     price: "5.000 TL",
     features: [
       "Kaporta kontrolü",
@@ -91,7 +91,7 @@ export const packages: PackageItem[] = [
     badge: "Dengeli kapsam",
     description:
       "Mini pakete şanzıman ile iç ve dış kontrol başlıklarını ekleyen genişletilmiş seçenek.",
-    duration: "Süre teyit edilecek",
+    duration: "30 dk",
     price: "7.500 TL",
     features: [
       "Kaporta, motor ve mekanik kontrol",
@@ -108,7 +108,7 @@ export const packages: PackageItem[] = [
     badge: "Geniş kapsam",
     description:
       "Orta paket kapsamına conta kontrolünü ekleyen daha ayrıntılı ekspertiz seçeneği.",
-    duration: "Süre teyit edilecek",
+    duration: "35 dk",
     price: "10.000 TL",
     features: [
       "Kaporta, motor ve mekanik kontrol",
@@ -125,7 +125,7 @@ export const packages: PackageItem[] = [
     badge: "En geniş kapsam",
     description:
       "Tam paket kapsamına airbag kontrolünü ekleyen en geniş ekspertiz seçeneği.",
-    duration: "Süre teyit edilecek",
+    duration: "40 dk",
     price: "12.500 TL",
     features: [
       "Kaporta, motor ve mekanik kontrol",
@@ -204,7 +204,7 @@ export const faqItems = [
   {
     question: "Ekspertiz ne kadar sürer?",
     answer:
-      "Paket süreleri henüz işletme tarafından kesinleştirilmedi. Araç tipi, seçilen kapsam ve şube yoğunluğuna göre tahmini süre randevu teyidinde paylaşılır.",
+      "Paketler yaklaşık 15 ile 40 dakika arasında sürer. Araç tipi, seçilen kapsam ve kontrol sırasında karşılaşılan bulgular süreyi etkileyebilir; kesin plan randevu teyidinde paylaşılır.",
   },
   {
     question: "Aynı gün randevu alabilir miyim?",
@@ -221,6 +221,7 @@ export const faqItems = [
 export const navItems = [
   { href: "/paketler", label: "Paketler" },
   { href: "/hizmetler", label: "Kontroller" },
+  { href: "/blog", label: "Blog" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/iletisim", label: "İletişim" },
 ];

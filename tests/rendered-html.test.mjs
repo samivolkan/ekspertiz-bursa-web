@@ -54,6 +54,8 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="tr"/i);
   assert.match(html, /Ekspertiz Bursa/);
+  assert.match(html, /\/brand\/ekspertiz-bursa-wordmark\.png/);
+  assert.match(html, /\/og-red\.png/);
   assert.match(html, /Aracı almadan önce/);
   assert.match(html, /Full Paket/);
   assert.match(html, /En çok tercih edilen paket/);
@@ -71,11 +73,27 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview|react-loading-skeleton/);
 });
 
+test("serves the approved red brand assets and favicons", async () => {
+  for (const path of [
+    "/brand/ekspertiz-bursa-wordmark.png",
+    "/brand/ekspertiz-bursa-mark.png",
+    "/icon.png",
+    "/apple-icon.png",
+    "/og-red.png",
+  ]) {
+    const response = await fetch(`${baseUrl}${path}`);
+    assert.equal(response.status, 200, path);
+    assert.match(response.headers.get("content-type") ?? "", /^image\/png\b/i, path);
+    assert.ok((await response.arrayBuffer()).byteLength > 5_000, path);
+  }
+});
+
 test("renders conversion, package and legal routes", async () => {
   for (const [path, expected] of [
     ["/randevu", "Ekspertiz için uygun günü planlayın"],
     ["/paketler", "İhtiyacınıza göre net kapsam"],
     ["/hizmetler", "Aracın farklı sistemlerini"],
+    ["/blog", "Günlük ekspertiz deneyimleri"],
     ["/iletisim", "Nilüfer şubemiz"],
     ["/kvkk", "KVKK Aydınlatma Metni"],
     ["/cerez-politikasi", "Çerez Politikası"],
@@ -103,11 +121,41 @@ test("renders selectable amber and red themes on package pages", async () => {
   assert.match(homeHtml, /data-theme-choice="amber"/);
   assert.match(homeHtml, /data-theme-choice="red"/);
   assert.match(homeHtml, /ekspertiz_bursa_theme_v1/);
+  assert.match(homeHtml, /<html[^>]*data-theme="red"/i);
 
   const packagesResponse = await fetch(`${baseUrl}/paketler`);
   assert.equal(packagesResponse.status, 200);
   const packagesHtml = await packagesResponse.text();
   assert.match(packagesHtml, /En çok tercih edilen paket/);
+  for (const duration of ["15 dk", "20 dk", "25 dk", "30 dk", "35 dk", "40 dk"]) {
+    assert.match(packagesHtml, new RegExp(duration), duration);
+  }
+});
+
+test("renders ten fictional and anonymized blog stories with detail routes", async () => {
+  const listingResponse = await fetch(`${baseUrl}/blog`);
+  assert.equal(listingResponse.status, 200);
+  const listingHtml = await listingResponse.text();
+  assert.match(listingHtml, /kurgusal bileşik senaryolardır/i);
+  assert.match(listingHtml, /Gerçek bir müşteriyi, plakayı veya belirli bir aracı anlatmaz/i);
+
+  const articlePaths = [
+    ...new Set([...listingHtml.matchAll(/href="(\/blog\/[^"?#]+)"/g)].map((match) => match[1])),
+  ];
+  assert.equal(articlePaths.length, 10);
+
+  const sitemapResponse = await fetch(`${baseUrl}/sitemap.xml`);
+  assert.equal(sitemapResponse.status, 200);
+  const sitemapXml = await sitemapResponse.text();
+
+  for (const path of articlePaths) {
+    assert.match(sitemapXml, new RegExp(`https://www\\.ekspertizbursa\\.com${path}`), path);
+    const response = await fetch(`${baseUrl}${path}`);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, /Kurgusal ve anonimleştirilmiş hikâye/i, path);
+    assert.match(html, /"@type":"BlogPosting"/, path);
+  }
 });
 
 test("rejects an incomplete appointment before persistence", async () => {

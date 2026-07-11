@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ClientExperience } from "./ClientExperience";
@@ -7,13 +8,15 @@ import { navItems, siteConfig } from "@/lib/site";
 export function Brand() {
   return (
     <span className="brand-lockup">
-      <span className="brand-mark" aria-hidden="true">
-        EB
-      </span>
-      <span className="brand-copy">
-        <strong>Ekspertiz Bursa</strong>
-        <small>Oto ekspertiz ve karar desteği</small>
-      </span>
+      <Image
+        className="brand-wordmark"
+        src="/brand/ekspertiz-bursa-wordmark.png"
+        alt="Ekspertiz Bursa"
+        width={1600}
+        height={274}
+        unoptimized
+        sizes="(max-width: 620px) 150px, 205px"
+      />
     </span>
   );
 }
@@ -73,6 +76,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <h2>Hızlı erişim</h2>
             <Link href="/paketler">Ekspertiz paketleri</Link>
             <Link href="/hizmetler">Kontrol başlıkları</Link>
+            <Link href="/blog">Ekspertiz hikâyeleri</Link>
             <Link href="/randevu">Randevu talebi</Link>
             <Link href="/iletisim">İletişim</Link>
           </div>

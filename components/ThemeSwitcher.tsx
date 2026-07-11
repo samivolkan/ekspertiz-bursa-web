@@ -14,18 +14,18 @@ function isTheme(value: string | null): value is Theme {
 
 function readTheme(): Theme {
   const current = document.documentElement.dataset.theme;
-  return isTheme(current ?? null) ? current : "amber";
+  return isTheme(current ?? null) ? current : "red";
 }
 
 function readServerTheme(): Theme {
-  return "amber";
+  return "red";
 }
 
 function subscribe(onStoreChange: () => void) {
   const handleThemeChange = () => onStoreChange();
   const handleStorage = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY) return;
-    document.documentElement.dataset.theme = isTheme(event.newValue) ? event.newValue : "amber";
+    document.documentElement.dataset.theme = isTheme(event.newValue) ? event.newValue : "red";
     onStoreChange();
   };
 

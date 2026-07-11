@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/rubik";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { siteConfig } from "@/lib/site";
 
-const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);if(saved==="amber"||saved==="red")document.documentElement.dataset.theme=saved;}catch{}})();`;
+const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);document.documentElement.dataset.theme=saved==="amber"||saved==="red"?saved:"red";}catch{document.documentElement.dataset.theme="red";}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/og.png",
+        url: "/og-red.png",
         width: 1200,
         height: 630,
         alt: "Ekspertiz Bursa - Aracınızı almadan önce, gerçeği görün.",
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ekspertiz Bursa",
     description: siteConfig.description,
-    images: ["/og.png"],
+    images: ["/og-red.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -52,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" suppressHydrationWarning>
+    <html lang="tr" data-theme="red" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
