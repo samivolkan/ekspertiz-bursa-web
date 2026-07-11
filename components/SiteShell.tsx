@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import { ClientExperience } from "./ClientExperience";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import { navItems, siteConfig } from "@/lib/site";
+import { navItems, packages, siteConfig } from "@/lib/site";
 
 export function Brand() {
   return (
@@ -18,6 +19,41 @@ export function Brand() {
         sizes="(max-width: 620px) 150px, 205px"
       />
     </span>
+  );
+}
+
+function PackagePriceDrawer() {
+  return (
+    <details className="price-drawer">
+      <summary aria-label="Ekspertiz fiyatlarını aç">
+        <span aria-hidden="true">‹</span>
+        <strong>Ekspertiz fiyatları</strong>
+      </summary>
+      <div className="price-drawer-panel">
+        <div className="price-drawer-heading">
+          <div>
+            <span>Güncel paketler</span>
+            <h2>Ekspertiz fiyatları</h2>
+          </div>
+          <small>6 paket</small>
+        </div>
+        <div className="price-drawer-list">
+          {packages.map((item) => (
+            <article key={item.slug}>
+              <div>
+                <h3>{item.name}</h3>
+                <p>{item.duration}</p>
+              </div>
+              <strong>{item.price}</strong>
+              <Link href={`/paketler#${item.slug}`} data-event={`price_drawer_${item.slug}_click`}>
+                İncele
+              </Link>
+            </article>
+          ))}
+        </div>
+        <p className="price-drawer-footnote">Paket kapsamı ve süre araç durumuna göre değişebilir.</p>
+      </div>
+    </details>
   );
 }
 
@@ -96,6 +132,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <span>Canonical alan adı: ekspertizbursa.com</span>
         </div>
       </footer>
+      <PackagePriceDrawer />
       <a
         className="whatsapp-float"
         href={siteConfig.whatsappHref}
@@ -104,7 +141,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         aria-label="WhatsApp üzerinden Ekspertiz Bursa'ya yazın"
         data-event="floating_whatsapp_click"
       >
-        <span aria-hidden="true">WA</span>
+        <span aria-hidden="true"><FaWhatsapp /></span>
         <span><strong>WhatsApp</strong><small>Hemen yazın</small></span>
       </a>
       <Link className="mobile-appointment" href="/randevu" data-event="mobile_sticky_appointment_click">

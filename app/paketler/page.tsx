@@ -5,7 +5,7 @@ import { packages } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Oto Ekspertiz Paketleri ve Fiyatları",
-  description: "Ekspertiz Bursa Kaporta, Motor-Mekanik, Mini, Orta, Tam ve Full paket kapsamlarını ve paylaşılan fiyatları karşılaştırın.",
+  description: "Ekspertiz Bursa Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket kapsamlarını ve güncel fiyatlarını karşılaştırın.",
   alternates: { canonical: "/paketler" },
 };
 
@@ -21,9 +21,6 @@ export default function PackagesPage() {
       </section>
       <section className="section section-paper">
         <div className="page-shell">
-          <div className="draft-alert">
-            <strong>Fiyat ve süre notu:</strong> Kaporta ve Motor-Mekanik paketleri 3.500 TL, Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL&apos;dir. Paket süreleri yaklaşık 15–40 dakika arasındadır ve aracın durumuna göre değişebilir. KDV durumunu 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.
-          </div>
           <div className="package-scope-note">
             <strong>Kontrol kapsamını açın</strong>
             <p>Her karttaki “Paket özellikleri” alanından ana kontrol gruplarını ve alt başlıkları inceleyebilirsiniz. Başlıklar araç modeli, teknik uygunluk ve erişilebilirliğe göre uygulanır; parça sökümü yapılmaz.</p>
@@ -39,8 +36,6 @@ export default function PackagesPage() {
                 <div className="package-best"><strong>Uygun kullanım:</strong> {item.bestFor}</div>
                 <ul>{item.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
                 <div className="package-detail-footer">
-                  <p><span>Süre</span><strong>{item.duration}</strong></p>
-                  <p><span>Fiyat</span><strong>{item.price ?? "Bilgi için arayın"}</strong></p>
                   <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_detail_${item.slug}_click`}>
                     Bu paketle randevu al
                   </Link>
@@ -48,6 +43,10 @@ export default function PackagesPage() {
                 <details className="package-feature-disclosure" data-control-heading-count={controlHeadingCount}>
                   <summary>
                     <span>Paket özellikleri</span>
+                    <span className="package-feature-price-meta">
+                      <span><small>Süre</small><b>{item.duration}</b></span>
+                      <span><small>Fiyat</small><b>{item.price ?? "Bilgi için arayın"}</b></span>
+                    </span>
                     <strong>{controlHeadingCount} kontrol başlığı</strong>
                     <i aria-hidden="true">+</i>
                   </summary>

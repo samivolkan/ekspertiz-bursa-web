@@ -75,6 +75,10 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /gerçek Google veya sosyal medya yorumu değildir/i);
   assert.match(html, /data-event="floating_whatsapp_click"/);
   assert.match(html, /wa\.me\/905527415143/);
+  assert.match(html, /class="whatsapp-float"[\s\S]*?<svg/i);
+  assert.match(html, /class="price-drawer"/);
+  assert.match(html, /Ekspertiz fiyatları/);
+  assert.match(html, /data-event="price_drawer_full_click"/);
   assert.doesNotMatch(html, /"@type":"Review"/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview|react-loading-skeleton/);
 });
@@ -133,9 +137,10 @@ test("renders selectable amber and red themes on package pages", async () => {
   assert.equal(packagesResponse.status, 200);
   const packagesHtml = await packagesResponse.text();
   assert.match(packagesHtml, /En çok tercih edilen paket/);
-  assert.match(packagesHtml, /Kaporta ve Motor-Mekanik paketleri 3\.500 TL/);
-  assert.match(packagesHtml, /Kaporta Paketi[\s\S]*?3\.500 TL/);
-  assert.match(packagesHtml, /Motor-Mekanik Paketi[\s\S]*?3\.500 TL/);
+  assert.match(packagesHtml, /Mini Ekspertiz Kaporta Paketi[\s\S]*?3\.500 TL/);
+  assert.match(packagesHtml, /Mini Ekspertiz Motor-Mekanik Paketi[\s\S]*?3\.500 TL/);
+  assert.doesNotMatch(packagesHtml, /Fiyat ve süre notu/);
+  assert.match(packagesHtml, /package-feature-price-meta/);
   assert.match(packagesHtml, /Paket özellikleri/);
   for (const headingCount of [8, 22, 33, 38, 43]) {
     assert.match(packagesHtml, new RegExp(`data-control-heading-count="${headingCount}"`), String(headingCount));
@@ -151,11 +156,10 @@ test("renders ten fictional and anonymized blog stories with detail routes", asy
   const listingResponse = await fetch(`${baseUrl}/blog`);
   assert.equal(listingResponse.status, 200);
   const listingHtml = await listingResponse.text();
-  assert.match(listingHtml, /kurgusal bileşik senaryolardır/i);
-  assert.match(listingHtml, /Gerçek bir müşteriyi, plakayı veya belirli bir aracı anlatmaz/i);
-  assert.match(listingHtml, /\/images\/paint-check\.webp/);
-  assert.match(listingHtml, /\/images\/diagnostics-check\.webp/);
-  assert.match(listingHtml, /\/images\/hero-inspection\.webp/);
+  assert.doesNotMatch(listingHtml, /Editoryal açıklama/i);
+  assert.match(listingHtml, /Öne çıkan rehber/);
+  const blogImagePaths = [...new Set([...listingHtml.matchAll(/\/images\/blog\/[^"?]+\.webp/g)].map((match) => match[0]))];
+  assert.equal(blogImagePaths.length, 10);
 
   const articlePaths = [
     ...new Set([...listingHtml.matchAll(/href="(\/blog\/[^"?#]+)"/g)].map((match) => match[1])),
@@ -171,7 +175,8 @@ test("renders ten fictional and anonymized blog stories with detail routes", asy
     const response = await fetch(`${baseUrl}${path}`);
     assert.equal(response.status, 200, path);
     const html = await response.text();
-    assert.match(html, /Kurgusal ve anonimleştirilmiş hikâye/i, path);
+    assert.match(html, /Bu rehberde/i, path);
+    assert.match(html, /İlgili ekspertiz rehberleri/i, path);
     assert.match(html, /"@type":"BlogPosting"/, path);
     assert.match(html, /"image":"https:\/\/www\.ekspertizbursa\.com\/images\//, path);
     assert.match(html, /<figure[^>]*class="blog-feature-image"/i, path);

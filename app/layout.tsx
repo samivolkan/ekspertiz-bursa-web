@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/plus-jakarta-sans";
-import "@fontsource-variable/rubik";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { siteConfig } from "@/lib/site";

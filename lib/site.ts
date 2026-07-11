@@ -127,7 +127,7 @@ const airbagGroup: PackageFeatureGroup = {
 export const packages: PackageItem[] = [
   {
     slug: "kaporta",
-    name: "Kaporta Paketi",
+    name: "Mini Ekspertiz Kaporta Paketi",
     badge: "Gövde kontrolü",
     description:
       "Aracın kaporta ve boya yüzeyindeki görünür durumun parça bazında değerlendirilmesi için.",
@@ -145,7 +145,7 @@ export const packages: PackageItem[] = [
   },
   {
     slug: "motor-mekanik",
-    name: "Motor-Mekanik Paketi",
+    name: "Mini Ekspertiz Motor-Mekanik Paketi",
     badge: "Mekanik kontrol",
     description:
       "Motor bölümü ve temel mekanik başlıklara odaklanan ekspertiz seçeneği.",
@@ -296,7 +296,7 @@ export const faqItems = [
   {
     question: "Hangi paketi seçmeliyim?",
     answer:
-      "Kontrol etmek istediğiniz başlıklara göre seçim yapabilirsiniz. Kaporta ve Motor-Mekanik paketleri tek alana odaklanır; Mini, Orta, Tam ve Full paketleri kademeli olarak daha geniş kontrol başlıkları içerir.",
+      "Kontrol etmek istediğiniz başlıklara göre seçim yapabilirsiniz. Mini Ekspertiz Kaporta ve Mini Ekspertiz Motor-Mekanik paketleri tek alana odaklanır; Mini, Orta, Tam ve Full paketleri kademeli olarak daha geniş kontrol başlıkları içerir.",
   },
   {
     question: "Ekspertiz ne kadar sürer?",
@@ -311,7 +311,7 @@ export const faqItems = [
   {
     question: "Paket fiyatlarına KDV dahil mi?",
     answer:
-      "Kaporta, Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları paylaşılmıştır; ancak KDV dahil veya hariç bilgisi henüz teyit edilmedi. Randevu öncesinde 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.",
+      "Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları paylaşılmıştır; ancak KDV dahil veya hariç bilgisi henüz teyit edilmedi. Randevu öncesinde 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.",
   },
 ];
 

@@ -149,7 +149,7 @@ export default function Home() {
               <h2>Risk düzeyine göre doğru kapsamı seçin.</h2>
             </div>
             <div>
-              <p>Kaporta, Motor-Mekanik, Mini, Orta, Tam ve Full paketlerin kapsamını, sürelerini ve güncel fiyatlarını karşılaştırın.</p>
+              <p>Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paketlerin kapsamını, sürelerini ve güncel fiyatlarını karşılaştırın.</p>
               <Link className="text-link" href="/paketler">Tüm paketleri karşılaştır <span>→</span></Link>
             </div>
           </div>
