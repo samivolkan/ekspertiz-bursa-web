@@ -134,7 +134,7 @@ export default function Home() {
               <h2>Risk düzeyine göre doğru kapsamı seçin.</h2>
             </div>
             <div>
-              <p>Mini, Orta, Tam ve Full paketlerin kapsamını ve güncel fiyatlarını karşılaştırın. Kaporta ve Motor-Mekanik paketlerinin fiyatını telefon veya WhatsApp üzerinden öğrenin.</p>
+              <p>Kaporta, Motor-Mekanik, Mini, Orta, Tam ve Full paketlerin kapsamını, sürelerini ve güncel fiyatlarını karşılaştırın.</p>
               <Link className="text-link" href="/paketler">Tüm paketleri karşılaştır <span>→</span></Link>
             </div>
           </div>

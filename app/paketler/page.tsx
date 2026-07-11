@@ -22,7 +22,7 @@ export default function PackagesPage() {
       <section className="section section-paper">
         <div className="page-shell">
           <div className="draft-alert">
-            <strong>Fiyat ve süre notu:</strong> Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL&apos;dir. Paket süreleri yaklaşık 15–40 dakika arasındadır ve aracın durumuna göre değişebilir. KDV durumu ile Kaporta ve Motor-Mekanik paket fiyatları için 0552 741 51 43 numaralı telefondan bilgi alabilirsiniz.
+            <strong>Fiyat ve süre notu:</strong> Kaporta ve Motor-Mekanik paketleri 3.500 TL, Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL&apos;dir. Paket süreleri yaklaşık 15–40 dakika arasındadır ve aracın durumuna göre değişebilir. KDV durumunu 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.
           </div>
           <div className="package-detail-grid">
             {packages.map((item) => (

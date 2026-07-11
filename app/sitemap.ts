@@ -4,7 +4,7 @@ import { blogPosts } from "@/lib/blog";
 const siteUrl = "https://www.ekspertizbursa.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-11T00:00:00+03:00");
+  const lastModified = new Date("2026-07-12T00:00:00+03:00");
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
     lastModified: new Date(`${post.publishedAt}T12:00:00+03:00`),

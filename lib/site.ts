@@ -41,7 +41,7 @@ export const packages: PackageItem[] = [
     description:
       "Aracın kaporta ve boya yüzeyindeki görünür durumun parça bazında değerlendirilmesi için.",
     duration: "15 dk",
-    price: null,
+    price: "3.500 TL",
     features: [
       "Kaporta kontrolü",
       "Boya yüzeyi kontrolü",
@@ -49,7 +49,7 @@ export const packages: PackageItem[] = [
       "Görsel dış yüzey değerlendirmesi",
     ],
     bestFor: "Gövde ve boya geçmişine odaklanan kontrol",
-    draft: true,
+    draft: false,
   },
   {
     slug: "motor-mekanik",
@@ -58,7 +58,7 @@ export const packages: PackageItem[] = [
     description:
       "Motor bölümü ve temel mekanik başlıklara odaklanan ekspertiz seçeneği.",
     duration: "20 dk",
-    price: null,
+    price: "3.500 TL",
     features: [
       "Motor kontrolü",
       "Mekanik kontrol başlıkları",
@@ -66,7 +66,7 @@ export const packages: PackageItem[] = [
       "Mekanik bulgu özeti",
     ],
     bestFor: "Motor ve mekanik duruma odaklanan kontrol",
-    draft: true,
+    draft: false,
   },
   {
     slug: "mini",
@@ -214,7 +214,7 @@ export const faqItems = [
   {
     question: "Paket fiyatlarına KDV dahil mi?",
     answer:
-      "Mini, Orta, Tam ve Full paket fiyatları paylaşılmıştır; ancak KDV dahil veya hariç bilgisi henüz teyit edilmedi. Kaporta ve Motor-Mekanik paketlerinin fiyatları da işletme onayı sonrası eklenecektir.",
+      "Kaporta, Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları paylaşılmıştır; ancak KDV dahil veya hariç bilgisi henüz teyit edilmedi. Randevu öncesinde 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.",
   },
 ];
 

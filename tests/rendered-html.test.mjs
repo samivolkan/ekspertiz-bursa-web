@@ -59,6 +59,7 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Aracı almadan önce/);
   assert.match(html, /Full Paket/);
   assert.match(html, /En çok tercih edilen paket/);
+  assert.match(html, /3\.500 TL/);
   assert.match(html, /5\.000 TL/);
   assert.match(html, /7\.500 TL/);
   assert.match(html, /10\.000 TL/);
@@ -127,6 +128,9 @@ test("renders selectable amber and red themes on package pages", async () => {
   assert.equal(packagesResponse.status, 200);
   const packagesHtml = await packagesResponse.text();
   assert.match(packagesHtml, /En çok tercih edilen paket/);
+  assert.match(packagesHtml, /Kaporta ve Motor-Mekanik paketleri 3\.500 TL/);
+  assert.match(packagesHtml, /Kaporta Paketi[\s\S]*?3\.500 TL/);
+  assert.match(packagesHtml, /Motor-Mekanik Paketi[\s\S]*?3\.500 TL/);
   for (const duration of ["15 dk", "20 dk", "25 dk", "30 dk", "35 dk", "40 dk"]) {
     assert.match(packagesHtml, new RegExp(duration), duration);
   }

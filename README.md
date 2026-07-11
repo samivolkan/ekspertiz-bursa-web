@@ -26,7 +26,6 @@ Varsayılan yerel adres `http://localhost:3000/` olur.
 
 - Ticari unvan
 - Paket fiyatlarının KDV dahil/hariç durumu
-- Kaporta ve Motor-Mekanik paket fiyatları
 - Google Tag Manager kimliği
 
 Gerçek gizli değerler repoya eklenmez; barındırma ortamında tanımlanır.
