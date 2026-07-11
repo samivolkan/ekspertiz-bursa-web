@@ -1,0 +1,192 @@
+"use client";
+
+import { FormEvent, useMemo, useState } from "react";
+import { packages } from "@/lib/site";
+
+type FormState =
+  | { kind: "idle" }
+  | { kind: "submitting" }
+  | { kind: "error"; message: string }
+  | { kind: "success"; referenceCode: string };
+
+function dateKey(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: string }) {
+  const [state, setState] = useState<FormState>({ kind: "idle" });
+  const dateLimits = useMemo(() => {
+    const minimum = new Date();
+    minimum.setDate(minimum.getDate() + 1);
+    const maximum = new Date();
+    maximum.setDate(maximum.getDate() + 90);
+    return { min: dateKey(minimum), max: dateKey(maximum) };
+  }, []);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (state.kind === "submitting") return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const search = new URLSearchParams(window.location.search);
+    setState({ kind: "submitting" });
+
+    const payload = {
+      fullName: data.get("fullName"),
+      phone: data.get("phone"),
+      email: data.get("email"),
+      servicePackage: data.get("servicePackage"),
+      vehicle: data.get("vehicle"),
+      appointmentDate: data.get("appointmentDate"),
+      appointmentTime: data.get("appointmentTime"),
+      contactPreference: data.get("contactPreference"),
+      kvkkAccepted: data.get("kvkkAccepted") === "on",
+      marketingConsent: data.get("marketingConsent") === "on",
+      website: data.get("website"),
+      utmSource: search.get("utm_source"),
+      utmMedium: search.get("utm_medium"),
+      utmCampaign: search.get("utm_campaign"),
+      utmTerm: search.get("utm_term"),
+      utmContent: search.get("utm_content"),
+    };
+
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json()) as {
+        ok?: boolean;
+        error?: string;
+        field?: string;
+        appointment?: { referenceCode?: string };
+      };
+
+      if (!response.ok || !result.ok || !result.appointment?.referenceCode) {
+        if (result.field) {
+          const field = form.elements.namedItem(result.field);
+          if (field instanceof HTMLElement) field.focus();
+        }
+        throw new Error(result.error || "Randevu talebi kaydedilemedi.");
+      }
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "generate_lead",
+        lead_type: "appointment",
+        package: String(payload.servicePackage || ""),
+      });
+      setState({ kind: "success", referenceCode: result.appointment.referenceCode });
+      form.reset();
+    } catch (error) {
+      setState({
+        kind: "error",
+        message: error instanceof Error ? error.message : "Beklenmeyen bir hata oluştu.",
+      });
+    }
+  }
+
+  if (state.kind === "success") {
+    return (
+      <div className="form-success" role="status" tabIndex={-1}>
+        <span aria-hidden="true">✓</span>
+        <h2>Talebiniz kaydedildi</h2>
+        <p>
+          Referans kodunuz: <strong>{state.referenceCode}</strong>
+        </p>
+        <p>Randevunuz, işletme sizinle iletişime geçip saati teyit ettiğinde kesinleşir.</p>
+        <button className="button button-dark" type="button" onClick={() => setState({ kind: "idle" })}>
+          Yeni talep oluştur
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form className="appointment-form" onSubmit={submit} noValidate={false}>
+      <div className="honeypot" aria-hidden="true">
+        <label>
+          Web sitesi
+          <input name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+      {state.kind === "error" ? (
+        <div className="form-alert" role="alert">
+          {state.message}
+        </div>
+      ) : null}
+      <div className="form-grid">
+        <label>
+          <span>Ad soyad</span>
+          <input name="fullName" autoComplete="name" minLength={2} maxLength={100} required placeholder="Adınız ve soyadınız" />
+        </label>
+        <label>
+          <span>Telefon</span>
+          <input name="phone" type="tel" inputMode="tel" autoComplete="tel" required placeholder="05xx xxx xx xx" />
+        </label>
+        <label>
+          <span>E-posta <em>isteğe bağlı</em></span>
+          <input name="email" type="email" autoComplete="email" placeholder="ornek@email.com" />
+        </label>
+        <label>
+          <span>İletişim tercihi</span>
+          <select name="contactPreference" defaultValue="phone" required>
+            <option value="phone">Telefon</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="sms">SMS</option>
+            <option value="email">E-posta</option>
+          </select>
+        </label>
+        <label>
+          <span>Ekspertiz paketi</span>
+          <select name="servicePackage" defaultValue={defaultPackage} required>
+            <option value="" disabled>Paket seçin</option>
+            {packages.map((item) => (
+              <option value={item.name} key={item.slug}>{item.name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Araç</span>
+          <input name="vehicle" maxLength={160} required placeholder="Örn. 2021 Renault Clio 1.0 TCe" />
+        </label>
+        <label>
+          <span>Tercih edilen tarih</span>
+          <input name="appointmentDate" type="date" min={dateLimits.min} max={dateLimits.max} required />
+        </label>
+        <label>
+          <span>Tercih edilen saat</span>
+          <select name="appointmentTime" defaultValue="" required>
+            <option value="" disabled>Saat aralığı seçin</option>
+            <option value="09:00-11:00">09:00–11:00</option>
+            <option value="11:00-13:00">11:00–13:00</option>
+            <option value="13:00-15:00">13:00–15:00</option>
+            <option value="15:00-17:00">15:00–17:00</option>
+          </select>
+        </label>
+      </div>
+      <label className="consent-row">
+        <input name="kvkkAccepted" type="checkbox" required />
+        <span>
+          <a href="/kvkk" target="_blank" rel="noreferrer">KVKK aydınlatma metnini</a> okudum; randevu talebimin yönetilmesi için verilerimin işlenmesi hakkında bilgilendirildim.
+        </span>
+      </label>
+      <label className="consent-row">
+        <input name="marketingConsent" type="checkbox" />
+        <span>Kampanya ve hizmet duyuruları için iletişim izni veriyorum. <strong>İsteğe bağlıdır.</strong></span>
+      </label>
+      <button className="button button-primary button-full" type="submit" disabled={state.kind === "submitting"}>
+        {state.kind === "submitting" ? "Talep kaydediliyor…" : "Randevu talebi oluştur"}
+      </button>
+      <p className="form-footnote">
+        Bu işlem bir randevu talebi oluşturur. Tarih ve saat, işletmenin teyidiyle kesinleşir.
+      </p>
+    </form>
+  );
+}
+
