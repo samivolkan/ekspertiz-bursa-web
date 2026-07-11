@@ -56,6 +56,7 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Ekspertiz Bursa/);
   assert.match(html, /Aracı almadan önce/);
   assert.match(html, /Full Paket/);
+  assert.match(html, /En çok tercih edilen paket/);
   assert.match(html, /5\.000 TL/);
   assert.match(html, /7\.500 TL/);
   assert.match(html, /10\.000 TL/);
@@ -93,6 +94,20 @@ test("renders verified contact channels and business hours", async () => {
   assert.match(html, /wa\.me\/905527415143/);
   assert.match(html, /info@ekspertizbursa\.com/);
   assert.match(html, /Her gün 08:30–18:30/);
+});
+
+test("renders selectable amber and red themes on package pages", async () => {
+  const homeResponse = await fetch(`${baseUrl}/`);
+  assert.equal(homeResponse.status, 200);
+  const homeHtml = await homeResponse.text();
+  assert.match(homeHtml, /data-theme-choice="amber"/);
+  assert.match(homeHtml, /data-theme-choice="red"/);
+  assert.match(homeHtml, /ekspertiz_bursa_theme_v1/);
+
+  const packagesResponse = await fetch(`${baseUrl}/paketler`);
+  assert.equal(packagesResponse.status, 200);
+  const packagesHtml = await packagesResponse.text();
+  assert.match(packagesHtml, /En çok tercih edilen paket/);
 });
 
 test("rejects an incomplete appointment before persistence", async () => {

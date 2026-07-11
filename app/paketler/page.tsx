@@ -27,6 +27,7 @@ export default function PackagesPage() {
           <div className="package-detail-grid">
             {packages.map((item) => (
               <article className={`package-detail-card ${item.slug === "full" ? "featured" : ""}`} id={item.slug} key={item.slug}>
+                {item.slug === "full" ? <span className="popular-package-badge">En çok tercih edilen paket</span> : null}
                 <div className="package-detail-header"><h2>{item.name}</h2><span>{item.badge}</span></div>
                 <p>{item.description}</p>
                 <div className="package-best"><strong>Uygun kullanım:</strong> {item.bestFor}</div>

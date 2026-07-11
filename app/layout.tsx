@@ -3,6 +3,8 @@ import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { siteConfig } from "@/lib/site";
 
+const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);if(saved==="amber"||saved==="red")document.documentElement.dataset.theme=saved;}catch{}})();`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
@@ -50,7 +52,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="tr" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>{children}<Analytics /></body>
     </html>
   );

@@ -141,6 +141,7 @@ export default function Home() {
           <div className="package-grid">
             {packages.map((item, index) => (
               <article className={`package-card ${item.slug === "full" ? "package-card-featured" : ""}`} key={item.slug}>
+                {item.slug === "full" ? <span className="popular-package-badge">En çok tercih edilen paket</span> : null}
                 <div className="package-card-top">
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <em>{item.badge}</em>
