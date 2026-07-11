@@ -22,7 +22,7 @@ export default function PackagesPage() {
       <section className="section section-paper">
         <div className="page-shell">
           <div className="draft-alert">
-            <strong>Fiyat notu:</strong> Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL olarak paylaşılmıştır. KDV dahil/hariç durumu, paket süreleri ile Kaporta ve Motor-Mekanik fiyatları yayın öncesinde teyit edilecektir.
+            <strong>Fiyat notu:</strong> Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL&apos;dir. KDV durumu, paket süreleri ile Kaporta ve Motor-Mekanik paket fiyatları için 0552 741 51 43 numaralı telefondan bilgi alabilirsiniz.
           </div>
           <div className="package-detail-grid">
             {packages.map((item) => (
@@ -33,7 +33,7 @@ export default function PackagesPage() {
                 <ul>{item.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
                 <div className="package-detail-footer">
                   <p><span>Süre</span><strong>{item.duration}</strong></p>
-                  <p><span>Fiyat</span><strong>{item.price ?? "Fiyat teyit edilecek"}</strong></p>
+                  <p><span>Fiyat</span><strong>{item.price ?? "Bilgi için arayın"}</strong></p>
                   <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_detail_${item.slug}_click`}>
                     Bu paketle randevu al
                   </Link>
@@ -52,4 +52,3 @@ export default function PackagesPage() {
     </SiteShell>
   );
 }
-

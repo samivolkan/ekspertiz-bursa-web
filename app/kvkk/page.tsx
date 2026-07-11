@@ -45,7 +45,7 @@ export default function KvkkPage() {
 
           <section>
             <h2>5. İlgili kişi hakları</h2>
-            <p>KVKK&apos;nın 11. maddesi kapsamındaki haklarınız için veri sorumlusuna başvurabilirsiniz. Doğrulanmış başvuru kanalı ve başvuru usulü iletişim bilgileri kesinleştiğinde burada yayınlanacaktır.</p>
+            <p>KVKK&apos;nın 11. maddesi kapsamındaki haklarınız için <a href={`mailto:${siteConfig.privacyEmail}`}>{siteConfig.privacyEmail}</a> adresi üzerinden veri sorumlusuna başvurabilirsiniz.</p>
           </section>
 
           <section>
@@ -57,4 +57,3 @@ export default function KvkkPage() {
     </SiteShell>
   );
 }
-

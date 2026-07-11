@@ -22,15 +22,11 @@ npm.cmd test
 
 Varsayılan yerel adres `http://localhost:3000/` olur.
 
-## Yayın öncesi zorunlu bilgiler
+## Yayın öncesi tamamlanacak bilgiler
 
-- Telefon ve WhatsApp numarası
-- E-posta ve KVKK başvuru kanalı
-- Çalışma saatleri
 - Ticari unvan
 - Paket fiyatlarının KDV dahil/hariç durumu
 - Kaporta ve Motor-Mekanik paket fiyatları
 - Google Tag Manager kimliği
 
 Gerçek gizli değerler repoya eklenmez; barındırma ortamında tanımlanır.
-

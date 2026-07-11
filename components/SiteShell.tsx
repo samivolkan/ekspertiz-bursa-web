@@ -20,12 +20,6 @@ export function Brand() {
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <>
-      {siteConfig.previewMode ? (
-        <div className="preview-notice" role="status">
-          <span>Ön izleme</span>
-          Telefon, çalışma saatleri, KDV durumu ve iki paket fiyatı yayın öncesi onay bekliyor.
-        </div>
-      ) : null}
       <header className="site-header">
         <div className="header-inner">
           <Link href="/" className="brand-link" aria-label="Ekspertiz Bursa ana sayfa">
@@ -39,6 +33,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="header-actions">
+            <a className="button button-light button-small" href={siteConfig.phoneHref} data-event="header_phone_click">
+              Hemen ara
+            </a>
             <Link className="button button-dark button-small" href="/randevu" data-event="header_appointment_click">
               Randevu al
             </Link>
@@ -50,6 +47,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     {item.label}
                   </Link>
                 ))}
+                <a href={siteConfig.phoneHref}>Hemen ara: {siteConfig.phoneDisplay}</a>
+                <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
                 <Link href="/randevu">Randevu al</Link>
               </div>
             </details>
@@ -76,6 +75,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <h2>Yasal</h2>
             <Link href="/kvkk">KVKK aydınlatma metni</Link>
             <Link href="/cerez-politikasi">Çerez politikası</Link>
+            <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
+            <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp ile yazın</a>
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            <p>{siteConfig.workingHours}</p>
             <p>{siteConfig.address}</p>
           </div>
         </div>

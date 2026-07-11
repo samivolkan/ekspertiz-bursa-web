@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { packages } from "@/lib/site";
+import { packages, siteConfig } from "@/lib/site";
 
 type FormState =
   | { kind: "idle" }
@@ -163,10 +163,11 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
           <span>Tercih edilen saat</span>
           <select name="appointmentTime" defaultValue="" required>
             <option value="" disabled>Saat aralığı seçin</option>
-            <option value="09:00-11:00">09:00–11:00</option>
-            <option value="11:00-13:00">11:00–13:00</option>
-            <option value="13:00-15:00">13:00–15:00</option>
-            <option value="15:00-17:00">15:00–17:00</option>
+            <option value="08:30-10:30">08:30–10:30</option>
+            <option value="10:30-12:30">10:30–12:30</option>
+            <option value="12:30-14:30">12:30–14:30</option>
+            <option value="14:30-16:30">14:30–16:30</option>
+            <option value="16:30-18:30">16:30–18:30</option>
           </select>
         </label>
       </div>
@@ -184,9 +185,8 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
         {state.kind === "submitting" ? "Talep kaydediliyor…" : "Randevu talebi oluştur"}
       </button>
       <p className="form-footnote">
-        Bu işlem bir randevu talebi oluşturur. Tarih ve saat, işletmenin teyidiyle kesinleşir.
+        Bu işlem bir randevu talebi oluşturur. Tarih ve saat, işletmenin teyidiyle kesinleşir. Acil bilgi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilirsiniz.
       </p>
     </form>
   );
 }
-

@@ -23,13 +23,18 @@ export default function ContactPage() {
         <div className="page-shell info-layout">
           <aside className="info-panel">
             <h2>Şube bilgileri</h2>
-            <p>Doğrulanmış adres aşağıdadır. Telefon, WhatsApp, e-posta ve çalışma saatleri bilgisi geldiğinde aynı alanda yayınlanacaktır.</p>
+            <p>Her gün 08:30–18:30 arasında telefon, WhatsApp ve e-posta üzerinden bize ulaşabilirsiniz.</p>
             <dl>
               <div><dt>Adres</dt><dd>{siteConfig.address}</dd></div>
-              <div><dt>Telefon / WhatsApp</dt><dd>İşletme teyidi bekleniyor</dd></div>
-              <div><dt>Çalışma saatleri</dt><dd>İşletme teyidi bekleniyor</dd></div>
+              <div><dt>Telefon</dt><dd><a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a></dd></div>
+              <div><dt>E-posta</dt><dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd></div>
+              <div><dt>Çalışma saatleri</dt><dd>{siteConfig.workingHours}</dd></div>
             </dl>
-            <a className="button button-primary button-full" href={siteConfig.mapUrl} target="_blank" rel="noreferrer" data-event="directions_click">Google Haritalar&apos;da yol tarifi</a>
+            <div className="contact-actions">
+              <a className="button button-primary button-full" href={siteConfig.phoneHref} data-event="contact_phone_click">Hemen ara</a>
+              <a className="button button-light button-full" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" data-event="contact_whatsapp_click">WhatsApp ile yazın</a>
+              <a className="button button-light button-full" href={siteConfig.mapUrl} target="_blank" rel="noreferrer" data-event="directions_click">Google Haritalar&apos;da yol tarifi</a>
+            </div>
           </aside>
           <div className="form-card" id="randevu"><AppointmentForm /></div>
         </div>
@@ -37,4 +42,3 @@ export default function ContactPage() {
     </SiteShell>
   );
 }
-

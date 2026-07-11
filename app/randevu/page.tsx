@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
-import { packages } from "@/lib/site";
+import { packages, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Bursa Oto Ekspertiz Randevu",
@@ -32,7 +32,7 @@ export default async function AppointmentPage({ searchParams }: { searchParams: 
               <li><b>3</b>Referans kodunuzu kaydedin.</li>
               <li><b>4</b>İşletmenin teyit dönüşünü bekleyin.</li>
             </ol>
-            <p>Aynı gün randevusu çevrim içi formdan alınmaz; telefon bilgisi doğrulandıktan sonra müsaitlik sorulabilir.</p>
+            <p>Aynı gün müsaitliği ve paket seçimi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilir veya <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp üzerinden yazabilirsiniz</a>. Çalışma saatlerimiz {siteConfig.workingHours.toLocaleLowerCase("tr-TR")}.</p>
           </aside>
           <div className="form-card"><AppointmentForm defaultPackage={selected} /></div>
         </div>
@@ -40,4 +40,3 @@ export default async function AppointmentPage({ searchParams }: { searchParams: 
     </SiteShell>
   );
 }
-

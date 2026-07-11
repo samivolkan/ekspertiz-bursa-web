@@ -17,6 +17,9 @@ const localBusinessSchema = {
   name: siteConfig.name,
   url: siteConfig.canonicalUrl,
   description: siteConfig.description,
+  telephone: siteConfig.phoneHref.replace("tel:", ""),
+  email: siteConfig.email,
+  openingHours: siteConfig.openingHours,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2",
@@ -131,7 +134,7 @@ export default function Home() {
               <h2>Risk düzeyine göre doğru kapsamı seçin.</h2>
             </div>
             <div>
-              <p>Tek alana odaklanan seçeneklerden en geniş kapsama kadar paketleri karşılaştırın. KDV durumu, süreler ve eksik iki fiyat yayın öncesinde kesinleştirilecek.</p>
+              <p>Mini, Orta, Tam ve Full paketlerin kapsamını ve güncel fiyatlarını karşılaştırın. Kaporta ve Motor-Mekanik paketlerinin fiyatını telefon veya WhatsApp üzerinden öğrenin.</p>
               <Link className="text-link" href="/paketler">Tüm paketleri karşılaştır <span>→</span></Link>
             </div>
           </div>
@@ -146,7 +149,7 @@ export default function Home() {
                 <p>{item.description}</p>
                 <ul>{item.features.slice(0, 4).map((feature) => <li key={feature}>{feature}</li>)}</ul>
                 <div className="package-meta"><span>Süre</span><strong>{item.duration}</strong></div>
-                <div className="package-meta"><span>Fiyat</span><strong>{item.price ?? "Onay bekliyor"}</strong></div>
+                <div className="package-meta"><span>Fiyat</span><strong>{item.price ?? "Bilgi için arayın"}</strong></div>
                 <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_${item.slug}_click`}>
                   Bu paketle randevu al
                 </Link>

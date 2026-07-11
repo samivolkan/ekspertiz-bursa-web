@@ -7,17 +7,18 @@ export const siteConfig = {
   canonicalUrl: "https://www.ekspertizbursa.com",
   city: "Bursa",
   district: "Nilüfer",
-  phoneDisplay: null as string | null,
-  phoneHref: null as string | null,
-  whatsappHref: null as string | null,
-  email: null as string | null,
+  phoneDisplay: "0552 741 51 43",
+  phoneHref: "tel:+905527415143",
+  whatsappHref:
+    "https://wa.me/905527415143?text=Merhaba%2C%20Ekspertiz%20Bursa%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.",
+  email: "info@ekspertizbursa.com",
   address: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2, Nilüfer/Bursa",
   mapUrl:
     "https://www.google.com/maps/search/?api=1&query=%C3%9C%C3%A7evler%20Mahallesi%20K%C3%BC%C3%A7%C3%BCk%20Sanayi%20Sitesi%2018.%20Blok%20No%2021%2F2%20Nil%C3%BCfer%20Bursa",
   legalName: null as string | null,
-  privacyEmail: null as string | null,
-  workingHours: null as string | null,
-  previewMode: true,
+  privacyEmail: "info@ekspertizbursa.com",
+  workingHours: "Her gün 08:30–18:30",
+  openingHours: "Mo-Su 08:30-18:30",
 } as const;
 
 export type PackageItem = {
@@ -208,7 +209,7 @@ export const faqItems = [
   {
     question: "Aynı gün randevu alabilir miyim?",
     answer:
-      "Çevrim içi form en erken ertesi gün için talep kabul eder. Aynı gün müsaitliği, telefon veya WhatsApp bilgisi eklendikten sonra doğrudan sorabilirsiniz.",
+      "Çevrim içi form en erken ertesi gün için talep kabul eder. Aynı gün müsaitliğini 0552 741 51 43 numaralı telefondan veya WhatsApp üzerinden sorabilirsiniz.",
   },
   {
     question: "Paket fiyatlarına KDV dahil mi?",
@@ -223,4 +224,3 @@ export const navItems = [
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/iletisim", label: "İletişim" },
 ];
-

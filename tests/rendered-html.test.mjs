@@ -56,7 +56,15 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Ekspertiz Bursa/);
   assert.match(html, /Aracı almadan önce/);
   assert.match(html, /Full Paket/);
+  assert.match(html, /5\.000 TL/);
+  assert.match(html, /7\.500 TL/);
+  assert.match(html, /10\.000 TL/);
   assert.match(html, /12\.500 TL/);
+  assert.match(html, /0552 741 51 43/);
+  assert.match(html, /Mo-Su 08:30-18:30/);
+  assert.match(html, /"telephone":"\+905527415143"/);
+  assert.match(html, /"email":"info@ekspertizbursa\.com"/);
+  assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview|react-loading-skeleton/);
@@ -75,6 +83,16 @@ test("renders conversion, package and legal routes", async () => {
     assert.equal(response.status, 200, path);
     assert.match(await response.text(), new RegExp(expected), path);
   }
+});
+
+test("renders verified contact channels and business hours", async () => {
+  const response = await fetch(`${baseUrl}/iletisim`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /href="tel:\+905527415143"/);
+  assert.match(html, /wa\.me\/905527415143/);
+  assert.match(html, /info@ekspertizbursa\.com/);
+  assert.match(html, /Her gün 08:30–18:30/);
 });
 
 test("rejects an incomplete appointment before persistence", async () => {
