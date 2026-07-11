@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
-import { blogEditorialNotice, blogPosts } from "@/lib/blog";
+import { blogEditorialNotice, blogPosts, getBlogImage } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Oto Ekspertiz Blogu ve Günlük Saha Notları",
@@ -29,8 +30,14 @@ export default function BlogPage() {
             <p>{blogEditorialNotice}</p>
           </div>
           <div className="blog-grid">
-            {blogPosts.map((post) => (
-              <article className="blog-card" key={post.slug}>
+            {blogPosts.map((post) => {
+              const image = getBlogImage(post);
+
+              return <article className="blog-card" key={post.slug}>
+                <Link className="blog-card-media" href={`/blog/${post.slug}`} aria-label={`${post.title} yazısını oku`}>
+                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 620px) 100vw, (max-width: 1060px) 50vw, 33vw" unoptimized />
+                  <span>{post.category}</span>
+                </Link>
                 <div className="blog-card-meta">
                   <span>{post.category}</span>
                   <time dateTime={post.publishedAt}>{post.displayDate}</time>
@@ -44,8 +51,8 @@ export default function BlogPage() {
                     Yazıyı oku <span aria-hidden="true">→</span>
                   </Link>
                 </div>
-              </article>
-            ))}
+              </article>;
+            })}
           </div>
         </div>
       </section>

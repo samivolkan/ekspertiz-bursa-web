@@ -58,6 +58,21 @@ const faqSchema = {
   })),
 };
 
+const sampleTestimonials = [
+  {
+    quote: "Paketlerin farkını tek ekranda görmek, hangi kontrole ihtiyacım olduğunu anlamamı kolaylaştırdı.",
+    profile: "Temsili yorum · Nilüfer'de araç alıcısı",
+  },
+  {
+    quote: "Randevu talebini hızlıca oluşturup referans kodu almak süreci daha düzenli hissettirdi.",
+    profile: "Temsili yorum · İkinci el araç alıcısı",
+  },
+  {
+    quote: "Kaporta bulgularıyla OBD kayıtlarını ayrı ayrı görebilmek karar verirken neye dikkat edeceğimi netleştirdi.",
+    profile: "Temsili yorum · Bursa'da araç alıcısı",
+  },
+];
+
 export default function Home() {
   return (
     <SiteShell>
@@ -203,6 +218,29 @@ export default function Home() {
             <li><span>3</span><div><strong>Teyit ve kontrol</strong><p>İşletme müsaitliği teyit eder; seçilen kontroller uygulanır.</p></div></li>
             <li><span>4</span><div><strong>Bulguların aktarımı</strong><p>Kontrol kapsamı ve tespitler açık bir dille paylaşılır.</p></div></li>
           </ol>
+        </div>
+      </section>
+
+      <section className="section testimonial-section" aria-labelledby="testimonial-heading">
+        <div className="page-shell">
+          <div className="section-heading testimonial-heading">
+            <p className="eyebrow">Müşteri deneyimi örnekleri</p>
+            <h2 id="testimonial-heading">Sürecin müşteri tarafında nasıl hissedilmesini hedefliyoruz?</h2>
+            <p>Bu yorumlar henüz gerçek Google veya sosyal medya yorumu değildir; yayın tasarımı için hazırlanmış temsili metinlerdir.</p>
+          </div>
+          <div className="testimonial-grid">
+            {sampleTestimonials.map((testimonial) => (
+              <blockquote key={testimonial.quote}>
+                <span aria-hidden="true">“</span>
+                <p>{testimonial.quote}</p>
+                <footer>{testimonial.profile}</footer>
+              </blockquote>
+            ))}
+          </div>
+          <div className="testimonial-disclaimer">
+            <strong>Temsili müşteri yorumları</strong>
+            <p>Gerçek yorumlar, müşteri onayı ve doğrulanabilir kaynak bağlantısı oluştuğunda bu alanla değiştirilecektir.</p>
+          </div>
         </div>
       </section>
 

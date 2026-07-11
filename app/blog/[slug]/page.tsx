@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
-import { blogEditorialNotice, blogPosts, findBlogPost } from "@/lib/blog";
+import { blogEditorialNotice, blogPosts, findBlogPost, getBlogImage } from "@/lib/blog";
 import { siteConfig } from "@/lib/site";
 
 type BlogDetailPageProps = {
@@ -17,6 +18,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
   const { slug } = await params;
   const post = findBlogPost(slug);
   if (!post) return {};
+  const image = getBlogImage(post);
 
   return {
     title: post.title,
@@ -28,6 +30,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
       description: post.description,
       publishedTime: post.publishedAt,
       url: `/blog/${post.slug}`,
+      images: [{ url: image.src, alt: image.alt }],
     },
   };
 }
@@ -36,6 +39,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
   const post = findBlogPost(slug);
   if (!post) notFound();
+  const image = getBlogImage(post);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -47,6 +51,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     author: { "@type": "Organization", name: siteConfig.name },
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteConfig.canonicalUrl}/blog/${post.slug}`,
+    image: `${siteConfig.canonicalUrl}${image.src}`,
   };
 
   return (
@@ -65,6 +70,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       </section>
       <section className="section section-paper">
         <article className="blog-article">
+          <figure className="blog-feature-image">
+            <div><Image src={image.src} alt={image.alt} fill sizes="(max-width: 820px) 100vw, 820px" priority unoptimized /></div>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
           <aside className="blog-editorial-note">
             <strong>Kurgusal ve anonimleştirilmiş hikâye</strong>
             <p>{blogEditorialNotice}</p>

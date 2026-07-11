@@ -96,6 +96,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <span>Canonical alan adı: ekspertizbursa.com</span>
         </div>
       </footer>
+      <a
+        className="whatsapp-float"
+        href={siteConfig.whatsappHref}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="WhatsApp üzerinden Ekspertiz Bursa'ya yazın"
+        data-event="floating_whatsapp_click"
+      >
+        <span aria-hidden="true">WA</span>
+        <span><strong>WhatsApp</strong><small>Hemen yazın</small></span>
+      </a>
       <Link className="mobile-appointment" href="/randevu" data-event="mobile_sticky_appointment_click">
         Randevu talebi oluştur
       </Link>

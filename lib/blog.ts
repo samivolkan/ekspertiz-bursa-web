@@ -16,8 +16,67 @@ export type BlogPost = {
   takeaways: string[];
 };
 
+export type BlogImage = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 export const blogEditorialNotice =
   "Bu blogdaki hikâyeler, sık karşılaşılan ekspertiz durumlarından ilham alan kurgusal bileşik senaryolardır. Gerçek bir müşteriyi, plakayı veya belirli bir aracı anlatmaz.";
+
+const blogImages: Record<string, BlogImage> = {
+  "boya-olcumunde-tek-panel-farki": {
+    src: "/images/paint-check.webp",
+    alt: "Araç kaportasında boya kalınlığı ölçümü yapan ekspertiz uzmanı",
+    caption: "Boya ölçümü tek noktadan değil, panel boyunca karşılaştırmalı yapılır.",
+  },
+  "obd-gecmis-hata-kodlari": {
+    src: "/images/diagnostics-check.webp",
+    alt: "Motor bölümünde tablet ile OBD diagnostik kontrolü",
+    caption: "Elektronik tarama aktif ve geçmiş hata kayıtlarını birlikte gösterir.",
+  },
+  "conta-kontrolunde-ilk-isaretler": {
+    src: "/images/hero-inspection.webp",
+    alt: "Lift üzerindeki aracın motor ve mekanik bölümlerini kontrol eden teknisyen",
+    caption: "Conta şüphesi birden fazla görsel ve mekanik bulgunun birlikte okunmasını gerektirir.",
+  },
+  "gosterge-sessizdi-beyin-kayitlari-degildi": {
+    src: "/images/diagnostics-check.webp",
+    alt: "Araç kontrol ünitelerini diagnostik cihazla tarayan ekspertiz uzmanı",
+    caption: "Gösterge paneli sessiz olsa da kontrol ünitelerinde geçmiş kayıtlar bulunabilir.",
+  },
+  "parlak-kaput-hizalama-farki": {
+    src: "/images/paint-check.webp",
+    alt: "Araç panel yüzeyinde boya ve hizalama kontrolü",
+    caption: "Parlak bir yüzey, panel aralıkları ve boya değerleri incelenmeden tek başına yeterli değildir.",
+  },
+  "test-surusundeki-tek-tikirti": {
+    src: "/images/hero-inspection.webp",
+    alt: "Lift üzerindeki aracın alt mekanik kontrollerini yapan teknisyen",
+    caption: "Test sürüşündeki sesler lift üzerindeki mekanik bulgularla birlikte değerlendirilir.",
+  },
+  "yeni-aku-eski-sarj-sorusu": {
+    src: "/images/diagnostics-check.webp",
+    alt: "Motor bölümünde elektrik ve şarj sistemi kontrolü",
+    caption: "Yeni akü, şarj sisteminin tamamının sorunsuz olduğunu tek başına kanıtlamaz.",
+  },
+  "airbag-isigi-sonuyordu-kontrol-bitmedi": {
+    src: "/images/diagnostics-check.webp",
+    alt: "Araç güvenlik sistemlerini elektronik cihazla kontrol eden teknisyen",
+    caption: "Airbag kontrolü gösterge davranışı, elektronik kayıt ve görsel bulguları birleştirir.",
+  },
+  "dusuk-kilometre-ic-mekan-izleri": {
+    src: "/images/hero-inspection.webp",
+    alt: "Ekspertiz merkezinde genel araç durum kontrolü",
+    caption: "Kullanım izleri, kilometre kayıtları ve aracın genel durumu birlikte okunur.",
+  },
+  "temiz-motor-her-zaman-iyi-haber-degil": {
+    src: "/images/diagnostics-check.webp",
+    alt: "Temiz motor bölümünde kaçak ve mekanik kontrol yapan uzman",
+    caption: "Yakın zamanda temizlenen motor bölümü eski kaçak izlerinin görülmesini zorlaştırabilir.",
+  },
+};
 
 export const blogPosts: BlogPost[] = [
   {
@@ -347,4 +406,12 @@ export const blogPosts: BlogPost[] = [
 
 export function findBlogPost(slug: string) {
   return blogPosts.find((post) => post.slug === slug);
+}
+
+export function getBlogImage(post: BlogPost): BlogImage {
+  return blogImages[post.slug] ?? {
+    src: "/images/hero-inspection.webp",
+    alt: "Ekspertiz merkezinde araç kontrolü",
+    caption: "Kontrol kapsamı aracın durumuna ve seçilen pakete göre uygulanır.",
+  };
 }

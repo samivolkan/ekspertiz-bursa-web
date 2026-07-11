@@ -71,6 +71,11 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
+  assert.match(html, /Temsili müşteri yorumları/);
+  assert.match(html, /gerçek Google veya sosyal medya yorumu değildir/i);
+  assert.match(html, /data-event="floating_whatsapp_click"/);
+  assert.match(html, /wa\.me\/905527415143/);
+  assert.doesNotMatch(html, /"@type":"Review"/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview|react-loading-skeleton/);
 });
 
@@ -131,6 +136,12 @@ test("renders selectable amber and red themes on package pages", async () => {
   assert.match(packagesHtml, /Kaporta ve Motor-Mekanik paketleri 3\.500 TL/);
   assert.match(packagesHtml, /Kaporta Paketi[\s\S]*?3\.500 TL/);
   assert.match(packagesHtml, /Motor-Mekanik Paketi[\s\S]*?3\.500 TL/);
+  assert.match(packagesHtml, /Paket özellikleri/);
+  for (const headingCount of [8, 22, 33, 38, 43]) {
+    assert.match(packagesHtml, new RegExp(`data-control-heading-count="${headingCount}"`), String(headingCount));
+  }
+  assert.match(packagesHtml, /Boya kalınlığı ölçümü/);
+  assert.match(packagesHtml, /Airbag kontrol ünitesi taraması/);
   for (const duration of ["15 dk", "20 dk", "25 dk", "30 dk", "35 dk", "40 dk"]) {
     assert.match(packagesHtml, new RegExp(duration), duration);
   }
@@ -142,6 +153,9 @@ test("renders ten fictional and anonymized blog stories with detail routes", asy
   const listingHtml = await listingResponse.text();
   assert.match(listingHtml, /kurgusal bileşik senaryolardır/i);
   assert.match(listingHtml, /Gerçek bir müşteriyi, plakayı veya belirli bir aracı anlatmaz/i);
+  assert.match(listingHtml, /\/images\/paint-check\.webp/);
+  assert.match(listingHtml, /\/images\/diagnostics-check\.webp/);
+  assert.match(listingHtml, /\/images\/hero-inspection\.webp/);
 
   const articlePaths = [
     ...new Set([...listingHtml.matchAll(/href="(\/blog\/[^"?#]+)"/g)].map((match) => match[1])),
@@ -159,6 +173,8 @@ test("renders ten fictional and anonymized blog stories with detail routes", asy
     const html = await response.text();
     assert.match(html, /Kurgusal ve anonimleştirilmiş hikâye/i, path);
     assert.match(html, /"@type":"BlogPosting"/, path);
+    assert.match(html, /"image":"https:\/\/www\.ekspertizbursa\.com\/images\//, path);
+    assert.match(html, /<figure[^>]*class="blog-feature-image"/i, path);
   }
 });
 

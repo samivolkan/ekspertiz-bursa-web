@@ -29,8 +29,99 @@ export type PackageItem = {
   duration: string;
   price: string | null;
   features: string[];
+  featureGroups: PackageFeatureGroup[];
   bestFor: string;
   draft: boolean;
+};
+
+export type PackageFeatureGroup = {
+  name: string;
+  items: string[];
+};
+
+const bodyworkGroup: PackageFeatureGroup = {
+  name: "Kaporta ve boya kontrolleri",
+  items: [
+    "Boya kalınlığı ölçümü",
+    "Boyalı veya değişen parça şüphesi",
+    "Panel aralıkları ve hizalama",
+    "Kaput, bagaj ve kapı yüzeyleri",
+    "Tampon ve dış gövde yüzeyleri",
+    "Çizik, gamze ve göçük izleri",
+    "Görsel deformasyon kontrolü",
+    "Parça bazlı bulgu notları",
+  ],
+};
+
+const engineMechanicalGroup: PackageFeatureGroup = {
+  name: "Motor ve mekanik kontroller",
+  items: [
+    "Motor yağı seviye ve görünümü",
+    "Soğutma suyu seviye ve görünümü",
+    "Görülebilen yağ ve sıvı kaçak izleri",
+    "Erişilebilen kayış ve hortumlar",
+    "Motor sesi ve titreşim bulguları",
+    "Egzoz dumanına ilişkin gözlem",
+    "Alt mekanik bölgelerde görsel kontrol",
+    "Mekanik bulgu özeti",
+  ],
+};
+
+const obdGroup: PackageFeatureGroup = {
+  name: "Beyin ve OBD kontrolleri",
+  items: [
+    "Aktif arıza kodlarının taranması",
+    "Geçmiş arıza kodlarının taranması",
+    "Kontrol üniteleriyle iletişim durumu",
+    "Gösterge uyarılarının kontrolü",
+    "Voltaj ve iletişim kayıtlarının yorumu",
+    "Elektronik bulgu özeti",
+  ],
+};
+
+const transmissionGroup: PackageFeatureGroup = {
+  name: "Şanzıman kontrolleri",
+  items: [
+    "Görülebilen kaçak izleri",
+    "Vites geçiş bulguları",
+    "Şanzıman kontrol ünitesi kayıtları",
+    "Çalışma sesi ve titreşim gözlemi",
+    "Genel şanzıman bulgu özeti",
+  ],
+};
+
+const interiorExteriorGroup: PackageFeatureGroup = {
+  name: "İç ve dış kontroller",
+  items: [
+    "Aydınlatma ve sinyal ekipmanları",
+    "Camlar ve aynalar",
+    "Kumanda ve düğmelerin genel durumu",
+    "Koltuk, döşeme ve iç trim gözlemi",
+    "Lastiklerin görsel durumu",
+    "Dış donanım ve genel durum notları",
+  ],
+};
+
+const gasketGroup: PackageFeatureGroup = {
+  name: "Conta ve soğutma sistemi kontrolleri",
+  items: [
+    "Genleşme kabı görünümü",
+    "Motor yağ kapağı çevresi",
+    "Görülebilen basınç ve kaçak izleri",
+    "Yağ ve su karışımı şüphesi",
+    "Gerekirse ileri test önerisi",
+  ],
+};
+
+const airbagGroup: PackageFeatureGroup = {
+  name: "Airbag ve emniyet sistemi kontrolleri",
+  items: [
+    "Airbag kontrol ünitesi taraması",
+    "Airbag uyarı lambası davranışı",
+    "Emniyet kemeri ve gergi sistemi kayıtları",
+    "Direksiyon ve torpido çevresinde görsel kontrol",
+    "Müdahale şüphesi bulunan alanların notlanması",
+  ],
 };
 
 export const packages: PackageItem[] = [
@@ -48,6 +139,7 @@ export const packages: PackageItem[] = [
       "Parça bazlı bulgu notları",
       "Görsel dış yüzey değerlendirmesi",
     ],
+    featureGroups: [bodyworkGroup],
     bestFor: "Gövde ve boya geçmişine odaklanan kontrol",
     draft: false,
   },
@@ -65,6 +157,7 @@ export const packages: PackageItem[] = [
       "Görsel sıvı ve kaçak izi kontrolü",
       "Mekanik bulgu özeti",
     ],
+    featureGroups: [engineMechanicalGroup],
     bestFor: "Motor ve mekanik duruma odaklanan kontrol",
     draft: false,
   },
@@ -82,6 +175,7 @@ export const packages: PackageItem[] = [
       "Mekanik kontrol",
       "Beyin / OBD kontrolü",
     ],
+    featureGroups: [bodyworkGroup, engineMechanicalGroup, obdGroup],
     bestFor: "Temel gövde, mekanik ve elektronik kontrolü birlikte isteyenler",
     draft: false,
   },
@@ -99,6 +193,7 @@ export const packages: PackageItem[] = [
       "Şanzıman kontrolü",
       "İç ve dış kontrol",
     ],
+    featureGroups: [bodyworkGroup, engineMechanicalGroup, obdGroup, transmissionGroup, interiorExteriorGroup],
     bestFor: "Şanzıman ve genel iç-dış durumu da değerlendirmek isteyenler",
     draft: false,
   },
@@ -116,6 +211,7 @@ export const packages: PackageItem[] = [
       "İç ve dış kontrol",
       "Conta kontrolü",
     ],
+    featureGroups: [bodyworkGroup, engineMechanicalGroup, obdGroup, transmissionGroup, interiorExteriorGroup, gasketGroup],
     bestFor: "Motor çevresi ve conta durumunu da kapsama almak isteyenler",
     draft: false,
   },
@@ -133,6 +229,7 @@ export const packages: PackageItem[] = [
       "İç-dış ve conta kontrolü",
       "Airbag kontrolü",
     ],
+    featureGroups: [bodyworkGroup, engineMechanicalGroup, obdGroup, transmissionGroup, interiorExteriorGroup, gasketGroup, airbagGroup],
     bestFor: "Paylaşılan paketler içindeki en geniş kontrol kapsamını isteyenler",
     draft: false,
   },

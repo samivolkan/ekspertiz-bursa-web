@@ -24,9 +24,15 @@ export default function PackagesPage() {
           <div className="draft-alert">
             <strong>Fiyat ve süre notu:</strong> Kaporta ve Motor-Mekanik paketleri 3.500 TL, Mini 5.000 TL, Orta 7.500 TL, Tam 10.000 TL ve Full 12.500 TL&apos;dir. Paket süreleri yaklaşık 15–40 dakika arasındadır ve aracın durumuna göre değişebilir. KDV durumunu 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.
           </div>
+          <div className="package-scope-note">
+            <strong>Kontrol kapsamını açın</strong>
+            <p>Her karttaki “Paket özellikleri” alanından ana kontrol gruplarını ve alt başlıkları inceleyebilirsiniz. Başlıklar araç modeli, teknik uygunluk ve erişilebilirliğe göre uygulanır; parça sökümü yapılmaz.</p>
+          </div>
           <div className="package-detail-grid">
-            {packages.map((item) => (
-              <article className={`package-detail-card ${item.slug === "full" ? "featured" : ""}`} id={item.slug} key={item.slug}>
+            {packages.map((item) => {
+              const controlHeadingCount = item.featureGroups.reduce((total, group) => total + group.items.length, 0);
+
+              return <article className={`package-detail-card ${item.slug === "full" ? "featured" : ""}`} id={item.slug} key={item.slug}>
                 {item.slug === "full" ? <span className="popular-package-badge">En çok tercih edilen paket</span> : null}
                 <div className="package-detail-header"><h2>{item.name}</h2><span>{item.badge}</span></div>
                 <p>{item.description}</p>
@@ -39,8 +45,27 @@ export default function PackagesPage() {
                     Bu paketle randevu al
                   </Link>
                 </div>
-              </article>
-            ))}
+                <details className="package-feature-disclosure" data-control-heading-count={controlHeadingCount}>
+                  <summary>
+                    <span>Paket özellikleri</span>
+                    <strong>{controlHeadingCount} kontrol başlığı</strong>
+                    <i aria-hidden="true">+</i>
+                  </summary>
+                  <div className="package-feature-groups">
+                    {item.featureGroups.map((group) => (
+                      <details className="package-feature-group" key={group.name}>
+                        <summary>
+                          <span>{group.name}</span>
+                          <strong>{group.items.length}</strong>
+                          <i aria-hidden="true">+</i>
+                        </summary>
+                        <ul>{group.items.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                      </details>
+                    ))}
+                  </div>
+                </details>
+              </article>;
+            })}
           </div>
         </div>
       </section>
