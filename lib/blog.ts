@@ -24,52 +24,52 @@ export type BlogImage = {
 
 const blogImages: Record<string, BlogImage> = {
   "boya-olcumunde-tek-panel-farki": {
-    src: "/images/blog/boya-olcumunde-tek-panel-farki.webp",
+    src: assetPath("/images/blog/boya-olcumunde-tek-panel-farki.webp"),
     alt: "Araç kaportasında boya kalınlığı ölçümü yapan ekspertiz uzmanı",
     caption: "Boya ölçümü tek noktadan değil, panel boyunca karşılaştırmalı yapılır.",
   },
   "obd-gecmis-hata-kodlari": {
-    src: "/images/blog/obd-gecmis-hata-kodlari.webp",
+    src: assetPath("/images/blog/obd-gecmis-hata-kodlari.webp"),
     alt: "Motor bölümünde tablet ile OBD diagnostik kontrolü",
     caption: "Elektronik tarama aktif ve geçmiş hata kayıtlarını birlikte gösterir.",
   },
   "conta-kontrolunde-ilk-isaretler": {
-    src: "/images/blog/conta-kontrolunde-ilk-isaretler.webp",
+    src: assetPath("/images/blog/conta-kontrolunde-ilk-isaretler.webp"),
     alt: "Lift üzerindeki aracın motor ve mekanik bölümlerini kontrol eden teknisyen",
     caption: "Conta şüphesi birden fazla görsel ve mekanik bulgunun birlikte okunmasını gerektirir.",
   },
   "gosterge-sessizdi-beyin-kayitlari-degildi": {
-    src: "/images/blog/gosterge-sessizdi-beyin-kayitlari-degildi.webp",
+    src: assetPath("/images/blog/gosterge-sessizdi-beyin-kayitlari-degildi.webp"),
     alt: "Araç kontrol ünitelerini diagnostik cihazla tarayan ekspertiz uzmanı",
     caption: "Gösterge paneli sessiz olsa da kontrol ünitelerinde geçmiş kayıtlar bulunabilir.",
   },
   "parlak-kaput-hizalama-farki": {
-    src: "/images/blog/parlak-kaput-hizalama-farki.webp",
+    src: assetPath("/images/blog/parlak-kaput-hizalama-farki.webp"),
     alt: "Araç panel yüzeyinde boya ve hizalama kontrolü",
     caption: "Parlak bir yüzey, panel aralıkları ve boya değerleri incelenmeden tek başına yeterli değildir.",
   },
   "test-surusundeki-tek-tikirti": {
-    src: "/images/blog/test-surusundeki-tek-tikirti.webp",
+    src: assetPath("/images/blog/test-surusundeki-tek-tikirti.webp"),
     alt: "Lift üzerindeki aracın alt mekanik kontrollerini yapan teknisyen",
     caption: "Test sürüşündeki sesler lift üzerindeki mekanik bulgularla birlikte değerlendirilir.",
   },
   "yeni-aku-eski-sarj-sorusu": {
-    src: "/images/blog/yeni-aku-eski-sarj-sorusu.webp",
+    src: assetPath("/images/blog/yeni-aku-eski-sarj-sorusu.webp"),
     alt: "Motor bölümünde elektrik ve şarj sistemi kontrolü",
     caption: "Yeni akü, şarj sisteminin tamamının sorunsuz olduğunu tek başına kanıtlamaz.",
   },
   "airbag-isigi-sonuyordu-kontrol-bitmedi": {
-    src: "/images/blog/airbag-isigi-sonuyordu-kontrol-bitmedi.webp",
+    src: assetPath("/images/blog/airbag-isigi-sonuyordu-kontrol-bitmedi.webp"),
     alt: "Araç güvenlik sistemlerini elektronik cihazla kontrol eden teknisyen",
     caption: "Airbag kontrolü gösterge davranışı, elektronik kayıt ve görsel bulguları birleştirir.",
   },
   "dusuk-kilometre-ic-mekan-izleri": {
-    src: "/images/blog/dusuk-kilometre-ic-mekan-izleri.webp",
+    src: assetPath("/images/blog/dusuk-kilometre-ic-mekan-izleri.webp"),
     alt: "Ekspertiz merkezinde genel araç durum kontrolü",
     caption: "Kullanım izleri, kilometre kayıtları ve aracın genel durumu birlikte okunur.",
   },
   "temiz-motor-her-zaman-iyi-haber-degil": {
-    src: "/images/blog/temiz-motor-her-zaman-iyi-haber-degil.webp",
+    src: assetPath("/images/blog/temiz-motor-her-zaman-iyi-haber-degil.webp"),
     alt: "Temiz motor bölümünde kaçak ve mekanik kontrol yapan uzman",
     caption: "Yakın zamanda temizlenen motor bölümü eski kaçak izlerinin görülmesini zorlaştırabilir.",
   },
@@ -407,7 +407,7 @@ export function findBlogPost(slug: string) {
 
 export function getBlogImage(post: BlogPost): BlogImage {
   return blogImages[post.slug] ?? {
-    src: "/images/hero-inspection.webp",
+    src: assetPath("/images/hero-inspection.webp"),
     alt: "Ekspertiz merkezinde araç kontrolü",
     caption: "Kontrol kapsamı aracın durumuna ve seçilen pakete göre uygulanır.",
   };
@@ -422,3 +422,4 @@ export function blogHeadingId(heading: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 }
+import { assetPath } from "@/lib/assets";

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
 import { faqItems, packages, services, siteConfig } from "@/lib/site";
+import { assetPath } from "@/lib/assets";
 
 export const metadata: Metadata = {
   title: { absolute: "Ekspertiz Bursa | Bursa Oto Ekspertiz ve Randevu" },
@@ -113,7 +114,7 @@ export default function Home() {
             </div>
             <div className="hero-photo">
               <Image
-                src="/images/hero-inspection.webp"
+                src={assetPath("/images/hero-inspection.webp")}
                 alt="Lift üzerindeki araçta ekspertiz kontrolü yapan teknisyen"
                 width={1536}
                 height={1024}
@@ -193,11 +194,11 @@ export default function Home() {
           </div>
           <div className="image-story-grid">
             <figure>
-              <Image src="/images/paint-check.webp" alt="Araç kaportasında boya kalınlığı ölçümü" width={1448} height={1086} sizes="(max-width: 820px) 100vw, 50vw" unoptimized />
+              <Image src={assetPath("/images/paint-check.webp")} alt="Araç kaportasında boya kalınlığı ölçümü" width={1448} height={1086} sizes="(max-width: 820px) 100vw, 50vw" unoptimized />
               <figcaption><strong>Yüzey kontrolü</strong><span>Kaporta ve boya bulgularını parça bazında değerlendirin.</span></figcaption>
             </figure>
             <figure>
-              <Image src="/images/diagnostics-check.webp" alt="Motor bölümünde tablet ile elektronik diagnostik kontrol" width={1448} height={1086} sizes="(max-width: 820px) 100vw, 50vw" unoptimized />
+              <Image src={assetPath("/images/diagnostics-check.webp")} alt="Motor bölümünde tablet ile elektronik diagnostik kontrol" width={1448} height={1086} sizes="(max-width: 820px) 100vw, 50vw" unoptimized />
               <figcaption><strong>Elektronik ve mekanik</strong><span>Motor, mekanik ve beyin kontrollerini paket kapsamında birlikte görün.</span></figcaption>
             </figure>
           </div>

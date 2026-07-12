@@ -16,6 +16,7 @@ try {
       ...process.env,
       GITHUB_PAGES: "true",
       NEXT_PUBLIC_GITHUB_PAGES: "true",
+      NEXT_PUBLIC_BASE_PATH: "/ekspertiz-bursa-web",
     },
   });
   if (result.status !== 0) process.exitCode = result.status ?? 1;

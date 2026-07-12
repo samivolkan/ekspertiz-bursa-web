@@ -3,11 +3,15 @@ import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { siteConfig } from "@/lib/site";
+import { assetPath } from "@/lib/assets";
+
+const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true";
+const publicSiteUrl = isGitHubPages ? "https://samivolkan.github.io/ekspertiz-bursa-web" : siteConfig.canonicalUrl;
 
 const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);document.documentElement.dataset.theme=saved==="amber"||saved==="red"?saved:"red";}catch{document.documentElement.dataset.theme="red";}})();`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.canonicalUrl),
+  metadataBase: new URL(publicSiteUrl),
   title: {
     default: "Ekspertiz Bursa | Bursa Oto Ekspertiz ve Randevu",
     template: "%s | Ekspertiz Bursa",
@@ -31,7 +35,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/og-red.png",
+        url: assetPath("/og-red.png"),
         width: 1200,
         height: 630,
         alt: "Ekspertiz Bursa - Aracınızı almadan önce, gerçeği görün.",
@@ -42,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ekspertiz Bursa",
     description: siteConfig.description,
-    images: ["/og-red.png"],
+    images: [assetPath("/og-red.png")],
   },
   robots: { index: true, follow: true },
 };

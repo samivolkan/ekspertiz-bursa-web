@@ -5,13 +5,14 @@ import { FaWhatsapp } from "react-icons/fa";
 import { ClientExperience } from "./ClientExperience";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { navItems, packages, siteConfig } from "@/lib/site";
+import { assetPath } from "@/lib/assets";
 
 export function Brand() {
   return (
     <span className="brand-lockup">
       <Image
         className="brand-wordmark"
-        src="/brand/ekspertiz-bursa-wordmark.png"
+        src={assetPath("/brand/ekspertiz-bursa-wordmark.png")}
         alt="Ekspertiz Bursa"
         width={1600}
         height={274}
