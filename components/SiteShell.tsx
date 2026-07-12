@@ -96,7 +96,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   <span aria-hidden="true"><FaPhoneAlt /></span>
                   <strong>Hemen ara: {siteConfig.phoneDisplay}</strong>
                 </a>
-                <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
+                <a className="mobile-whatsapp-link" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" data-event="mobile_menu_whatsapp_click">
+                  <span aria-hidden="true"><FaWhatsapp /></span>
+                  <strong>WhatsApp</strong>
+                </a>
                 <Link href="/randevu">Randevu al</Link>
               </div>
             </details>

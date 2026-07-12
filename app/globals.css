@@ -303,13 +303,15 @@ a {
   color: var(--accent-ink);
 }
 
-.mobile-menu-panel .mobile-call-link {
+.mobile-menu-panel .mobile-call-link,
+.mobile-menu-panel .mobile-whatsapp-link {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.mobile-call-link > span {
+.mobile-call-link > span,
+.mobile-whatsapp-link > span {
   display: grid;
   width: 30px;
   height: 30px;
@@ -321,13 +323,15 @@ a {
   box-shadow: 0 6px 16px rgba(22, 124, 69, 0.3);
 }
 
-.mobile-call-link svg {
+.mobile-call-link svg,
+.mobile-whatsapp-link svg {
   display: block;
   width: 14px;
   height: 14px;
 }
 
-.mobile-call-link strong {
+.mobile-call-link strong,
+.mobile-whatsapp-link strong {
   font: inherit;
 }
 
