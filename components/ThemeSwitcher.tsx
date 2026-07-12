@@ -13,8 +13,8 @@ function isTheme(value: string | null): value is Theme {
 }
 
 function readTheme(): Theme {
-  const current = document.documentElement.dataset.theme;
-  return isTheme(current ?? null) ? current : "red";
+  const current = document.documentElement.dataset.theme ?? null;
+  return isTheme(current) ? current : "red";
 }
 
 function readServerTheme(): Theme {

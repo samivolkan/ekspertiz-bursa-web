@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { packages, siteConfig } from "@/lib/site";
+
+const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true";
 
 type FormState =
   | { kind: "idle" }
@@ -18,6 +20,12 @@ function dateKey(date: Date) {
 
 export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: string }) {
   const [state, setState] = useState<FormState>({ kind: "idle" });
+  const packageSelectRef = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("paket");
+    const packageName = packages.find((item) => item.slug === slug)?.name;
+    if (packageName && packageSelectRef.current) packageSelectRef.current.value = packageName;
+  }, []);
   const dateLimits = useMemo(() => {
     const minimum = new Date();
     minimum.setDate(minimum.getDate() + 1);
@@ -53,6 +61,28 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
       utmTerm: search.get("utm_term"),
       utmContent: search.get("utm_content"),
     };
+
+    if (isGitHubPages) {
+      const message = [
+        "Merhaba, Ekspertiz Bursa için randevu talebi oluşturmak istiyorum.",
+        `Ad soyad: ${String(payload.fullName || "-")}`,
+        `Telefon: ${String(payload.phone || "-")}`,
+        `Paket: ${String(payload.servicePackage || "-")}`,
+        `Araç: ${String(payload.vehicle || "-")}`,
+        `Tarih: ${String(payload.appointmentDate || "-")}`,
+        `Saat: ${String(payload.appointmentTime || "-")}`,
+        `İletişim tercihi: ${String(payload.contactPreference || "-")}`,
+      ].join("\n");
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "generate_lead",
+        lead_type: "appointment_whatsapp",
+        package: String(payload.servicePackage || ""),
+      });
+      window.location.href = `https://wa.me/905527415143?text=${encodeURIComponent(message)}`;
+      setState({ kind: "idle" });
+      return;
+    }
 
     try {
       const response = await fetch("/api/appointments", {
@@ -144,7 +174,7 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
         </label>
         <label>
           <span>Ekspertiz paketi</span>
-          <select name="servicePackage" defaultValue={defaultPackage} required>
+          <select ref={packageSelectRef} name="servicePackage" defaultValue={defaultPackage} required>
             <option value="" disabled>Paket seçin</option>
             {packages.map((item) => (
               <option value={item.name} key={item.slug}>{item.name}</option>
@@ -182,7 +212,11 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
         <span>Kampanya ve hizmet duyuruları için iletişim izni veriyorum. <strong>İsteğe bağlıdır.</strong></span>
       </label>
       <button className="button button-primary button-full" type="submit" disabled={state.kind === "submitting"}>
-        {state.kind === "submitting" ? "Talep kaydediliyor…" : "Randevu talebi oluştur"}
+        {state.kind === "submitting"
+          ? "Talep hazırlanıyor…"
+          : isGitHubPages
+            ? "WhatsApp ile randevu talebi gönder"
+            : "Randevu talebi oluştur"}
       </button>
       <p className="form-footnote">
         Bu işlem bir randevu talebi oluşturur. Tarih ve saat, işletmenin teyidiyle kesinleşir. Acil bilgi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilirsiniz.

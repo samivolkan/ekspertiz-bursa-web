@@ -104,11 +104,12 @@ export class AppointmentRateLimitError extends Error {
 let schemaInitialization: Promise<void> | undefined;
 
 function getDatabase(): D1Database {
-  if (!env.DB) {
+  const database = (env as unknown as { DB?: D1Database }).DB;
+  if (!database) {
     throw new Error("Cloudflare D1 binding `DB` is unavailable.");
   }
 
-  return env.DB;
+  return database;
 }
 
 async function ensureAppointmentsSchema(database: D1Database) {

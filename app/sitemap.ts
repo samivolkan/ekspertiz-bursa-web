@@ -3,6 +3,8 @@ import { blogPosts } from "@/lib/blog";
 
 const siteUrl = "https://www.ekspertizbursa.com";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date("2026-07-12T00:00:00+03:00");
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
