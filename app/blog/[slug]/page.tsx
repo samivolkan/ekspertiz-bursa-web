@@ -124,7 +124,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             {relatedPosts.map((related) => {
               const relatedImage = getBlogImage(related);
               return <article key={related.slug}>
-                <Link className="blog-related-media" href={`/blog/${related.slug}`}><Image src={relatedImage.src} alt={relatedImage.alt} fill sizes="(max-width: 620px) 100vw, 33vw" unoptimized /></Link>
+                <Link className="blog-related-media" href={`/blog/${related.slug}`}><Image src={relatedImage.src} alt={relatedImage.alt} fill loading="eager" sizes="(max-width: 620px) 100vw, 33vw" unoptimized /></Link>
                 <span>{related.category}</span>
                 <h3><Link href={`/blog/${related.slug}`}>{related.title}</Link></h3>
                 <Link className="text-link" href={`/blog/${related.slug}`}>Rehberi oku <span>→</span></Link>

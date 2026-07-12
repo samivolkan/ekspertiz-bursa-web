@@ -75,7 +75,7 @@ export default function BlogPage() {
 
               return <article className="blog-card" key={post.slug}>
                 <Link className="blog-card-media" href={`/blog/${post.slug}`} aria-label={`${post.title} yazısını oku`}>
-                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 620px) 100vw, (max-width: 1060px) 50vw, 33vw" unoptimized />
+                  <Image src={image.src} alt={image.alt} fill loading="eager" sizes="(max-width: 620px) 100vw, (max-width: 1060px) 50vw, 33vw" unoptimized />
                   <span>{post.category}</span>
                 </Link>
                 <div className="blog-card-meta">
