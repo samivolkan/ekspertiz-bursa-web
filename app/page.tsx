@@ -165,8 +165,10 @@ export default function Home() {
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>
                 <ul>{item.features.slice(0, 4).map((feature) => <li key={feature}>{feature}</li>)}</ul>
-                <div className="package-meta"><span>Süre</span><strong>{item.duration}</strong></div>
-                <div className="package-meta"><span>Fiyat</span><strong>{item.price ?? "Bilgi için arayın"}</strong></div>
+                <div className="package-meta-row">
+                  <div className="package-meta"><span>Süre</span><strong>{item.duration}</strong></div>
+                  <div className="package-meta"><span>Fiyat</span><strong>{item.price ?? "Bilgi için arayın"}</strong></div>
+                </div>
                 <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_${item.slug}_click`}>
                   Bu paketle randevu al
                 </Link>
