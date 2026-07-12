@@ -124,14 +124,15 @@ test("renders verified contact channels and business hours", async () => {
   assert.match(html, /Her gün 08:30–18:30/);
 });
 
-test("renders selectable amber and red themes on package pages", async () => {
+test("renders selectable light, amber and red themes on package pages", async () => {
   const homeResponse = await fetch(`${baseUrl}/`);
   assert.equal(homeResponse.status, 200);
   const homeHtml = await homeResponse.text();
+  assert.match(homeHtml, /data-theme-choice="light"/);
   assert.match(homeHtml, /data-theme-choice="amber"/);
   assert.match(homeHtml, /data-theme-choice="red"/);
   assert.match(homeHtml, /ekspertiz_bursa_theme_v1/);
-  assert.match(homeHtml, /<html[^>]*data-theme="red"/i);
+  assert.match(homeHtml, /<html[^>]*data-theme="light"/i);
 
   const packagesResponse = await fetch(`${baseUrl}/paketler`);
   assert.equal(packagesResponse.status, 200);

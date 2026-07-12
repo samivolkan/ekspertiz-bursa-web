@@ -4,28 +4,28 @@ import { useSyncExternalStore } from "react";
 
 export const THEME_STORAGE_KEY = "ekspertiz_bursa_theme_v1";
 
-type Theme = "amber" | "red";
+type Theme = "light" | "amber" | "red";
 
 const THEME_EVENT = "ekspertiz-bursa-theme-change";
 
 function isTheme(value: string | null): value is Theme {
-  return value === "amber" || value === "red";
+  return value === "light" || value === "amber" || value === "red";
 }
 
 function readTheme(): Theme {
   const current = document.documentElement.dataset.theme ?? null;
-  return isTheme(current) ? current : "red";
+  return isTheme(current) ? current : "light";
 }
 
 function readServerTheme(): Theme {
-  return "red";
+  return "light";
 }
 
 function subscribe(onStoreChange: () => void) {
   const handleThemeChange = () => onStoreChange();
   const handleStorage = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY) return;
-    document.documentElement.dataset.theme = isTheme(event.newValue) ? event.newValue : "red";
+    document.documentElement.dataset.theme = isTheme(event.newValue) ? event.newValue : "light";
     onStoreChange();
   };
 
@@ -53,6 +53,18 @@ export function ThemeSwitcher({ className = "" }: { className?: string }) {
   return (
     <div className={`theme-switcher ${className}`.trim()} role="group" aria-label="Site renk teması">
       <span className="theme-switcher-label">Tema</span>
+      <button
+        type="button"
+        className="theme-choice"
+        aria-pressed={theme === "light"}
+        aria-label="Aydınlık temayı kullan"
+        data-event="theme_light_select"
+        data-theme-choice="light"
+        onClick={() => chooseTheme("light")}
+      >
+        <span className="theme-swatch theme-swatch-light" aria-hidden="true" />
+        <span>Aydınlık</span>
+      </button>
       <button
         type="button"
         className="theme-choice"

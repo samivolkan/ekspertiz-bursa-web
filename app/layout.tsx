@@ -8,7 +8,7 @@ import { assetPath } from "@/lib/assets";
 const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true";
 const publicSiteUrl = isGitHubPages ? "https://samivolkan.github.io/ekspertiz-bursa-web" : siteConfig.canonicalUrl;
 
-const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);document.documentElement.dataset.theme=saved==="amber"||saved==="red"?saved:"red";}catch{document.documentElement.dataset.theme="red";}})();`;
+const themeInitScript = `(()=>{try{const key="ekspertiz_bursa_theme_v1";const saved=localStorage.getItem(key);document.documentElement.dataset.theme=saved==="light"||saved==="amber"||saved==="red"?saved:"light";}catch{document.documentElement.dataset.theme="light";}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicSiteUrl),
@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" data-theme="red" suppressHydrationWarning>
+    <html lang="tr" data-theme="light" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
