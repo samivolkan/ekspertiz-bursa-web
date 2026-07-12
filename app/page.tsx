@@ -188,8 +188,10 @@ export default function Home() {
           <div className="service-grid">
             {services.map((service, index) => (
               <article key={service.slug}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{service.name}</h3>
+                <div className="service-card-heading">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{service.name}</h3>
+                </div>
                 <p>{service.description}</p>
               </article>
             ))}

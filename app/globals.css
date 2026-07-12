@@ -1059,8 +1059,15 @@ a {
   font-weight: 950;
 }
 
+.service-card-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
 .service-grid h3 {
-  margin: 48px 0 12px;
+  margin: 0;
   font-size: 20px;
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -3449,8 +3456,23 @@ a {
   }
 
   .service-grid article {
-    min-height: 205px;
+    min-height: 0;
+    padding: 20px 22px;
     border-left: 1px solid var(--line-dark);
+  }
+
+  .service-card-heading {
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .service-grid h3 {
+    font-size: 18px;
+  }
+
+  .service-grid p {
+    font-size: 12px;
+    line-height: 1.55;
   }
 
   .form-card {
