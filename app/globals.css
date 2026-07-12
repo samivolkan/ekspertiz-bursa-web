@@ -961,6 +961,29 @@ a {
   padding-top: 9px;
 }
 
+.package-meta-row .package-meta:last-child {
+  margin-top: 1px;
+  border: 1px solid rgb(var(--accent-rgb) / 0.48);
+  border-radius: 9px;
+  background: rgb(var(--accent-rgb) / 0.08);
+  padding: 7px 9px;
+}
+
+.package-meta-row .package-meta:last-child strong {
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.package-card-featured .package-meta-row .package-meta:last-child {
+  border-color: rgb(var(--accent-rgb) / 0.7);
+  background: rgb(var(--accent-rgb) / 0.14);
+}
+
+.package-card-featured .package-meta-row .package-meta:last-child strong {
+  color: var(--accent);
+}
+
 .package-meta span {
   color: var(--muted);
   font-size: 10px;
@@ -1793,6 +1816,18 @@ a {
   padding-left: 10px;
 }
 
+.package-feature-price-meta > span:last-child {
+  border: 1px solid rgb(var(--accent-rgb) / 0.48);
+  border-radius: 8px;
+  background: rgb(var(--accent-rgb) / 0.08);
+  padding: 5px 7px;
+}
+
+.package-feature-price-meta > span:last-child b {
+  color: var(--accent-text);
+  font-weight: 950;
+}
+
 .package-feature-price-meta small {
   color: var(--muted);
   font-size: 8px;
@@ -1808,6 +1843,11 @@ a {
 
 .package-feature-disclosure[open] .package-feature-price-meta > span {
   border-color: color-mix(in srgb, var(--accent-ink) 25%, transparent);
+}
+
+.package-feature-disclosure[open] .package-feature-price-meta > span:last-child {
+  border-color: color-mix(in srgb, var(--accent-ink) 42%, transparent);
+  background: color-mix(in srgb, var(--accent-ink) 9%, transparent);
 }
 
 .package-feature-disclosure[open] .package-feature-price-meta small,
