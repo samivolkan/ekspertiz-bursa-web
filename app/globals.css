@@ -1861,6 +1861,13 @@ a {
   padding-left: 10px;
 }
 
+.package-feature-price-meta > span:first-child {
+  justify-content: center;
+  gap: 10px;
+  padding-inline: 7px;
+  text-align: center;
+}
+
 .package-feature-price-meta > span:last-child {
   border: 1px solid rgb(var(--accent-rgb) / 0.48);
   border-radius: 8px;
