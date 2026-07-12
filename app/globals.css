@@ -840,11 +840,11 @@ a {
 }
 
 .package-card-top {
-  display: flex;
-  min-height: 28px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 34px;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  gap: 9px;
 }
 
 .package-card-top > span {
@@ -864,6 +864,7 @@ a {
   line-height: 1.2;
   text-align: right;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .package-card-featured .package-card-top em {
@@ -888,10 +889,15 @@ a {
 }
 
 .package-card h3 {
-  margin: 14px 0 7px;
-  font-size: 24px;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+  font-size: clamp(16px, 1.55vw, 21px);
   font-weight: 950;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .package-card > p {

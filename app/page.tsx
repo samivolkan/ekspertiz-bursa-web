@@ -160,9 +160,9 @@ export default function Home() {
                 {item.slug === "full" ? <span className="popular-package-badge">En çok tercih edilen paket</span> : null}
                 <div className="package-card-top">
                   <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{item.name}</h3>
                   <em>{item.badge}</em>
                 </div>
-                <h3>{item.name}</h3>
                 <p>{item.description}</p>
                 <ul>{item.features.slice(0, 4).map((feature) => <li key={feature}>{feature}</li>)}</ul>
                 <div className="package-meta-row">
