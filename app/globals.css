@@ -303,6 +303,34 @@ a {
   color: var(--accent-ink);
 }
 
+.mobile-menu-panel .mobile-call-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-call-link > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #167c45;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(22, 124, 69, 0.3);
+}
+
+.mobile-call-link svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+.mobile-call-link strong {
+  font: inherit;
+}
+
 .button {
   display: inline-flex;
   min-height: 50px;

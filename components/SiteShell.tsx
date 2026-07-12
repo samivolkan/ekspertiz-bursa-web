@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { ClientExperience } from "./ClientExperience";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { navItems, packages, siteConfig } from "@/lib/site";
@@ -92,7 +92,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     {item.label}
                   </Link>
                 ))}
-                <a href={siteConfig.phoneHref}>Hemen ara: {siteConfig.phoneDisplay}</a>
+                <a className="mobile-call-link" href={siteConfig.phoneHref} data-event="mobile_menu_phone_click">
+                  <span aria-hidden="true"><FaPhoneAlt /></span>
+                  <strong>Hemen ara: {siteConfig.phoneDisplay}</strong>
+                </a>
                 <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a>
                 <Link href="/randevu">Randevu al</Link>
               </div>
