@@ -3403,7 +3403,7 @@ a {
   .mobile-appointment {
     position: fixed;
     z-index: 45;
-    right: 15px;
+    right: 78px;
     bottom: 14px;
     left: 15px;
     display: flex;
@@ -3420,7 +3420,7 @@ a {
 
   .whatsapp-float {
     right: 15px;
-    bottom: 80px;
+    bottom: 14px;
     width: 52px;
     min-height: 52px;
     justify-content: center;
