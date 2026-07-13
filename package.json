@@ -12,9 +12,16 @@
     "deploy:ftp": "node scripts/deploy-ftp.mjs",
     "audit:seo": "node scripts/audit-static-seo.mjs",
     "audit:live": "node scripts/audit-live.mjs",
+    "seo:audit": "node scripts/seo-audit/index.mjs --source out --label local",
+    "seo:audit:local": "node scripts/seo-audit/index.mjs --source out --label local",
+    "seo:audit:production": "node scripts/seo-audit/index.mjs --url https://bursaekspertiz.com --label production",
+    "seo:audit:fix": "node scripts/seo-audit/fix.mjs",
+    "seo:audit:fix:dry": "node scripts/seo-audit/fix.mjs --dry-run",
+    "seo:audit:report": "node scripts/seo-audit/index.mjs --report-only --label production",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
-    "lint": "eslint app components db lib worker tests vite.config.ts next.config.ts drizzle.config.ts eslint.config.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "lint": "eslint app components db lib scripts/seo-audit worker tests vite.config.ts next.config.ts drizzle.config.ts eslint.config.mjs",
+    "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

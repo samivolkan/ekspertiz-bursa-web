@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -38,6 +39,7 @@ export default function AppointmentPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appointmentBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell narrow-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Randevu" }]} />
           <p className="eyebrow eyebrow-light">Online randevu talebi</p>
           <h1>Ekspertiz için uygun günü planlayın.</h1>
           <p>{usesWhatsAppLeadFlow ? "Form bilgileriniz WhatsApp mesajına hazırlanır; mesajı gönderdiğinizde işletme hattına ulaşır." : "Talebiniz kalıcı olarak kaydedilir ve size bir referans kodu verilir."} Randevu, işletme saati teyit ettiğinde kesinleşir.</p>
@@ -53,7 +55,7 @@ export default function AppointmentPage() {
               <li><b>3</b>{usesWhatsAppLeadFlow ? "Hazırlanan mesajı WhatsApp'tan gönderin." : "Referans kodunuzu kaydedin."}</li>
               <li><b>4</b>İşletmenin teyit dönüşünü bekleyin.</li>
             </ol>
-            <p>Aynı gün müsaitliği ve paket seçimi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilir veya <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp üzerinden yazabilirsiniz</a>. Çalışma saatlerimiz {siteConfig.workingHours.toLocaleLowerCase("tr-TR")}.</p>
+            <p>Aynı gün müsaitliği ve paket seçimi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilir veya <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp üzerinden yazabilirsiniz</a>. Çalışma saatlerimiz {siteConfig.workingHours.toLocaleLowerCase("tr-TR")}.</p>
           </aside>
           <div className="form-card"><AppointmentForm /></div>
         </div>

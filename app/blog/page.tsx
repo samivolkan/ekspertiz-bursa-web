@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { blogPosts, getBlogImage } from "@/lib/blog";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 
@@ -45,6 +46,7 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogBreadcrumbSchema) }} />
       <section className="subpage-hero blog-index-hero">
         <div className="page-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Blog" }]} />
           <p className="eyebrow eyebrow-light">Ekspertiz Bursa blog</p>
           <h1>Günlük ekspertiz deneyimleri, anlaşılır kontrol notları.</h1>
           <p>

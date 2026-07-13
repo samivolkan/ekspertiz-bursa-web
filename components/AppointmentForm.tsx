@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { packages, siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/analytics";
 
 const isStaticHosting =
   process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ||
@@ -23,6 +24,7 @@ function dateKey(date: Date) {
 export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: string }) {
   const [state, setState] = useState<FormState>({ kind: "idle" });
   const packageSelectRef = useRef<HTMLSelectElement>(null);
+  const hasStartedRef = useRef(false);
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get("paket");
     const packageName = packages.find((item) => item.slug === slug)?.name;
@@ -43,6 +45,8 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
     const form = event.currentTarget;
     const data = new FormData(form);
     const search = new URLSearchParams(window.location.search);
+    const selectedPackage = String(data.get("servicePackage") || "");
+    trackEvent("appointment_submit", { package_name: selectedPackage, cta_location: "appointment_form" });
     setState({ kind: "submitting" });
 
     const payload = {
@@ -76,12 +80,8 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
         `İletişim tercihi: ${String(payload.contactPreference || "-")}`,
       ].join("\n");
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "generate_lead",
-        lead_type: "appointment_whatsapp",
-        package: String(payload.servicePackage || ""),
-      });
-      window.location.href = `https://wa.me/905527415143?text=${encodeURIComponent(message)}`;
+      trackEvent("appointment_success", { package_name: selectedPackage, delivery_method: "whatsapp_redirect", cta_location: "appointment_form" });
+      window.location.href = `${siteConfig.whatsappHref.split("?", 1)[0]}?text=${encodeURIComponent(message)}`;
       setState({ kind: "idle" });
       return;
     }
@@ -107,15 +107,11 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
         throw new Error(result.error || "Randevu talebi kaydedilemedi.");
       }
 
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "generate_lead",
-        lead_type: "appointment",
-        package: String(payload.servicePackage || ""),
-      });
+      trackEvent("appointment_success", { package_name: selectedPackage, delivery_method: "api", cta_location: "appointment_form" });
       setState({ kind: "success", referenceCode: result.appointment.referenceCode });
       form.reset();
     } catch (error) {
+      trackEvent("appointment_error", { package_name: selectedPackage, error_type: "submission", cta_location: "appointment_form" });
       setState({
         kind: "error",
         message: error instanceof Error ? error.message : "Beklenmeyen bir hata oluştu.",
@@ -140,7 +136,20 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
   }
 
   return (
-    <form className="appointment-form" onSubmit={submit} noValidate={false}>
+    <form
+      className="appointment-form"
+      onSubmit={submit}
+      noValidate={false}
+      onFocusCapture={() => {
+        if (hasStartedRef.current) return;
+        hasStartedRef.current = true;
+        trackEvent("appointment_start", { package_name: packageSelectRef.current?.value, cta_location: "appointment_form" });
+      }}
+      onInvalidCapture={(event) => {
+        const field = event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement ? event.target.name : "unknown";
+        trackEvent("form_validation_error", { field_name: field, cta_location: "appointment_form" });
+      }}
+    >
       <div className="honeypot" aria-hidden="true">
         <label>
           Web sitesi
@@ -206,7 +215,7 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
       <label className="consent-row">
         <input name="kvkkAccepted" type="checkbox" required />
         <span>
-          <a href="/kvkk" target="_blank" rel="noreferrer">KVKK aydınlatma metnini</a> okudum; randevu talebimin yönetilmesi için verilerimin işlenmesi hakkında bilgilendirildim.
+          <a href="/kvkk" target="_blank" rel="noopener noreferrer">KVKK aydınlatma metnini</a> okudum; randevu talebimin yönetilmesi için verilerimin işlenmesi hakkında bilgilendirildim.
         </span>
       </label>
       <label className="consent-row">

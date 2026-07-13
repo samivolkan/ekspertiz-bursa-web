@@ -72,6 +72,8 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
+  assert.match(html, /"@type":"Organization"/);
+  assert.doesNotMatch(html, /"legalName":""|"priceRange":""|"geo":\{\}/);
   assert.match(html, /Sahte yorum yok/);
   assert.match(html, /doğrulanabilir kaynak/i);
   assert.match(html, /Bursa ve Nilüfer odaklı aramalar/);
@@ -116,6 +118,44 @@ test("renders conversion, package and legal routes", async () => {
     assert.equal(response.status, 200, path);
     assert.match(await response.text(), new RegExp(expected), path);
   }
+});
+
+test("renders ten canonical local and service landing pages", async () => {
+  const paths = [
+    "/bursa-oto-ekspertiz",
+    "/nilufer-oto-ekspertiz",
+    "/kaporta-boya-ekspertiz",
+    "/motor-mekanik-ekspertiz",
+    "/obd-beyin-kontrolu",
+    "/sanziman-kontrolu",
+    "/airbag-kontrolu",
+    "/conta-kontrolu",
+    "/ikinci-el-arac-ekspertiz",
+    "/oto-ekspertiz-raporu",
+  ];
+  const sitemap = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
+  for (const path of paths) {
+    const response = await fetch(`${baseUrl}${path}`);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.equal((html.match(/<h1(?:\s|>)/gi) ?? []).length, 1, path);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://bursaekspertiz\\.com${path}/"`), path);
+    assert.match(html, /"@type":"Service"/, path);
+    assert.match(html, /"@type":"BreadcrumbList"/, path);
+    assert.match(html, /"@type":"FAQPage"/, path);
+    assert.match(sitemap, new RegExp(`https://bursaekspertiz\\.com${path}/`), path);
+  }
+});
+
+test("uses secure new-tab links and canonical analytics events", async () => {
+  const response = await fetch(`${baseUrl}/iletisim`);
+  const html = await response.text();
+  for (const anchor of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/gi)) {
+    assert.match(anchor[0], /rel="[^"]*noopener[^"]*noreferrer|rel="[^"]*noreferrer[^"]*noopener/i);
+  }
+  assert.match(html, /data-analytics-event="phone_click"/);
+  assert.match(html, /data-analytics-event="whatsapp_click"/);
+  assert.match(html, /data-analytics-event="map_click"/);
 });
 
 test("renders verified contact channels and business hours", async () => {

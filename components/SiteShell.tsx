@@ -45,7 +45,7 @@ function PackagePriceDrawer() {
                 <p>{item.duration}</p>
               </div>
               <strong>{item.price}</strong>
-              <Link href={`/paketler#${item.slug}`} data-event={`price_drawer_${item.slug}_click`}>
+              <Link href={`/paketler#${item.slug}`} data-event={`price_drawer_${item.slug}_click`} data-analytics-event="package_select" data-package-name={item.name} data-cta-location="price_drawer">
                 İncele
               </Link>
             </article>
@@ -73,7 +73,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="header-actions">
-            <a className="button button-light button-small" href={siteConfig.phoneHref} data-event="header_phone_click">
+            <a className="button button-light button-small" href={siteConfig.phoneHref} data-event="header_phone_click" data-analytics-event="phone_click" data-cta-location="header">
               Hemen ara
             </a>
             <Link className="button button-dark button-small" href="/randevu" data-event="header_appointment_click">
@@ -87,11 +87,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
                     {item.label}
                   </Link>
                 ))}
-                <a className="mobile-call-link" href={siteConfig.phoneHref} data-event="mobile_menu_phone_click">
+                <a className="mobile-call-link" href={siteConfig.phoneHref} data-event="mobile_menu_phone_click" data-analytics-event="phone_click" data-cta-location="mobile_menu">
                   <span aria-hidden="true"><FaPhoneAlt /></span>
                   <strong>Hemen ara: {siteConfig.phoneDisplay}</strong>
                 </a>
-                <a className="mobile-whatsapp-link" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" data-event="mobile_menu_whatsapp_click">
+                <a className="mobile-whatsapp-link" href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" data-event="mobile_menu_whatsapp_click" data-analytics-event="whatsapp_click" data-cta-location="mobile_menu">
                   <span aria-hidden="true"><FaWhatsapp /></span>
                   <strong>WhatsApp</strong>
                 </a>
@@ -122,8 +122,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <h2>Yasal</h2>
             <Link href="/kvkk">KVKK aydınlatma metni</Link>
             <Link href="/cerez-politikasi">Çerez politikası</Link>
-            <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
-            <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp ile yazın</a>
+            <a href={siteConfig.phoneHref} data-event="footer_phone_click" data-analytics-event="phone_click" data-cta-location="footer">{siteConfig.phoneDisplay}</a>
+            <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" data-event="footer_whatsapp_click" data-analytics-event="whatsapp_click" data-cta-location="footer">WhatsApp ile yazın</a>
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             <p>{siteConfig.workingHours}</p>
             <p>{siteConfig.address}</p>
@@ -140,9 +140,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         className="whatsapp-float"
         href={siteConfig.whatsappHref}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         aria-label="WhatsApp üzerinden Ekspertiz Bursa'ya yazın"
         data-event="floating_whatsapp_click"
+        data-analytics-event="whatsapp_click"
+        data-cta-location="floating_button"
       >
         <span aria-hidden="true"><FaWhatsapp /></span>
         <span><strong>WhatsApp</strong><small>Hemen yazın</small></span>

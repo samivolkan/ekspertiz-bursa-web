@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog";
+import { serviceLandingPages } from "@/lib/service-pages";
 
 const siteUrl = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
   ? "https://samivolkan.github.io/ekspertiz-bursa-web"
@@ -8,12 +9,18 @@ const siteUrl = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-13T00:00:00+03:00");
+  const lastModified = new Date("2026-07-14T00:00:00+03:00");
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}/`,
     lastModified: new Date(`${post.publishedAt}T12:00:00+03:00`),
     changeFrequency: "monthly",
     priority: 0.65,
+  }));
+  const serviceRoutes: MetadataRoute.Sitemap = serviceLandingPages.map((page) => ({
+    url: `${siteUrl}/${page.slug}/`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: page.slug === "bursa-oto-ekspertiz" || page.slug === "nilufer-oto-ekspertiz" ? 0.9 : 0.8,
   }));
 
   return [
@@ -41,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...serviceRoutes,
     {
       url: `${siteUrl}/blog/`,
       lastModified,

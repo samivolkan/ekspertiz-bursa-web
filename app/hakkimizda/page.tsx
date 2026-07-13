@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -40,6 +41,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Hakkımızda" }]} />
           <p className="eyebrow eyebrow-light">Ekspertiz Bursa</p>
           <h1>Araç kararında daha açık ve kontrollü bir deneyim.</h1>
           <p>Nilüfer&apos;de konumlanan Ekspertiz Bursa, ikinci el araç kontrolünü paket seçimi, randevu ve bulgu aktarımıyla tek bir anlaşılır akışta toplamayı hedefler.</p>

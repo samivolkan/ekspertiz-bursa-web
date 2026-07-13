@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { services, siteConfig } from "@/lib/site";
 
@@ -43,6 +44,7 @@ export default function ServicesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Kontroller" }]} />
           <p className="eyebrow eyebrow-light">Kontrol başlıkları</p>
           <h1>Aracın farklı sistemlerini tek karar akışında görün.</h1>
           <p>Uygulanacak kontroller seçilen pakete ve aracın teknik uygunluğuna göre işlem öncesinde netleştirilir.</p>
