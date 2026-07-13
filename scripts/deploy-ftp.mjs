@@ -80,10 +80,16 @@ async function askHidden(question) {
 }
 
 function runStaticBuild() {
-  const result = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["run", "build:static-hosting"], {
+  const command = process.platform === "win32" ? (process.env.ComSpec || "cmd.exe") : "npm";
+  const args = process.platform === "win32"
+    ? ["/d", "/s", "/c", "npm.cmd run build:static-hosting"]
+    : ["run", "build:static-hosting"];
+  const result = spawnSync(command, args, {
     stdio: "inherit",
     env: { ...process.env },
+    windowsHide: true,
   });
+  if (result.error) throw result.error;
   if (result.status !== 0) {
     throw new Error("Statik hosting build başarısız oldu; FTP yükleme yapılmadı.");
   }
