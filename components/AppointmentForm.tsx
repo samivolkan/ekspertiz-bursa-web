@@ -3,7 +3,9 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { packages, siteConfig } from "@/lib/site";
 
-const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true";
+const isStaticHosting =
+  process.env.NEXT_PUBLIC_GITHUB_PAGES === "true" ||
+  process.env.NEXT_PUBLIC_STATIC_HOSTING === "true";
 
 type FormState =
   | { kind: "idle" }
@@ -62,7 +64,7 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
       utmContent: search.get("utm_content"),
     };
 
-    if (isGitHubPages) {
+    if (isStaticHosting) {
       const message = [
         "Merhaba, Ekspertiz Bursa için randevu talebi oluşturmak istiyorum.",
         `Ad soyad: ${String(payload.fullName || "-")}`,
@@ -214,12 +216,14 @@ export function AppointmentForm({ defaultPackage = "" }: { defaultPackage?: stri
       <button className="button button-primary button-full" type="submit" disabled={state.kind === "submitting"}>
         {state.kind === "submitting"
           ? "Talep hazırlanıyor…"
-          : isGitHubPages
-            ? "WhatsApp ile randevu talebi gönder"
+          : isStaticHosting
+            ? "WhatsApp mesajını hazırla ve gönder"
             : "Randevu talebi oluştur"}
       </button>
       <p className="form-footnote">
-        Bu işlem bir randevu talebi oluşturur. Tarih ve saat, işletmenin teyidiyle kesinleşir. Acil bilgi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilirsiniz.
+        {isStaticHosting
+          ? "Bu işlem girdiğiniz bilgilerle WhatsApp mesajı hazırlar; talebiniz mesajı işletmeye gönderdiğinizde iletilir."
+          : "Bu işlem bir randevu talebi oluşturur ve size referans kodu verir."} Tarih ve saat, işletmenin teyidiyle kesinleşir. Acil bilgi için <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a> numarasını arayabilirsiniz.
       </p>
     </form>
   );

@@ -15,12 +15,23 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "AutoRepair",
+  "@id": `${siteConfig.canonicalUrl}/#business`,
   name: siteConfig.name,
   url: siteConfig.canonicalUrl,
+  logo: `${siteConfig.canonicalUrl}/brand/ekspertiz-bursa-mark.png`,
+  image: `${siteConfig.canonicalUrl}/og-red.png`,
   description: siteConfig.description,
   telephone: siteConfig.phoneHref.replace("tel:", ""),
   email: siteConfig.email,
+  priceRange: "₺₺₺",
+  currenciesAccepted: "TRY",
   openingHours: siteConfig.openingHours,
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "08:30",
+    closes: "18:30",
+  },
   address: {
     "@type": "PostalAddress",
     streetAddress: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2",
@@ -28,7 +39,10 @@ const localBusinessSchema = {
     addressRegion: "Bursa",
     addressCountry: "TR",
   },
-  areaServed: { "@type": "City", name: siteConfig.city },
+  areaServed: [
+    { "@type": "City", name: siteConfig.city },
+    { "@type": "AdministrativeArea", name: siteConfig.district },
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Oto ekspertiz paketleri",
@@ -44,9 +58,22 @@ const localBusinessSchema = {
         "@type": "Service",
         name: item.name,
         description: item.description,
+        provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
+        areaServed: siteConfig.city,
       },
     })),
   },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.canonicalUrl}/#website`,
+  url: `${siteConfig.canonicalUrl}/`,
+  name: siteConfig.name,
+  description: siteConfig.description,
+  inLanguage: "tr-TR",
+  publisher: { "@id": `${siteConfig.canonicalUrl}/#business` },
 };
 
 const faqSchema = {
@@ -59,18 +86,18 @@ const faqSchema = {
   })),
 };
 
-const sampleTestimonials = [
+const trustProofItems = [
   {
-    quote: "Paketlerin farkını tek ekranda görmek, hangi kontrole ihtiyacım olduğunu anlamamı kolaylaştırdı.",
-    profile: "Temsili yorum · Nilüfer'de araç alıcısı",
+    title: "Doğrulanabilir yorum",
+    text: "Gerçek Google veya sosyal medya yorumu, kaynak bağlantısı ve müşteri onayı oluşmadan yayınlanmaz.",
   },
   {
-    quote: "Randevu talebini hızlıca oluşturup referans kodu almak süreci daha düzenli hissettirdi.",
-    profile: "Temsili yorum · İkinci el araç alıcısı",
+    title: "Açık paket kapsamı",
+    text: "Her paketin hangi kontrol başlıklarını içerdiği işlem öncesinde net biçimde gösterilir.",
   },
   {
-    quote: "Kaporta bulgularıyla OBD kayıtlarını ayrı ayrı görebilmek karar verirken neye dikkat edeceğimi netleştirdi.",
-    profile: "Temsili yorum · Bursa'da araç alıcısı",
+    title: "Teyitli randevu süreci",
+    text: "Form veya WhatsApp talebi sonrasında tarih, saat, fiyat ve kapsam işletme dönüşüyle kesinleşir.",
   },
 ];
 
@@ -78,6 +105,7 @@ export default function Home() {
   return (
     <SiteShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <section className="hero-section">
@@ -138,7 +166,7 @@ export default function Home() {
         <div className="page-shell trust-grid">
           <p><strong>Net kapsam</strong><span>Pakette ne olduğunu işlem öncesi görün.</span></p>
           <p><strong>Doğrulanmış bilgi</strong><span>Onaysız belge, fiyat ve yorum yayınlanmaz.</span></p>
-          <p><strong>Kolay randevu</strong><span>Talebinizi referans koduyla kayıt altına alın.</span></p>
+          <p><strong>Kolay randevu</strong><span>Talebinizi form veya WhatsApp üzerinden hızlıca iletin.</span></p>
         </div>
       </section>
 
@@ -229,22 +257,22 @@ export default function Home() {
       <section className="section testimonial-section" aria-labelledby="testimonial-heading">
         <div className="page-shell">
           <div className="section-heading testimonial-heading">
-            <p className="eyebrow">Müşteri deneyimi örnekleri</p>
-            <h2 id="testimonial-heading">Sürecin müşteri tarafında nasıl hissedilmesini hedefliyoruz?</h2>
-            <p>Bu yorumlar henüz gerçek Google veya sosyal medya yorumu değildir; yayın tasarımı için hazırlanmış temsili metinlerdir.</p>
+            <p className="eyebrow">Güven ve şeffaflık</p>
+            <h2 id="testimonial-heading">Yorum ve kanıt alanlarını doğrulanabilir kaynakla yayınlıyoruz.</h2>
+            <p>Gerçek müşteri yorumu, şube fotoğrafı veya rapor örneği eklenecekse kaynağı doğrulanmış ve yayın izni alınmış içerikler kullanılacak.</p>
           </div>
           <div className="testimonial-grid">
-            {sampleTestimonials.map((testimonial) => (
-              <blockquote key={testimonial.quote}>
-                <span aria-hidden="true">“</span>
-                <p>{testimonial.quote}</p>
-                <footer>{testimonial.profile}</footer>
-              </blockquote>
+            {trustProofItems.map((item, index) => (
+              <article key={item.title}>
+                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
             ))}
           </div>
           <div className="testimonial-disclaimer">
-            <strong>Temsili müşteri yorumları</strong>
-            <p>Gerçek yorumlar, müşteri onayı ve doğrulanabilir kaynak bağlantısı oluştuğunda bu alanla değiştirilecektir.</p>
+            <strong>Sahte yorum yok</strong>
+            <p>Google yorum linki, gerçek müşteri izni veya işletmeye ait fotoğraflar geldiğinde bu alan doğrudan canlı güven kanıtlarına dönüşecek.</p>
           </div>
         </div>
       </section>
@@ -253,8 +281,8 @@ export default function Home() {
         <div className="page-shell appointment-layout">
           <div className="appointment-copy">
             <p className="eyebrow">Çevrim içi randevu</p>
-            <h2>Uygun günü seçin, talebiniz kayıt altına alınsın.</h2>
-            <p>Form gönderildiğinde benzersiz bir referans kodu oluşur. İşletme sizinle iletişime geçip uygun saat ve kapsamı teyit eder.</p>
+            <h2>Uygun günü seçin, talebiniz işletmeye ulaşsın.</h2>
+            <p>Formu doldurun; mevcut yayın ortamına göre talebiniz WhatsApp mesajı olarak hazırlanır veya kayıtlı randevu talebi olarak alınır. İşletme uygun saat ve kapsamı teyit eder.</p>
             <div className="appointment-note">
               <strong>Önemli</strong>
               <p>Form onayı kesin randevu değildir. Tarih ve saat, işletmenin dönüşüyle kesinleşir.</p>

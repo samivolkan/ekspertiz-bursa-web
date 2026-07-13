@@ -19,11 +19,13 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
-const CANONICAL_HOST = "www.ekspertizbursa.com";
+const CANONICAL_HOST = "bursaekspertiz.com";
 const REDIRECT_HOSTS = new Set([
   "ekspertizbursa.com",
+  "www.ekspertizbursa.com",
   "ekspertizbursa.com.tr",
   "www.ekspertizbursa.com.tr",
+  "www.bursaekspertiz.com",
 ]);
 
 function withSecurityHeaders(response: Response) {

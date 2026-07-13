@@ -172,14 +172,14 @@ test("renders ten fictional and anonymized blog stories with detail routes", asy
   const sitemapXml = await sitemapResponse.text();
 
   for (const path of articlePaths) {
-    assert.match(sitemapXml, new RegExp(`https://www\\.ekspertizbursa\\.com${path}`), path);
+    assert.match(sitemapXml, new RegExp(`https://bursaekspertiz\\.com${path}`), path);
     const response = await fetch(`${baseUrl}${path}`);
     assert.equal(response.status, 200, path);
     const html = await response.text();
     assert.match(html, /Bu rehberde/i, path);
     assert.match(html, /İlgili ekspertiz rehberleri/i, path);
     assert.match(html, /"@type":"BlogPosting"/, path);
-    assert.match(html, /"image":"https:\/\/www\.ekspertizbursa\.com\/images\//, path);
+    assert.match(html, /"image":"https:\/\/bursaekspertiz\.com\/images\//, path);
     assert.match(html, /<figure[^>]*class="blog-feature-image"/i, path);
   }
 });

@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "Otomotiv",
+  formatDetection: { telephone: false, email: false, address: false },
   alternates: { canonical: "/" },
   keywords: [
     "oto ekspertiz Bursa",
@@ -48,7 +52,17 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [assetPath("/og-red.png")],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({

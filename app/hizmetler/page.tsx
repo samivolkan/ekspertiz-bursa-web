@@ -1,17 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
-import { services } from "@/lib/site";
+import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
+import { services, siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Oto Ekspertiz Kontrolleri",
   description: "Kaporta, motor-mekanik, beyin/OBD, şanzıman, iç-dış, conta ve airbag kontrol başlıklarını inceleyin.",
-  alternates: { canonical: "/hizmetler" },
+  path: "/hizmetler",
+  keywords: ["Bursa oto ekspertiz hizmetleri", "kaporta boya kontrolü", "OBD kontrolü", "airbag ekspertiz"],
+});
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Bursa oto ekspertiz kontrol başlıkları",
+  url: absoluteUrl("/hizmetler"),
+  numberOfItems: services.length,
+  itemListElement: services.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      "@id": `${absoluteUrl("/hizmetler")}#${service.slug}`,
+      name: service.name,
+      description: service.description,
+      provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
+      areaServed: siteConfig.city,
+    },
+  })),
 };
+
+const servicesBreadcrumbSchema = breadcrumbSchema([
+  { name: "Ana sayfa", path: "/" },
+  { name: "Oto ekspertiz kontrolleri", path: "/hizmetler" },
+]);
 
 export default function ServicesPage() {
   return (
     <SiteShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
           <p className="eyebrow eyebrow-light">Kontrol başlıkları</p>
@@ -40,4 +69,3 @@ export default function ServicesPage() {
     </SiteShell>
   );
 }
-

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
 import { blogHeadingId, blogPosts, findBlogPost, getBlogImage } from "@/lib/blog";
+import { canonicalPath } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 type BlogDetailPageProps = {
@@ -24,14 +25,25 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     title: post.title,
     description: post.description,
     keywords: [post.category, "Bursa oto ekspertiz", "ikinci el araç kontrolü", post.title],
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: canonicalPath(`/blog/${post.slug}`) },
     openGraph: {
       type: "article",
       title: post.title,
       description: post.description,
       publishedTime: post.publishedAt,
-      url: `/blog/${post.slug}`,
+      url: canonicalPath(`/blog/${post.slug}`),
       images: [{ url: image.src, alt: image.alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [image.src],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
     },
   };
 }
@@ -46,26 +58,32 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${siteConfig.canonicalUrl}/blog/${post.slug}/#article`,
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: { "@type": "Organization", name: siteConfig.name },
-    publisher: { "@type": "Organization", name: siteConfig.name },
+    author: { "@type": "Organization", "@id": `${siteConfig.canonicalUrl}/#business`, name: siteConfig.name },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteConfig.canonicalUrl}/#business`,
+      name: siteConfig.name,
+      logo: { "@type": "ImageObject", url: `${siteConfig.canonicalUrl}/brand/ekspertiz-bursa-mark.png` },
+    },
     inLanguage: "tr-TR",
     articleSection: post.category,
     keywords: [post.category, "Bursa oto ekspertiz", "ikinci el araç kontrolü"].join(", "),
-    isPartOf: { "@type": "Blog", name: "Ekspertiz Bursa Blog", url: `${siteConfig.canonicalUrl}/blog` },
-    mainEntityOfPage: `${siteConfig.canonicalUrl}/blog/${post.slug}`,
+    isPartOf: { "@type": "Blog", name: "Ekspertiz Bursa Blog", url: `${siteConfig.canonicalUrl}/blog/` },
+    mainEntityOfPage: `${siteConfig.canonicalUrl}/blog/${post.slug}/`,
     image: `${siteConfig.canonicalUrl}${image.src}`,
   };
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Ana sayfa", item: siteConfig.canonicalUrl },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.canonicalUrl}/blog` },
-      { "@type": "ListItem", position: 3, name: post.title, item: `${siteConfig.canonicalUrl}/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "Ana sayfa", item: `${siteConfig.canonicalUrl}/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.canonicalUrl}/blog/` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${siteConfig.canonicalUrl}/blog/${post.slug}/` },
     ],
   };
 

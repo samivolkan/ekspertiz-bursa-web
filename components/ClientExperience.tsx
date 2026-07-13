@@ -49,6 +49,13 @@ export function ClientExperience() {
     }
 
     const onClick = (event: MouseEvent) => {
+      const cookieReset = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-cookie-reset]");
+      if (cookieReset) {
+        event.preventDefault();
+        setVisible(true);
+        return;
+      }
+
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-event]");
       if (!target?.dataset.event) return;
       window.dataLayer = window.dataLayer || [];

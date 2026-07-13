@@ -1,22 +1,42 @@
 import type { Metadata } from "next";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
+import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "İletişim, Adres ve Randevu",
   description: "Ekspertiz Bursa Nilüfer şube adresini görüntüleyin, yol tarifi alın ve çevrim içi oto ekspertiz randevu talebi oluşturun.",
-  alternates: { canonical: "/iletisim" },
+  path: "/iletisim",
+  keywords: ["Bursa oto ekspertiz iletişim", "Nilüfer oto ekspertiz adres", "Bursa ekspertiz telefon"],
+});
+
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${absoluteUrl("/iletisim")}#contact`,
+  url: absoluteUrl("/iletisim"),
+  name: "Ekspertiz Bursa iletişim ve randevu",
+  description: "Nilüfer şube iletişim bilgileri, çalışma saatleri, yol tarifi ve oto ekspertiz randevu talebi.",
+  inLanguage: "tr-TR",
+  mainEntity: { "@id": `${siteConfig.canonicalUrl}/#business` },
 };
+
+const contactBreadcrumbSchema = breadcrumbSchema([
+  { name: "Ana sayfa", path: "/" },
+  { name: "İletişim", path: "/iletisim" },
+]);
 
 export default function ContactPage() {
   return (
     <SiteShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
           <p className="eyebrow eyebrow-light">İletişim ve randevu</p>
           <h1>Nilüfer şubemiz için randevu talebi oluşturun.</h1>
-          <p>Talebiniz referans koduyla kaydedilir. Tarih, saat, paket süresi ve fiyat bilgisi işletmenin teyidiyle kesinleşir.</p>
+          <p>Telefon, WhatsApp veya form üzerinden ulaşın. Tarih, saat, paket süresi ve fiyat bilgisi işletmenin teyidiyle kesinleşir.</p>
         </div>
       </section>
       <section className="section section-paper">

@@ -52,7 +52,7 @@ function PackagePriceDrawer() {
             </article>
           ))}
         </div>
-        <p className="price-drawer-footnote">Paket kapsamı ve süre araç durumuna göre değişebilir.</p>
+        <p className="price-drawer-footnote">{siteConfig.priceTaxNote}</p>
       </div>
     </details>
   );
@@ -132,11 +132,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             <p>{siteConfig.workingHours}</p>
             <p>{siteConfig.address}</p>
+            <p>{siteConfig.legalEntityNote}</p>
           </div>
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Ekspertiz Bursa</span>
-          <span>Canonical alan adı: ekspertizbursa.com</span>
+          <span>Canonical alan adı: bursaekspertiz.com</span>
         </div>
       </footer>
       <PackagePriceDrawer />

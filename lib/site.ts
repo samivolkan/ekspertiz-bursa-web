@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Aracınızı almadan önce, gerçeği görün.",
   description:
     "Bursa'da ikinci el araç alımından önce paket kapsamını karşılaştırabileceğiniz ve çevrim içi randevu talebi oluşturabileceğiniz oto ekspertiz hizmeti.",
-  canonicalUrl: "https://www.ekspertizbursa.com",
+  canonicalUrl: "https://bursaekspertiz.com",
   city: "Bursa",
   district: "Nilüfer",
   phoneDisplay: "0552 741 51 43",
@@ -15,8 +15,12 @@ export const siteConfig = {
   address: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2, Nilüfer/Bursa",
   mapUrl:
     "https://www.google.com/maps/search/?api=1&query=%C3%9C%C3%A7evler%20Mahallesi%20K%C3%BC%C3%A7%C3%BCk%20Sanayi%20Sitesi%2018.%20Blok%20No%2021%2F2%20Nil%C3%BCfer%20Bursa",
-  legalName: null as string | null,
+  legalName: "Ekspertiz Bursa",
+  legalEntityNote:
+    "Resmî ticari unvan ve vergi bilgisi işletme tarafından doğrulandığında bu sayfada ayrıca gösterilecektir.",
   privacyEmail: "info@ekspertizbursa.com",
+  priceTaxNote:
+    "Fiyatlar bilgilendirme amaçlıdır; KDV, ödeme yöntemi ve nihai kapsam randevu teyidinde işletme tarafından netleştirilir.",
   workingHours: "Her gün 08:30–18:30",
   openingHours: "Mo-Su 08:30-18:30",
 } as const;
@@ -291,7 +295,7 @@ export const faqItems = [
   {
     question: "Randevu talebi oluşturunca randevum kesinleşir mi?",
     answer:
-      "Hayır. Formu tamamladığınızda talebiniz kayıt altına alınır ve bir referans kodu oluşur. İşletme sizinle iletişime geçip uygun saat teyidi verdiğinde randevu kesinleşir.",
+      "Hayır. Formu tamamladığınızda talebiniz işletmeye iletilir veya kayıt altına alınır. İşletme sizinle iletişime geçip uygun saat ve kapsam teyidi verdiğinde randevu kesinleşir.",
   },
   {
     question: "Hangi paketi seçmeliyim?",
@@ -311,7 +315,7 @@ export const faqItems = [
   {
     question: "Paket fiyatlarına KDV dahil mi?",
     answer:
-      "Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları paylaşılmıştır; ancak KDV dahil veya hariç bilgisi henüz teyit edilmedi. Randevu öncesinde 0552 741 51 43 numaralı telefondan teyit edebilirsiniz.",
+      "Sitedeki Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları bilgilendirme amaçlıdır. KDV, ödeme yöntemi ve nihai kapsam randevu teyidinde işletme tarafından netleştirilir.",
   },
 ];
 

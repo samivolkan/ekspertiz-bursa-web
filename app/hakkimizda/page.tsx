@@ -1,12 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Hakkımızda",
   description: "Ekspertiz Bursa'nın açık paket kapsamı, doğrulanmış bilgi ve anlaşılır bulgu aktarımı yaklaşımını tanıyın.",
-  alternates: { canonical: "/hakkimizda" },
+  path: "/hakkimizda",
+  keywords: ["Ekspertiz Bursa hakkında", "Nilüfer oto ekspertiz", "Bursa araç kontrol merkezi"],
+});
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${absoluteUrl("/hakkimizda")}#about`,
+  url: absoluteUrl("/hakkimizda"),
+  name: "Ekspertiz Bursa hakkında",
+  description: "Ekspertiz Bursa'nın açık kapsam, doğrulanmış bilgi ve anlaşılır bulgu aktarımı yaklaşımı.",
+  inLanguage: "tr-TR",
+  mainEntity: { "@id": `${siteConfig.canonicalUrl}/#business` },
 };
+
+const aboutBreadcrumbSchema = breadcrumbSchema([
+  { name: "Ana sayfa", path: "/" },
+  { name: "Hakkımızda", path: "/hakkimizda" },
+]);
 
 const principles = [
   { title: "Önce kapsam", text: "Müşteri, seçtiği pakette hangi kontrol başlıklarının bulunduğunu işlem öncesinde görür." },
@@ -17,6 +36,8 @@ const principles = [
 export default function AboutPage() {
   return (
     <SiteShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
           <p className="eyebrow eyebrow-light">Ekspertiz Bursa</p>
@@ -42,4 +63,3 @@ export default function AboutPage() {
     </SiteShell>
   );
 }
-

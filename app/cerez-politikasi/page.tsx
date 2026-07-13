@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/SiteShell";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Çerez Politikası",
-  description: "Ekspertiz Bursa web sitesindeki zorunlu, analitik ve reklam çerezlerine ilişkin yayın öncesi politika taslağı.",
-  alternates: { canonical: "/cerez-politikasi" },
-};
+  description: "Ekspertiz Bursa web sitesindeki zorunlu, analitik ve reklam çerezlerine ilişkin çerez politikası.",
+  path: "/cerez-politikasi",
+  index: false,
+});
 
 export default function CookiePolicyPage() {
   return (
@@ -14,7 +16,7 @@ export default function CookiePolicyPage() {
         <article className="legal-article">
           <p className="eyebrow">Tercih ve şeffaflık</p>
           <h1>Çerez Politikası</h1>
-          <div className="draft-alert"><strong>Yayın öncesi taslak:</strong> Son metin, canlı sitede gerçekten kullanılan çerez ve ölçüm teknolojilerinin adı, sağlayıcısı, amacı ve saklama süresi çıkarıldıktan sonra güncellenecektir.</div>
+          <div className="draft-alert"><strong>Şeffaflık notu:</strong> Zorunlu teknolojiler siteyi çalıştırmak için kullanılır. Analitik ve reklam ölçümü ise yalnız açık onayınız olduğunda etkinleşir.</div>
 
           <section>
             <h2>Çerez nedir?</h2>
@@ -33,7 +35,10 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2>Tercihler nasıl yönetilir?</h2>
-            <p>İlk ziyaretinizde gösterilen panelden yalnız zorunlu teknolojilerle devam edebilir veya analitik ve reklam ölçümüne onay verebilirsiniz. Tarayıcı ayarlarınızdan yerel kayıtları ayrıca silebilirsiniz. Tercih değiştirme bağlantısı canlı sürümde bu sayfaya eklenecektir.</p>
+            <p>İlk ziyaretinizde gösterilen panelden yalnız zorunlu teknolojilerle devam edebilir veya analitik ve reklam ölçümüne onay verebilirsiniz. Daha sonra tercih değiştirmek isterseniz tarayıcı ayarlarınızdan bu siteye ait yerel kayıtları silebilir ve panelin yeniden görünmesini sağlayabilirsiniz.</p>
+            <button type="button" className="button button-dark" data-cookie-reset="true">
+              Çerez tercihlerini yeniden aç
+            </button>
           </section>
 
           <section>
@@ -45,4 +50,3 @@ export default function CookiePolicyPage() {
     </SiteShell>
   );
 }
-

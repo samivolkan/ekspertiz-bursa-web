@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/SiteShell";
+import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "KVKK Aydınlatma Metni",
-  description: "Ekspertiz Bursa randevu sürecinde kişisel verilerin işlenmesine ilişkin yayın öncesi aydınlatma metni taslağı.",
-  alternates: { canonical: "/kvkk" },
-};
-
-function Pending({ children }: { children: string }) {
-  return <span className="pending-value">[{children} yayın öncesi teyit edilecek]</span>;
-}
+  description: "Ekspertiz Bursa randevu sürecinde kişisel verilerin işlenmesine ilişkin aydınlatma metni ve iletişim bilgileri.",
+  path: "/kvkk",
+  index: false,
+});
 
 export default function KvkkPage() {
   return (
@@ -19,13 +17,14 @@ export default function KvkkPage() {
         <article className="legal-article">
           <p className="eyebrow">Kişisel verilerin korunması</p>
           <h1>KVKK Aydınlatma Metni</h1>
-          <div className="draft-alert"><strong>Yayın öncesi taslak:</strong> Bu metin hukuki danışmanlık değildir. Veri sorumlusunun ticari unvanı, iletişim kanalı, saklama süreleri, hizmet sağlayıcıları ve hukuki sebepleri gerçek operasyonla eşleştirildikten sonra hukuk danışmanı tarafından son haline getirilmelidir.</div>
+          <div className="draft-alert"><strong>Bilgilendirme:</strong> Bu metin randevu talebi sürecinde hangi bilgilerin neden istendiğini açıklar. Resmî ticari unvan, vergi bilgisi ve saklama süreleri işletmenin kesin verileriyle doğrulandığında sayfaya ayrıca işlenmelidir.</div>
 
           <section>
             <h2>1. Veri sorumlusu</h2>
-            <p><strong>Ticari unvan:</strong> {siteConfig.legalName ?? <Pending>ticari unvan</Pending>}</p>
+            <p><strong>Veri sorumlusu / marka:</strong> {siteConfig.legalName}</p>
             <p><strong>Adres:</strong> {siteConfig.address}</p>
-            <p><strong>KVKK iletişim kanalı:</strong> {siteConfig.privacyEmail ?? <Pending>e-posta adresi</Pending>}</p>
+            <p><strong>KVKK iletişim kanalı:</strong> {siteConfig.privacyEmail}</p>
+            <p>{siteConfig.legalEntityNote}</p>
           </section>
 
           <section>

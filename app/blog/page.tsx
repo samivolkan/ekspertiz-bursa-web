@@ -3,15 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 import { blogPosts, getBlogImage } from "@/lib/blog";
-import { siteConfig } from "@/lib/site";
+import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Oto Ekspertiz Blogu ve Günlük Saha Notları",
   description:
     "Bursa oto ekspertiz sürecinde kaporta, boya, motor, mekanik, OBD, airbag ve ikinci el araç kontrolü hakkında hazırlanan açıklayıcı rehberleri okuyun.",
-  alternates: { canonical: "/blog" },
+  path: "/blog",
   keywords: ["Bursa oto ekspertiz blog", "ikinci el araç kontrolü", "kaporta boya ekspertiz", "OBD kontrolü", "Nilüfer oto ekspertiz"],
-};
+});
 
 export default function BlogPage() {
   const featuredPost = blogPosts[0];
@@ -22,22 +22,27 @@ export default function BlogPage() {
     "@type": "CollectionPage",
     name: "Ekspertiz Bursa Blog",
     description: "İkinci el araç alımında ekspertiz bulgularını anlamaya yardımcı olan Bursa odaklı rehberler.",
-    url: `${siteConfig.canonicalUrl}/blog`,
+    url: absoluteUrl("/blog"),
     inLanguage: "tr-TR",
     mainEntity: {
       "@type": "ItemList",
       itemListElement: blogPosts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `${siteConfig.canonicalUrl}/blog/${post.slug}`,
+        url: absoluteUrl(`/blog/${post.slug}`),
         name: post.title,
       })),
     },
   };
+  const blogBreadcrumbSchema = breadcrumbSchema([
+    { name: "Ana sayfa", path: "/" },
+    { name: "Oto ekspertiz blogu", path: "/blog" },
+  ]);
 
   return (
     <SiteShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogBreadcrumbSchema) }} />
       <section className="subpage-hero blog-index-hero">
         <div className="page-shell">
           <p className="eyebrow eyebrow-light">Ekspertiz Bursa blog</p>

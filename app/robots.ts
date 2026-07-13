@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
   ? "https://samivolkan.github.io/ekspertiz-bursa-web"
-  : "https://www.ekspertizbursa.com";
+  : "https://bursaekspertiz.com";
 
 export const dynamic = "force-static";
 

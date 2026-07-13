@@ -1,17 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
-import { packages } from "@/lib/site";
+import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
+import { packages, siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Oto Ekspertiz Paketleri ve Fiyatları",
   description: "Ekspertiz Bursa Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket kapsamlarını ve güncel fiyatlarını karşılaştırın.",
-  alternates: { canonical: "/paketler" },
+  path: "/paketler",
+  keywords: ["Bursa oto ekspertiz fiyatları", "oto ekspertiz paketleri", "Nilüfer oto ekspertiz", "araç ekspertiz fiyatı"],
+});
+
+const packagesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Bursa oto ekspertiz paketleri ve fiyatları",
+  url: absoluteUrl("/paketler"),
+  numberOfItems: packages.length,
+  itemListElement: packages.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      "@id": `${absoluteUrl("/paketler")}#${item.slug}`,
+      name: item.name,
+      description: item.description,
+      provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
+      areaServed: siteConfig.city,
+      ...(item.price ? { offers: { "@type": "Offer", price: item.price.replace(/\D/g, ""), priceCurrency: "TRY", url: `${absoluteUrl("/paketler")}#${item.slug}` } } : {}),
+    },
+  })),
 };
+
+const packagesBreadcrumbSchema = breadcrumbSchema([
+  { name: "Ana sayfa", path: "/" },
+  { name: "Oto ekspertiz paketleri", path: "/paketler" },
+]);
 
 export default function PackagesPage() {
   return (
     <SiteShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
           <p className="eyebrow eyebrow-light">Oto ekspertiz paketleri</p>
@@ -23,7 +53,7 @@ export default function PackagesPage() {
         <div className="page-shell">
           <div className="package-scope-note">
             <strong>Kontrol kapsamını açın</strong>
-            <p>Her karttaki “Paket özellikleri” alanından ana kontrol gruplarını ve alt başlıkları inceleyebilirsiniz. Başlıklar araç modeli, teknik uygunluk ve erişilebilirliğe göre uygulanır; parça sökümü yapılmaz.</p>
+            <p>Her karttaki “Paket özellikleri” alanından ana kontrol gruplarını ve alt başlıkları inceleyebilirsiniz. Başlıklar araç modeli, teknik uygunluk ve erişilebilirliğe göre uygulanır; parça sökümü yapılmaz. {siteConfig.priceTaxNote}</p>
           </div>
           <div className="package-detail-grid">
             {packages.map((item) => {

@@ -8,6 +8,9 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:static-hosting": "node scripts/build-static-hosting.mjs",
+    "audit:seo": "node scripts/audit-static-seo.mjs",
+    "audit:live": "node scripts/audit-live.mjs",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint app components db lib worker tests vite.config.ts next.config.ts drizzle.config.ts eslint.config.mjs",
