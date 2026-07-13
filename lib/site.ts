@@ -1,3 +1,7 @@
+const defaultGa4MeasurementId = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
+  ? ""
+  : "G-K6LBGJQ8T1";
+
 export const businessConfig = {
   SITE_URL: "https://www.bursaekspertiz.com",
   SITE_NAME: "Ekspertiz Bursa",
@@ -23,7 +27,7 @@ export const businessConfig = {
   PRICE_RANGE: "",
   LOGO_URL: "/brand/ekspertiz-bursa-mark.png",
   DEFAULT_OG_IMAGE: "/og-red.png",
-  GA4_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? "",
+  GA4_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim() || defaultGa4MeasurementId,
   GTM_CONTAINER_ID: process.env.NEXT_PUBLIC_GTM_ID?.trim() ?? "",
   PACKAGE_PRICE_UPDATED_AT: "2026-07-13",
   PACKAGE_TAX_STATUS: "unverified",

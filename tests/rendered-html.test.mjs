@@ -80,6 +80,8 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Nilüfer oto ekspertiz/);
   assert.match(html, /Bursa oto ekspertiz fiyatları/);
   assert.match(html, /data-event="floating_whatsapp_click"/);
+  assert.match(html, /googletagmanager\.com\/gtag\/js\?id=G-K6LBGJQ8T1/);
+  assert.match(html, /gtag\('config','G-K6LBGJQ8T1'/);
   assert.match(html, /wa\.me\/905527415143/);
   assert.match(html, /class="whatsapp-float"[\s\S]*?<svg/i);
   assert.match(html, /class="price-drawer"/);
