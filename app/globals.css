@@ -2485,6 +2485,94 @@ a {
   line-height: 1.55;
 }
 
+.local-seo-section {
+  background:
+    radial-gradient(circle at 12% 0%, rgb(var(--accent-rgb) / 0.1), transparent 30%),
+    linear-gradient(180deg, var(--white), var(--paper));
+}
+
+.local-seo-section .split-heading > p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.local-seo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.local-seo-grid article {
+  display: grid;
+  align-content: start;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(15, 20, 21, 0.06);
+}
+
+.local-seo-grid article > span {
+  color: var(--accent-text);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.local-seo-grid h3 {
+  margin: 20px 0 0;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+}
+
+.local-seo-grid p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.local-seo-grid ul {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.local-seo-grid li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.local-seo-grid li::before {
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+}
+
+.local-seo-grid .text-link {
+  align-self: end;
+  margin-top: auto;
+}
+
 .blog-editorial-note {
   border: 1px solid rgb(var(--accent-rgb) / 0.3);
   border-radius: 18px;
@@ -3359,6 +3447,10 @@ html[data-theme="light"] .footer-bottom {
     grid-template-columns: 1fr;
   }
 
+  .local-seo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .testimonial-grid article {
     min-height: 220px;
   }
@@ -3536,9 +3628,19 @@ html[data-theme="light"] .footer-bottom {
   .image-story-grid,
   .content-grid,
   .blog-grid,
+  .local-seo-grid,
   .package-detail-grid,
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .local-seo-section .split-heading > p {
+    font-size: 14px;
+  }
+
+  .local-seo-grid article {
+    min-height: 0;
+    padding: 22px;
   }
 
   .blog-privacy-note {
@@ -3709,13 +3811,13 @@ html[data-theme="light"] .footer-bottom {
   }
 
   .site-footer {
-    padding-bottom: 88px;
+    padding-bottom: 144px;
   }
 
   .mobile-appointment {
     position: fixed;
-    z-index: 45;
-    right: 78px;
+    z-index: 46;
+    right: 86px;
     bottom: 14px;
     left: 15px;
     display: flex;
@@ -3762,19 +3864,28 @@ html[data-theme="light"] .footer-bottom {
   }
 
   .price-drawer {
-    top: 48%;
+    top: auto;
+    right: 15px;
+    bottom: 78px;
+    width: auto;
+    transform: none;
+    z-index: 47;
   }
 
   .price-drawer > summary {
-    width: 34px;
-    min-height: 150px;
-    gap: 9px;
-    padding: 9px 5px;
+    position: static;
+    width: auto;
+    min-height: 42px;
+    transform: none;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 9px 12px;
   }
 
   .price-drawer > summary strong {
-    font-size: 8px;
-    letter-spacing: 0.04em;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    writing-mode: horizontal-tb;
   }
 
   .price-drawer > summary > span {
@@ -3784,9 +3895,14 @@ html[data-theme="light"] .footer-bottom {
   }
 
   .price-drawer-panel {
-    right: 39px;
-    width: calc(100vw - 52px);
-    max-height: calc(100vh - 150px);
+    position: fixed;
+    right: 15px;
+    bottom: 132px;
+    left: 15px;
+    top: auto;
+    width: auto;
+    max-height: calc(100vh - 190px);
+    transform: none;
     border-radius: 18px;
   }
 
@@ -3799,7 +3915,7 @@ html[data-theme="light"] .footer-bottom {
   }
 
   .price-drawer-list {
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 340px);
   }
 
   .price-drawer-list article {
@@ -3822,7 +3938,7 @@ html[data-theme="light"] .footer-bottom {
   .cookie-banner {
     left: 15px;
     right: 15px;
-    bottom: 78px;
+    bottom: 126px;
     width: calc(100vw - 30px);
     padding: 14px;
   }
@@ -3830,6 +3946,27 @@ html[data-theme="light"] .footer-bottom {
   .cookie-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@supports (bottom: max(0px)) {
+  @media (max-width: 620px) {
+    .mobile-appointment,
+    .whatsapp-float {
+      bottom: max(14px, env(safe-area-inset-bottom));
+    }
+
+    .price-drawer {
+      bottom: max(78px, calc(env(safe-area-inset-bottom) + 78px));
+    }
+
+    .price-drawer-panel {
+      bottom: max(132px, calc(env(safe-area-inset-bottom) + 132px));
+    }
+
+    .cookie-banner {
+      bottom: max(126px, calc(env(safe-area-inset-bottom) + 126px));
+    }
   }
 }
 

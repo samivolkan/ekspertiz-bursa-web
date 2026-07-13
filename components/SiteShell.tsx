@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { ClientExperience } from "./ClientExperience";
-import { ThemeSwitcher } from "./ThemeSwitcher";
 import { navItems, packages, siteConfig } from "@/lib/site";
 import { assetPath } from "@/lib/assets";
 
@@ -74,7 +73,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="header-actions">
-            <ThemeSwitcher className="theme-switcher-desktop" />
             <a className="button button-light button-small" href={siteConfig.phoneHref} data-event="header_phone_click">
               Hemen ara
             </a>
@@ -84,9 +82,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <details className="mobile-menu">
               <summary aria-label="Menüyü aç">Menü</summary>
               <div className="mobile-menu-panel">
-                <div className="mobile-theme-panel">
-                  <ThemeSwitcher className="theme-switcher-mobile" />
-                </div>
                 {navItems.map((item) => (
                   <Link key={item.href} href={item.href}>
                     {item.label}

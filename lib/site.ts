@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: "EB",
   tagline: "Aracınızı almadan önce, gerçeği görün.",
   description:
-    "Bursa'da ikinci el araç alımından önce paket kapsamını karşılaştırabileceğiniz ve çevrim içi randevu talebi oluşturabileceğiniz oto ekspertiz hizmeti.",
+    "Bursa Nilüfer'de ikinci el araç alımından önce paket kapsamını karşılaştırabileceğiniz ve çevrim içi randevu talebi oluşturabileceğiniz oto ekspertiz hizmeti.",
   canonicalUrl: "https://bursaekspertiz.com",
   city: "Bursa",
   district: "Nilüfer",
@@ -288,6 +288,54 @@ export const services: ServiceItem[] = [
     description:
       "Conta kontrolünün Tam ve Full, airbag kontrolünün ise Full paket kapsamında değerlendirilmesi.",
     features: ["Conta kontrolü", "Airbag kontrolü", "Kapsam notları"],
+  },
+];
+
+export type LocalSeoTarget = {
+  title: string;
+  area: string;
+  description: string;
+  highlights: string[];
+  href: string;
+  cta: string;
+};
+
+export const localSeoTargets: LocalSeoTarget[] = [
+  {
+    title: "Nilüfer oto ekspertiz",
+    area: "Nilüfer / Bursa",
+    description:
+      "Nilüfer ve Üçevler çevresinde araç almadan önce kaporta, motor-mekanik, OBD ve paket kapsamını netleştirmek isteyen kullanıcılar için randevu akışı.",
+    highlights: ["Nilüfer şube bilgisi", "Üçevler adres yönlendirmesi", "Aynı gün müsaitlik için telefon/WhatsApp"],
+    href: "/iletisim",
+    cta: "Nilüfer şube bilgilerini gör",
+  },
+  {
+    title: "Bursa oto ekspertiz fiyatları",
+    area: "Bursa geneli",
+    description:
+      "Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paketleri fiyat, süre ve kontrol başlıklarıyla karşılaştırın.",
+    highlights: ["6 paket karşılaştırması", "Fiyat ve süre görünürlüğü", "Full Paket en çok tercih edilen seçenek"],
+    href: "/paketler",
+    cta: "Paket fiyatlarını karşılaştır",
+  },
+  {
+    title: "Kaporta boya ekspertiz Bursa",
+    area: "Kaporta ve boya kontrolü",
+    description:
+      "Boya kalınlığı, değişen parça şüphesi, panel hizalama ve görsel deformasyon gibi kaporta-boya bulgularını paket kapsamına göre inceleyin.",
+    highlights: ["Boya kalınlığı ölçümü", "Parça bazlı bulgu dili", "Kaporta odaklı Mini Paket"],
+    href: "/hizmetler#kaporta-boya",
+    cta: "Kaporta boya kontrolünü incele",
+  },
+  {
+    title: "OBD ve motor mekanik kontrol",
+    area: "Motor, mekanik ve elektronik",
+    description:
+      "Bursa'da ikinci el araç alırken motor-mekanik bulgular, görülebilen kaçak izleri ve OBD arıza kayıtlarını birlikte değerlendirin.",
+    highlights: ["Motor ve mekanik bulgular", "Aktif/geçmiş OBD kodları", "Paket kapsamına göre şanzıman ve airbag"],
+    href: "/randevu",
+    cta: "Kontrol için randevu talebi oluştur",
   },
 ];
 

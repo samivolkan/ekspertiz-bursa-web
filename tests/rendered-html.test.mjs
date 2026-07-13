@@ -56,7 +56,8 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Ekspertiz Bursa/);
   assert.match(html, /\/brand\/ekspertiz-bursa-wordmark\.png/);
   assert.match(html, /\/og-red\.png/);
-  assert.match(html, /Aracı almadan önce/);
+  assert.match(html, /Bursa Nilüfer/);
+  assert.match(html, /gerçeği görün/);
   assert.match(html, /Full Paket/);
   assert.match(html, /En çok tercih edilen paket/);
   assert.match(html, /3\.500 TL/);
@@ -71,8 +72,11 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
-  assert.match(html, /Temsili müşteri yorumları/);
-  assert.match(html, /gerçek Google veya sosyal medya yorumu değildir/i);
+  assert.match(html, /Sahte yorum yok/);
+  assert.match(html, /doğrulanabilir kaynak/i);
+  assert.match(html, /Bursa ve Nilüfer odaklı aramalar/);
+  assert.match(html, /Nilüfer oto ekspertiz/);
+  assert.match(html, /Bursa oto ekspertiz fiyatları/);
   assert.match(html, /data-event="floating_whatsapp_click"/);
   assert.match(html, /wa\.me\/905527415143/);
   assert.match(html, /class="whatsapp-float"[\s\S]*?<svg/i);
@@ -124,14 +128,12 @@ test("renders verified contact channels and business hours", async () => {
   assert.match(html, /Her gün 08:30–18:30/);
 });
 
-test("renders selectable light, amber and red themes on package pages", async () => {
+test("renders fixed professional theme and detailed package pages", async () => {
   const homeResponse = await fetch(`${baseUrl}/`);
   assert.equal(homeResponse.status, 200);
   const homeHtml = await homeResponse.text();
-  assert.match(homeHtml, /data-theme-choice="light"/);
-  assert.match(homeHtml, /data-theme-choice="amber"/);
-  assert.match(homeHtml, /data-theme-choice="red"/);
-  assert.match(homeHtml, /ekspertiz_bursa_theme_v1/);
+  assert.doesNotMatch(homeHtml, /data-theme-choice=/);
+  assert.doesNotMatch(homeHtml, /ekspertiz_bursa_theme_v1/);
   assert.match(homeHtml, /<html[^>]*data-theme="light"/i);
 
   const packagesResponse = await fetch(`${baseUrl}/paketler`);

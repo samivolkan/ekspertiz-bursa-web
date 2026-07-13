@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
-import { faqItems, packages, services, siteConfig } from "@/lib/site";
+import { faqItems, localSeoTargets, packages, services, siteConfig } from "@/lib/site";
 import { assetPath } from "@/lib/assets";
 
 export const metadata: Metadata = {
-  title: { absolute: "Ekspertiz Bursa | Bursa Oto Ekspertiz ve Randevu" },
+  title: { absolute: "Ekspertiz Bursa | Bursa Nilüfer Oto Ekspertiz" },
   description: siteConfig.description,
   alternates: { canonical: "/" },
 };
@@ -86,6 +86,24 @@ const faqSchema = {
   })),
 };
 
+const localSeoSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Bursa ve Nilüfer oto ekspertiz arama hedefleri",
+  itemListElement: localSeoTargets.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: item.title,
+      areaServed: item.area,
+      description: item.description,
+      provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
+      url: `${siteConfig.canonicalUrl}${item.href}`,
+    },
+  })),
+};
+
 const trustProofItems = [
   {
     title: "Doğrulanabilir yorum",
@@ -107,18 +125,19 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localSeoSchema) }} />
 
       <section className="hero-section">
         <div className="hero-glow hero-glow-one" />
         <div className="hero-glow hero-glow-two" />
         <div className="page-shell hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow eyebrow-light">Bursa&apos;da satın alma öncesi araç kontrolü</p>
+            <p className="eyebrow eyebrow-light">Bursa Nilüfer&apos;de satın alma öncesi araç kontrolü</p>
             <h1>
-              Aracı almadan önce <span>gerçeği görün.</span>
+              Bursa&apos;da oto ekspertiz ile <span>gerçeği görün.</span>
             </h1>
             <p className="hero-lead">
-              Paket kapsamını karşılaştırın, kontrol başlıklarını görün ve size uygun tarih için çevrim içi randevu talebi oluşturun.
+              Nilüfer&apos;de paket kapsamını karşılaştırın, kontrol başlıklarını görün ve size uygun tarih için çevrim içi randevu talebi oluşturun.
             </p>
             <div className="button-row">
               <Link className="button button-primary" href="/randevu" data-event="hero_appointment_click">
@@ -167,6 +186,33 @@ export default function Home() {
           <p><strong>Net kapsam</strong><span>Pakette ne olduğunu işlem öncesi görün.</span></p>
           <p><strong>Doğrulanmış bilgi</strong><span>Onaysız belge, fiyat ve yorum yayınlanmaz.</span></p>
           <p><strong>Kolay randevu</strong><span>Talebinizi form veya WhatsApp üzerinden hızlıca iletin.</span></p>
+        </div>
+      </section>
+
+      <section className="section local-seo-section" aria-labelledby="local-seo-heading">
+        <div className="page-shell">
+          <div className="section-heading split-heading">
+            <div>
+              <p className="eyebrow">Bursa ve Nilüfer odaklı aramalar</p>
+              <h2 id="local-seo-heading">Oto ekspertiz ihtiyacınızı konuma ve kapsama göre netleştirin.</h2>
+            </div>
+            <p>
+              Bursa oto ekspertiz, Nilüfer oto ekspertiz, kaporta boya kontrolü ve OBD/motor-mekanik aramalarında kullanıcıyı doğrudan doğru paket, adres ve randevu akışına taşıyan içerik yapısı.
+            </p>
+          </div>
+          <div className="local-seo-grid">
+            {localSeoTargets.map((item) => (
+              <article key={item.title}>
+                <span>{item.area}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <ul>
+                  {item.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+                </ul>
+                <Link className="text-link" href={item.href}>{item.cta} <span>→</span></Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
