@@ -132,7 +132,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Ekspertiz Bursa</span>
-          <span>Canonical alan adı: bursaekspertiz.com</span>
+          <span>Canonical alan adı: www.bursaekspertiz.com</span>
         </div>
       </footer>
       <PackagePriceDrawer />

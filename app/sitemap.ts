@@ -4,7 +4,7 @@ import { serviceLandingPages } from "@/lib/service-pages";
 
 const siteUrl = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
   ? "https://samivolkan.github.io/ekspertiz-bursa-web"
-  : "https://bursaekspertiz.com";
+  : "https://www.bursaekspertiz.com";
 
 export const dynamic = "force-static";
 

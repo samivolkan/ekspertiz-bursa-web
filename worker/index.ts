@@ -19,13 +19,13 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
-const CANONICAL_HOST = "bursaekspertiz.com";
+const CANONICAL_HOST = "www.bursaekspertiz.com";
 const REDIRECT_HOSTS = new Set([
+  "bursaekspertiz.com",
   "ekspertizbursa.com",
   "www.ekspertizbursa.com",
   "ekspertizbursa.com.tr",
   "www.ekspertizbursa.com.tr",
-  "www.bursaekspertiz.com",
 ]);
 
 function withSecurityHeaders(response: Response) {
@@ -58,7 +58,11 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (REDIRECT_HOSTS.has(url.hostname.toLowerCase())) {
+    const hostname = url.hostname.toLowerCase();
+    const shouldRedirect = REDIRECT_HOSTS.has(hostname)
+      || (hostname === CANONICAL_HOST && url.protocol !== "https:");
+
+    if (shouldRedirect) {
       url.protocol = "https:";
       url.hostname = CANONICAL_HOST;
       url.port = "";

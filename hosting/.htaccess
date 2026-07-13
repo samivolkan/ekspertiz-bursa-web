@@ -7,8 +7,8 @@ RewriteCond %{REQUEST_METHOD} ^TRACE [NC]
 RewriteRule .* - [F,L]
 
 RewriteCond %{HTTPS} !=on [OR]
-RewriteCond %{HTTP_HOST} !^bursaekspertiz\.com$ [NC]
-RewriteRule ^ https://bursaekspertiz.com%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} !^www\.bursaekspertiz\.com$ [NC]
+RewriteRule ^ https://www.bursaekspertiz.com%{REQUEST_URI} [R=301,L]
 
 ErrorDocument 404 /404.html
 

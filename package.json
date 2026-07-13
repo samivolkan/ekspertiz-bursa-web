@@ -14,7 +14,7 @@
     "audit:live": "node scripts/audit-live.mjs",
     "seo:audit": "node scripts/seo-audit/index.mjs --source out --label local",
     "seo:audit:local": "node scripts/seo-audit/index.mjs --source out --label local",
-    "seo:audit:production": "node scripts/seo-audit/index.mjs --url https://bursaekspertiz.com --label production",
+    "seo:audit:production": "node scripts/seo-audit/index.mjs --url https://www.bursaekspertiz.com --label production",
     "seo:audit:fix": "node scripts/seo-audit/fix.mjs",
     "seo:audit:fix:dry": "node scripts/seo-audit/fix.mjs --dry-run",
     "seo:audit:report": "node scripts/seo-audit/index.mjs --report-only --label production",

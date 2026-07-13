@@ -15,7 +15,7 @@ if (reportOnly) {
   const report = renderLatest(label);
   console.log(`SEO report refreshed: ${report.totalScore}/100 (${label}).`);
 } else {
-  const origin = argument("--url", "https://bursaekspertiz.com");
+  const origin = argument("--url", "https://www.bursaekspertiz.com");
   const source = argument("--source", null);
   const crawl = source
     ? crawlStatic({ outputDirectory: source, origin })

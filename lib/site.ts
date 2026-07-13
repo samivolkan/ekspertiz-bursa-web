@@ -1,5 +1,5 @@
 export const businessConfig = {
-  SITE_URL: "https://bursaekspertiz.com",
+  SITE_URL: "https://www.bursaekspertiz.com",
   SITE_NAME: "Ekspertiz Bursa",
   BUSINESS_NAME: "Ekspertiz Bursa",
   LEGAL_BUSINESS_NAME: "",

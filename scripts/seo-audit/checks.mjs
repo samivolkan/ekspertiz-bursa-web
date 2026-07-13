@@ -200,7 +200,7 @@ export function runChecks(crawl) {
     if (differences.length) addIssue({ category: "technical", severity: "high", code: "sitemap_mismatch", title: "Sitemap ile indekslenebilir sayfalar eşleşmiyor", deduction: 2, affectedUrls: differences, recommendation: "Yalnızca 200 dönen canonical sayfaları sitemap'e dahil edin.", autoFixable: true });
   }
   if (!crawl.robots || /Disallow:\s*\/\s*(?:\r?\n|$)/i.test(crawl.robots)) addIssue({ category: "technical", severity: "critical", code: "robots_block", title: "Robots dosyası eksik veya tüm siteyi engelliyor", deduction: 4, recommendation: "Production robots.txt içinde ana siteyi taranabilir tutun ve sitemap adresini bildirin.", autoFixable: true });
-  if (!/Sitemap:\s*https:\/\/bursaekspertiz\.com\/sitemap\.xml/i.test(crawl.robots)) addIssue({ category: "technical", severity: "high", code: "robots_sitemap", title: "Robots dosyasında canonical sitemap bildirimi yok", deduction: 1, recommendation: "Robots.txt dosyasına mutlak sitemap URL'sini ekleyin.", autoFixable: true });
+  if (!/Sitemap:\s*https:\/\/www\.bursaekspertiz\.com\/sitemap\.xml/i.test(crawl.robots)) addIssue({ category: "technical", severity: "high", code: "robots_sitemap", title: "Robots dosyasında canonical sitemap bildirimi yok", deduction: 1, recommendation: "Robots.txt dosyasına mutlak sitemap URL'sini ekleyin.", autoFixable: true });
 
   const missingServices = REQUIRED_SERVICE_PATHS.filter((path) => !crawl.routeExists(path));
   if (missingServices.length) {

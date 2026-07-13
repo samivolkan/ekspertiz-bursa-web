@@ -23,8 +23,8 @@ test("SEO category weights total exactly 100", () => {
 test("category scores never become negative", () => {
   const result = runChecks({
     mode: "live",
-    origin: "https://bursaekspertiz.com",
-    pages: [{ route: "/", url: "https://bursaekspertiz.com/", status: 500, html: "", headers: {} }],
+    origin: "https://www.bursaekspertiz.com",
+    pages: [{ route: "/", url: "https://www.bursaekspertiz.com/", status: 500, html: "", headers: {} }],
     robots: "",
     sitemap: "",
     sourceText: "",
@@ -81,7 +81,7 @@ test("PageSpeed quota errors never invent Lighthouse scores", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async () => new Response("quota", { status: 429 });
   try {
-    const result = await measurePageSpeed("https://bursaekspertiz.com/");
+    const result = await measurePageSpeed("https://www.bursaekspertiz.com/");
     assert.equal(result.performance, null);
     assert.equal(result.seo, null);
     assert.match(result.note, /429/);
