@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -34,6 +35,7 @@ export default function ContactPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactBreadcrumbSchema) }} />
       <section className="subpage-hero">
         <div className="page-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "İletişim" }]} />
           <p className="eyebrow eyebrow-light">İletişim ve randevu</p>
           <h1>Nilüfer şubemiz için randevu talebi oluşturun.</h1>
           <p>Telefon, WhatsApp veya form üzerinden ulaşın. Tarih, saat, paket süresi ve fiyat bilgisi işletmenin teyidiyle kesinleşir.</p>
@@ -51,9 +53,9 @@ export default function ContactPage() {
               <div><dt>Çalışma saatleri</dt><dd>{siteConfig.workingHours}</dd></div>
             </dl>
             <div className="contact-actions">
-              <a className="button button-primary button-full" href={siteConfig.phoneHref} data-event="contact_phone_click">Hemen ara</a>
-              <a className="button button-light button-full" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" data-event="contact_whatsapp_click">WhatsApp ile yazın</a>
-              <a className="button button-light button-full" href={siteConfig.mapUrl} target="_blank" rel="noreferrer" data-event="directions_click">Google Haritalar&apos;da yol tarifi</a>
+              <a className="button button-primary button-full" href={siteConfig.phoneHref} data-event="contact_phone_click" data-analytics-event="phone_click" data-cta-location="contact_page">Hemen ara</a>
+              <a className="button button-light button-full" href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" data-event="contact_whatsapp_click" data-analytics-event="whatsapp_click" data-cta-location="contact_page">WhatsApp ile yazın</a>
+              <a className="button button-light button-full" href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer" data-event="directions_click" data-analytics-event="map_click" data-cta-location="contact_page">Google Haritalar&apos;da yol tarifi</a>
             </div>
           </aside>
           <div className="form-card" id="randevu"><AppointmentForm /></div>

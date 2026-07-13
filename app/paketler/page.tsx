@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { absoluteUrl, breadcrumbSchema, createPageMetadata } from "@/lib/seo";
 import { packages, siteConfig } from "@/lib/site";
 
@@ -42,8 +43,9 @@ export default function PackagesPage() {
     <SiteShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesBreadcrumbSchema) }} />
-      <section className="subpage-hero">
+      <section className="subpage-hero" data-page-event="package_view">
         <div className="page-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Paketler" }]} />
           <p className="eyebrow eyebrow-light">Oto ekspertiz paketleri</p>
           <h1>İhtiyacınıza göre net kapsam, açık fiyat.</h1>
           <p>Tek alana odaklanan kontrollerden airbag dahil en geniş pakete kadar tüm seçenekleri karşılaştırın.</p>
@@ -66,7 +68,7 @@ export default function PackagesPage() {
                 <div className="package-best"><strong>Uygun kullanım:</strong> {item.bestFor}</div>
                 <ul>{item.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
                 <div className="package-detail-footer">
-                  <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_detail_${item.slug}_click`}>
+                  <Link className={item.slug === "full" ? "button button-primary button-full" : "button button-dark button-full"} href={`/randevu?paket=${item.slug}`} data-event={`package_detail_${item.slug}_click`} data-analytics-event="package_select" data-package-name={item.name} data-cta-location="packages_page">
                     Bu paketle randevu al
                   </Link>
                 </div>

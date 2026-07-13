@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/SiteShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { blogHeadingId, blogPosts, findBlogPost, getBlogImage } from "@/lib/blog";
 import { canonicalPath } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
@@ -63,10 +64,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: { "@type": "Organization", "@id": `${siteConfig.canonicalUrl}/#business`, name: siteConfig.name },
+    author: { "@type": "Organization", "@id": `${siteConfig.canonicalUrl}/#organization`, name: siteConfig.name },
     publisher: {
       "@type": "Organization",
-      "@id": `${siteConfig.canonicalUrl}/#business`,
+      "@id": `${siteConfig.canonicalUrl}/#organization`,
       name: siteConfig.name,
       logo: { "@type": "ImageObject", url: `${siteConfig.canonicalUrl}/brand/ekspertiz-bursa-mark.png` },
     },
@@ -93,6 +94,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <section className="subpage-hero blog-detail-hero">
         <div className="page-shell narrow-shell">
+          <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]} />
           <Link className="blog-back-link" href="/blog">← Tüm saha notları</Link>
           <p className="eyebrow eyebrow-light">{post.category}</p>
           <h1>{post.title}</h1>

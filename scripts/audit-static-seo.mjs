@@ -3,7 +3,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { extname, join, relative, sep } from "node:path";
 
 const outputDirectory = "out";
-const origin = "https://bursaekspertiz.com";
+const origin = "https://www.bursaekspertiz.com";
 
 function collectFiles(directory) {
   return readdirSync(directory).flatMap((name) => {
@@ -65,7 +65,7 @@ for (const path of pageFiles) {
   assert.match(head, /<meta property="og:title" content="[^"]+"\/>/i, `${route}: missing og:title.`);
   assert.match(head, /<meta property="og:description" content="[^"]+"\/>/i, `${route}: missing og:description.`);
   assert.match(head, new RegExp(`<meta property="og:url" content="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"\\/>`, "i"), `${route}: og:url must match canonical.`);
-  assert.match(head, /<meta property="og:image" content="https:\/\/bursaekspertiz\.com\/[^"]+"\/>/i, `${route}: missing absolute OG image.`);
+  assert.match(head, /<meta property="og:image" content="https:\/\/www\.bursaekspertiz\.com\/[^"]+"\/>/i, `${route}: missing absolute OG image.`);
   assert.match(head, /<meta name="twitter:card" content="summary_large_image"\/>/i, `${route}: missing Twitter card.`);
   assert.doesNotMatch(head, /(?:src|href)="http:\/\//i, `${route}: mixed-content reference found.`);
 
@@ -102,8 +102,8 @@ assert.deepEqual(new Set(sitemapUrls).size, sitemapUrls.length, "Sitemap contain
 assert.deepEqual([...sitemapUrls].sort(), [...indexablePages].sort(), "Sitemap and indexable canonical URLs differ.");
 
 const robots = readFileSync(join(outputDirectory, "robots.txt"), "utf8");
-assert.match(robots, /Sitemap: https:\/\/bursaekspertiz\.com\/sitemap\.xml/i);
-assert.match(robots, /Host: https:\/\/bursaekspertiz\.com/i);
+assert.match(robots, /Sitemap: https:\/\/www\.bursaekspertiz\.com\/sitemap\.xml/i);
+assert.match(robots, /Host: https:\/\/www\.bursaekspertiz\.com/i);
 
 for (const path of [join(outputDirectory, "404.html"), join(outputDirectory, "404", "index.html")]) {
   const head = headOf(readFileSync(path, "utf8"));

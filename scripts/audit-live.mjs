@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-const origin = "https://bursaekspertiz.com";
+const origin = "https://www.bursaekspertiz.com";
 
 function headOf(html) {
   return html.slice(0, html.indexOf("</head>") + 7);
@@ -13,7 +13,8 @@ async function fetchText(url, options = {}) {
 
 for (const [url, location] of [
   ["http://bursaekspertiz.com/", `${origin}/`],
-  ["https://www.bursaekspertiz.com/", `${origin}/`],
+  ["https://bursaekspertiz.com/", `${origin}/`],
+  ["http://www.bursaekspertiz.com/", `${origin}/`],
 ]) {
   const response = await fetch(url, { redirect: "manual", cache: "no-store" });
   assert.equal(response.status, 301, `${url} must use a permanent redirect.`);
@@ -42,7 +43,7 @@ for (const url of urls) {
   assert.equal(titles.has(title), false, `${url}: duplicate title.`);
   assert.equal(descriptions.has(description), false, `${url}: duplicate description.`);
   assert.equal((html.match(/<h1(?:\s|>)/gi) ?? []).length, 1, `${url}: H1 count differs.`);
-  assert.match(head, /<meta property="og:url" content="https:\/\/bursaekspertiz\.com\/[^"]*"\/>/i, `${url}: missing og:url.`);
+  assert.match(head, /<meta property="og:url" content="https:\/\/www\.bursaekspertiz\.com\/[^"]*"\/>/i, `${url}: missing og:url.`);
   assert.match(head, /<meta name="twitter:card" content="summary_large_image"\/>/i, `${url}: missing Twitter card.`);
   titles.add(title);
   descriptions.add(description);

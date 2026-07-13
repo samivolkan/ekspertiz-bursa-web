@@ -5,6 +5,8 @@ import { AppointmentForm } from "@/components/AppointmentForm";
 import { SiteShell } from "@/components/SiteShell";
 import { faqItems, localSeoTargets, packages, services, siteConfig } from "@/lib/site";
 import { assetPath } from "@/lib/assets";
+import { localBusinessSchema, organizationSchema } from "@/lib/structured-data";
+import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "Ekspertiz Bursa | Bursa Nilüfer Oto Ekspertiz" },
@@ -12,58 +14,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "AutoRepair",
-  "@id": `${siteConfig.canonicalUrl}/#business`,
-  name: siteConfig.name,
-  url: siteConfig.canonicalUrl,
-  logo: `${siteConfig.canonicalUrl}/brand/ekspertiz-bursa-mark.png`,
-  image: `${siteConfig.canonicalUrl}/og-red.png`,
-  description: siteConfig.description,
-  telephone: siteConfig.phoneHref.replace("tel:", ""),
-  email: siteConfig.email,
-  priceRange: "₺₺₺",
-  currenciesAccepted: "TRY",
-  openingHours: siteConfig.openingHours,
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    opens: "08:30",
-    closes: "18:30",
-  },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2",
-    addressLocality: "Nilüfer",
-    addressRegion: "Bursa",
-    addressCountry: "TR",
-  },
-  areaServed: [
-    { "@type": "City", name: siteConfig.city },
-    { "@type": "AdministrativeArea", name: siteConfig.district },
-  ],
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Oto ekspertiz paketleri",
-    itemListElement: packages.map((item) => ({
-      "@type": "Offer",
-      ...(item.price
-        ? {
-            price: item.price.replace(/\D/g, ""),
-            priceCurrency: "TRY",
-          }
-        : {}),
-      itemOffered: {
-        "@type": "Service",
-        name: item.name,
-        description: item.description,
-        provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
-        areaServed: siteConfig.city,
-      },
-    })),
-  },
-};
+const homeLocalBusinessSchema = localBusinessSchema();
+const homeOrganizationSchema = organizationSchema();
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -73,7 +25,7 @@ const websiteSchema = {
   name: siteConfig.name,
   description: siteConfig.description,
   inLanguage: "tr-TR",
-  publisher: { "@id": `${siteConfig.canonicalUrl}/#business` },
+  publisher: { "@id": `${siteConfig.canonicalUrl}/#organization` },
 };
 
 const faqSchema = {
@@ -99,7 +51,7 @@ const localSeoSchema = {
       areaServed: item.area,
       description: item.description,
       provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
-      url: `${siteConfig.canonicalUrl}${item.href}`,
+      url: absoluteUrl(item.href),
     },
   })),
 };
@@ -122,7 +74,8 @@ const trustProofItems = [
 export default function Home() {
   return (
     <SiteShell>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeLocalBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeOrganizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localSeoSchema) }} />

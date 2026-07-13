@@ -1,28 +1,66 @@
+export const businessConfig = {
+  SITE_URL: "https://www.bursaekspertiz.com",
+  SITE_NAME: "Ekspertiz Bursa",
+  BUSINESS_NAME: "Ekspertiz Bursa",
+  LEGAL_BUSINESS_NAME: "",
+  PHONE: "+905527415143",
+  WHATSAPP_PHONE: "+905527415143",
+  EMAIL: "info@ekspertizbursa.com",
+  STREET_ADDRESS: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2",
+  DISTRICT: "Nilüfer",
+  CITY: "Bursa",
+  POSTAL_CODE: "",
+  COUNTRY: "TR",
+  LATITUDE: "",
+  LONGITUDE: "",
+  GOOGLE_MAPS_URL:
+    "https://www.google.com/maps/search/?api=1&query=%C3%9C%C3%A7evler%20Mahallesi%20K%C3%BC%C3%A7%C3%BCk%20Sanayi%20Sitesi%2018.%20Blok%20No%2021%2F2%20Nil%C3%BCfer%20Bursa",
+  GOOGLE_BUSINESS_PROFILE_URL: "",
+  INSTAGRAM_URL: "",
+  FACEBOOK_URL: "",
+  YOUTUBE_URL: "",
+  OPENING_HOURS: "Mo-Su 08:30-18:30",
+  PRICE_RANGE: "",
+  LOGO_URL: "/brand/ekspertiz-bursa-mark.png",
+  DEFAULT_OG_IMAGE: "/og-red.png",
+  GA4_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? "",
+  GTM_CONTAINER_ID: process.env.NEXT_PUBLIC_GTM_ID?.trim() ?? "",
+  PACKAGE_PRICE_UPDATED_AT: "2026-07-13",
+  PACKAGE_TAX_STATUS: "unverified",
+} as const;
+
 export const siteConfig = {
-  name: "Ekspertiz Bursa",
+  name: businessConfig.SITE_NAME,
   shortName: "EB",
   tagline: "Aracınızı almadan önce, gerçeği görün.",
   description:
     "Bursa Nilüfer'de ikinci el araç alımından önce paket kapsamını karşılaştırabileceğiniz ve çevrim içi randevu talebi oluşturabileceğiniz oto ekspertiz hizmeti.",
-  canonicalUrl: "https://bursaekspertiz.com",
-  city: "Bursa",
-  district: "Nilüfer",
+  canonicalUrl: businessConfig.SITE_URL,
+  city: businessConfig.CITY,
+  district: businessConfig.DISTRICT,
   phoneDisplay: "0552 741 51 43",
-  phoneHref: "tel:+905527415143",
-  whatsappHref:
-    "https://wa.me/905527415143?text=Merhaba%2C%20Ekspertiz%20Bursa%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.",
-  email: "info@ekspertizbursa.com",
-  address: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2, Nilüfer/Bursa",
-  mapUrl:
-    "https://www.google.com/maps/search/?api=1&query=%C3%9C%C3%A7evler%20Mahallesi%20K%C3%BC%C3%A7%C3%BCk%20Sanayi%20Sitesi%2018.%20Blok%20No%2021%2F2%20Nil%C3%BCfer%20Bursa",
-  legalName: "Ekspertiz Bursa",
+  phoneHref: `tel:${businessConfig.PHONE}`,
+  whatsappHref: `https://wa.me/${businessConfig.WHATSAPP_PHONE.replace(/\D/g, "")}?text=${encodeURIComponent("Merhaba, Ekspertiz Bursa hakkında bilgi almak istiyorum.")}`,
+  email: businessConfig.EMAIL,
+  address: `${businessConfig.STREET_ADDRESS}, ${businessConfig.DISTRICT}/${businessConfig.CITY}`,
+  mapUrl: businessConfig.GOOGLE_MAPS_URL,
+  legalName: businessConfig.LEGAL_BUSINESS_NAME,
   legalEntityNote:
     "Resmî ticari unvan ve vergi bilgisi işletme tarafından doğrulandığında bu sayfada ayrıca gösterilecektir.",
   privacyEmail: "info@ekspertizbursa.com",
   priceTaxNote:
     "Fiyatlar bilgilendirme amaçlıdır; KDV, ödeme yöntemi ve nihai kapsam randevu teyidinde işletme tarafından netleştirilir.",
-  workingHours: "Her gün 08:30–18:30",
-  openingHours: "Mo-Su 08:30-18:30",
+  workingHours: `Her gün ${businessConfig.OPENING_HOURS.replace(/^Mo-Su\s+/, "").replace("-", "–")}`,
+  openingHours: businessConfig.OPENING_HOURS,
+  missingVerifiedFields: [
+    !businessConfig.LEGAL_BUSINESS_NAME ? "Resmî ticari unvan" : "",
+    !businessConfig.POSTAL_CODE ? "Posta kodu" : "",
+    !businessConfig.LATITUDE || !businessConfig.LONGITUDE ? "Koordinatlar" : "",
+    !businessConfig.GOOGLE_BUSINESS_PROFILE_URL ? "Google Business Profile bağlantısı" : "",
+    !businessConfig.INSTAGRAM_URL && !businessConfig.FACEBOOK_URL && !businessConfig.YOUTUBE_URL ? "Sosyal medya hesapları" : "",
+    !businessConfig.GA4_MEASUREMENT_ID && !businessConfig.GTM_CONTAINER_ID ? "GA4 veya GTM kimliği" : "",
+    businessConfig.PACKAGE_TAX_STATUS === "unverified" ? "Paket fiyatlarının KDV durumu" : "",
+  ].filter(Boolean),
 } as const;
 
 export type PackageItem = {
@@ -307,8 +345,8 @@ export const localSeoTargets: LocalSeoTarget[] = [
     description:
       "Nilüfer ve Üçevler çevresinde araç almadan önce kaporta, motor-mekanik, OBD ve paket kapsamını netleştirmek isteyen kullanıcılar için randevu akışı.",
     highlights: ["Nilüfer şube bilgisi", "Üçevler adres yönlendirmesi", "Aynı gün müsaitlik için telefon/WhatsApp"],
-    href: "/iletisim",
-    cta: "Nilüfer şube bilgilerini gör",
+    href: "/nilufer-oto-ekspertiz",
+    cta: "Nilüfer oto ekspertiz sayfasını gör",
   },
   {
     title: "Bursa oto ekspertiz fiyatları",
@@ -316,8 +354,8 @@ export const localSeoTargets: LocalSeoTarget[] = [
     description:
       "Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paketleri fiyat, süre ve kontrol başlıklarıyla karşılaştırın.",
     highlights: ["6 paket karşılaştırması", "Fiyat ve süre görünürlüğü", "Full Paket en çok tercih edilen seçenek"],
-    href: "/paketler",
-    cta: "Paket fiyatlarını karşılaştır",
+    href: "/bursa-oto-ekspertiz",
+    cta: "Bursa oto ekspertiz seçeneklerini gör",
   },
   {
     title: "Kaporta boya ekspertiz Bursa",
@@ -325,7 +363,7 @@ export const localSeoTargets: LocalSeoTarget[] = [
     description:
       "Boya kalınlığı, değişen parça şüphesi, panel hizalama ve görsel deformasyon gibi kaporta-boya bulgularını paket kapsamına göre inceleyin.",
     highlights: ["Boya kalınlığı ölçümü", "Parça bazlı bulgu dili", "Kaporta odaklı Mini Paket"],
-    href: "/hizmetler#kaporta-boya",
+    href: "/kaporta-boya-ekspertiz",
     cta: "Kaporta boya kontrolünü incele",
   },
   {
@@ -334,8 +372,8 @@ export const localSeoTargets: LocalSeoTarget[] = [
     description:
       "Bursa'da ikinci el araç alırken motor-mekanik bulgular, görülebilen kaçak izleri ve OBD arıza kayıtlarını birlikte değerlendirin.",
     highlights: ["Motor ve mekanik bulgular", "Aktif/geçmiş OBD kodları", "Paket kapsamına göre şanzıman ve airbag"],
-    href: "/randevu",
-    cta: "Kontrol için randevu talebi oluştur",
+    href: "/motor-mekanik-ekspertiz",
+    cta: "Motor ve mekanik kontrolü incele",
   },
 ];
 
