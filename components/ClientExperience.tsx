@@ -13,6 +13,40 @@ function pushConsent(value: "granted" | "denied") {
   else window.dataLayer.push(["consent", "update", consent]);
 }
 
+function loadAnalyticsAfterConsent(attempt = 0) {
+  if (window.__EB_ANALYTICS_LOADED) return;
+  const gtmId = window.__EB_GTM_ID?.trim() ?? "";
+  const ga4Id = window.__EB_GA4_ID?.trim() ?? "";
+
+  if (/^GTM-[A-Z0-9]+$/.test(gtmId)) {
+    window.__EB_ANALYTICS_LOADED = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`;
+    document.head.appendChild(script);
+    return;
+  }
+
+  if (/^G-[A-Z0-9]+$/.test(ga4Id)) {
+    window.__EB_ANALYTICS_LOADED = true;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`;
+    script.addEventListener("load", () => {
+      window.gtag?.("js", new Date());
+      window.gtag?.("config", ga4Id, { send_page_view: true, allow_google_signals: false });
+    }, { once: true });
+    document.head.appendChild(script);
+    return;
+  }
+
+  if (attempt < 10) {
+    window.setTimeout(() => loadAnalyticsAfterConsent(attempt + 1), 150);
+  }
+}
+
 function eventNameFor(target: HTMLElement): AnalyticsEventName | null {
   const explicit = target.dataset.analyticsEvent;
   if (explicit && analyticsEventNames.includes(explicit as AnalyticsEventName)) return explicit as AnalyticsEventName;
@@ -45,7 +79,9 @@ export function ClientExperience() {
         },
       ]);
     } else {
-      pushConsent(saved === "accepted" ? "granted" : "denied");
+      const accepted = saved === "accepted";
+      pushConsent(accepted ? "granted" : "denied");
+      if (accepted) loadAnalyticsAfterConsent();
     }
 
     const pageEventTarget = document.querySelector<HTMLElement>("[data-page-event]");
@@ -83,6 +119,7 @@ export function ClientExperience() {
   function choose(value: "accepted" | "rejected") {
     window.localStorage.setItem(CONSENT_KEY, value);
     pushConsent(value === "accepted" ? "granted" : "denied");
+    if (value === "accepted") loadAnalyticsAfterConsent();
     setVisible(false);
   }
 

@@ -113,15 +113,23 @@ export default function Home() {
               <span className="live-pill">Bursa</span>
             </div>
             <div className="hero-photo">
-              <Image
-                src={assetPath("/images/hero-inspection.webp")}
-                alt="Lift üzerindeki araçta ekspertiz kontrolü yapan teknisyen"
-                width={1536}
-                height={1024}
-                priority
-                unoptimized
-                sizes="(max-width: 820px) 100vw, 46vw"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={`${assetPath("/images/hero-inspection-768.webp")} 768w, ${assetPath("/images/hero-inspection-1152.webp")} 1152w, ${assetPath("/images/hero-inspection.webp")} 1536w`}
+                  sizes="(max-width: 820px) calc(100vw - 30px), 46vw"
+                />
+                <img
+                  src={assetPath("/images/hero-inspection-768.webp")}
+                  srcSet={`${assetPath("/images/hero-inspection-768.webp")} 768w, ${assetPath("/images/hero-inspection-1152.webp")} 1152w, ${assetPath("/images/hero-inspection.webp")} 1536w`}
+                  sizes="(max-width: 820px) calc(100vw - 30px), 46vw"
+                  alt="Lift üzerindeki araçta ekspertiz kontrolü yapan teknisyen"
+                  width={1536}
+                  height={1024}
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
               <span>Doğal servis ortamı</span>
             </div>
             <div className="inspection-list">

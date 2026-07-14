@@ -92,7 +92,7 @@ export default async function ServiceLandingPageRoute({ params }: { params: Prom
 
       <section className="section section-white">
         <div className="page-shell">
-          <div className="section-heading split-heading"><div><p className="eyebrow">İlgili paketler</p><h2>Kontrol derinliğini paket kapsamıyla eşleştirin.</h2></div><p>Süre ve fiyat bilgileri yayınlanan paket verisinden gelir; nihai kapsam ve KDV durumu randevu teyidinde netleşir.</p></div>
+          <div className="section-heading split-heading"><div><p className="eyebrow">İlgili paketler</p><h2>Kontrol derinliğini paket kapsamıyla eşleştirin.</h2></div><p>Süre ve fiyat bilgileri yayınlanan paket verisinden gelir; paket fiyatlarına KDV dahildir. Nihai kapsam ve ödeme yöntemi randevu teyidinde netleşir.</p></div>
           <div className="service-package-grid">{relatedPackages.map((item) => <article key={item.slug}><span>{item.badge}</span><h3>{item.name}</h3><p>{item.description}</p><div><strong>{item.duration}</strong><strong>{item.price ?? "Bilgi için arayın"}</strong></div><Link href={`/randevu?paket=${item.slug}&hizmet=${page.slug}`} data-event={`service_${page.slug}_package_${item.slug}_click`} data-analytics-event="package_select" data-package-name={item.name} data-service-name={page.seoTitle} data-cta-location="service_packages">Bu paketle talep oluştur</Link></article>)}</div>
         </div>
       </section>

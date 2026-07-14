@@ -17,7 +17,7 @@ export default function KvkkPage() {
         <article className="legal-article">
           <p className="eyebrow">Kişisel verilerin korunması</p>
           <h1>KVKK Aydınlatma Metni</h1>
-          <div className="draft-alert"><strong>Bilgilendirme:</strong> Bu metin randevu talebi sürecinde hangi bilgilerin neden istendiğini açıklar. Resmî ticari unvan, vergi bilgisi ve saklama süreleri işletmenin kesin verileriyle doğrulandığında sayfaya ayrıca işlenmelidir.</div>
+          <div className="draft-alert"><strong>Bilgilendirme:</strong> Bu metin randevu talebi sürecinde hangi bilgilerin neden istendiğini açıklar. Saklama süreleri ve varsa ek yasal bildirimler işletmenin kesin verileriyle doğrulandığında sayfaya ayrıca işlenebilir.</div>
 
           <section>
             <h2>1. Veri sorumlusu</h2>

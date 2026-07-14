@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
@@ -9,15 +8,21 @@ import { assetPath } from "@/lib/assets";
 export function Brand() {
   return (
     <span className="brand-lockup">
-      <Image
-        className="brand-wordmark"
-        src={assetPath("/brand/ekspertiz-bursa-wordmark.png")}
-        alt="Ekspertiz Bursa"
-        width={1600}
-        height={274}
-        unoptimized
-        sizes="(max-width: 620px) 150px, 205px"
-      />
+      <picture>
+        <source
+          type="image/webp"
+          srcSet={`${assetPath("/brand/ekspertiz-bursa-wordmark-260.webp")} 260w, ${assetPath("/brand/ekspertiz-bursa-wordmark-410.webp")} 410w`}
+          sizes="(max-width: 620px) 150px, 205px"
+        />
+        <img
+          className="brand-wordmark"
+          src={assetPath("/brand/ekspertiz-bursa-wordmark.png")}
+          alt="Ekspertiz Bursa"
+          width={1600}
+          height={274}
+          decoding="async"
+        />
+      </picture>
     </span>
   );
 }

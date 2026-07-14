@@ -30,6 +30,9 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    __EB_GTM_ID?: string;
+    __EB_GA4_ID?: string;
+    __EB_ANALYTICS_LOADED?: boolean;
   }
 }
 

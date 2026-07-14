@@ -68,7 +68,10 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /0552 741 51 43/);
   assert.match(html, /Mo-Su 08:30-18:30/);
   assert.match(html, /"telephone":"\+905527415143"/);
-  assert.match(html, /"email":"info@ekspertizbursa\.com"/);
+  assert.match(html, /"email":"info@bursaekspertiz\.com"/);
+  assert.match(html, /"legalName":"Nezire Aslan Şahıs Şirketi"/);
+  assert.match(html, /"postalCode":"16270"/);
+  assert.match(html, /3\.500 TL - 12\.500 TL \(KDV dahil\)/);
   assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
@@ -80,8 +83,8 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /Nilüfer oto ekspertiz/);
   assert.match(html, /Bursa oto ekspertiz fiyatları/);
   assert.match(html, /data-event="floating_whatsapp_click"/);
-  assert.match(html, /googletagmanager\.com\/gtag\/js\?id=G-K6LBGJQ8T1/);
-  assert.match(html, /gtag\('config','G-K6LBGJQ8T1'/);
+  assert.match(html, /__EB_GA4_ID='G-K6LBGJQ8T1'/);
+  assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js\?id=G-K6LBGJQ8T1/);
   assert.match(html, /wa\.me\/905527415143/);
   assert.match(html, /class="whatsapp-float"[\s\S]*?<svg/i);
   assert.match(html, /class="price-drawer"/);
@@ -94,15 +97,21 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
 test("serves the approved red brand assets and favicons", async () => {
   for (const path of [
     "/brand/ekspertiz-bursa-wordmark.png",
+    "/brand/ekspertiz-bursa-wordmark-410.webp",
+    "/brand/ekspertiz-bursa-wordmark-260.webp",
     "/brand/ekspertiz-bursa-mark.png",
+    "/images/hero-inspection-1152.webp",
+    "/images/hero-inspection-768.webp",
     "/icon.png",
     "/apple-icon.png",
     "/og-red.png",
   ]) {
     const response = await fetch(`${baseUrl}${path}`);
     assert.equal(response.status, 200, path);
-    assert.match(response.headers.get("content-type") ?? "", /^image\/png\b/i, path);
-    assert.ok((await response.arrayBuffer()).byteLength > 5_000, path);
+    const expectedType = path.endsWith(".webp") ? /^image\/webp\b/i : /^image\/png\b/i;
+    const minimumBytes = path.endsWith("-260.webp") ? 3_000 : 5_000;
+    assert.match(response.headers.get("content-type") ?? "", expectedType, path);
+    assert.ok((await response.arrayBuffer()).byteLength > minimumBytes, path);
   }
 });
 
@@ -166,7 +175,8 @@ test("renders verified contact channels and business hours", async () => {
   const html = await response.text();
   assert.match(html, /href="tel:\+905527415143"/);
   assert.match(html, /wa\.me\/905527415143/);
-  assert.match(html, /info@ekspertizbursa\.com/);
+  assert.match(html, /info@bursaekspertiz\.com/);
+  assert.match(html, /Nezire Aslan Şahıs Şirketi/);
   assert.match(html, /Her gün 08:30–18:30/);
 });
 

@@ -6,14 +6,14 @@ export const businessConfig = {
   SITE_URL: "https://www.bursaekspertiz.com",
   SITE_NAME: "Ekspertiz Bursa",
   BUSINESS_NAME: "Ekspertiz Bursa",
-  LEGAL_BUSINESS_NAME: "",
+  LEGAL_BUSINESS_NAME: "Nezire Aslan Şahıs Şirketi",
   PHONE: "+905527415143",
   WHATSAPP_PHONE: "+905527415143",
-  EMAIL: "info@ekspertizbursa.com",
+  EMAIL: "info@bursaekspertiz.com",
   STREET_ADDRESS: "Üçevler Mahallesi, Küçük Sanayi Sitesi 18. Blok No: 21/2",
   DISTRICT: "Nilüfer",
   CITY: "Bursa",
-  POSTAL_CODE: "",
+  POSTAL_CODE: "16270",
   COUNTRY: "TR",
   LATITUDE: "",
   LONGITUDE: "",
@@ -24,13 +24,13 @@ export const businessConfig = {
   FACEBOOK_URL: "",
   YOUTUBE_URL: "",
   OPENING_HOURS: "Mo-Su 08:30-18:30",
-  PRICE_RANGE: "",
+  PRICE_RANGE: "3.500 TL - 12.500 TL (KDV dahil)",
   LOGO_URL: "/brand/ekspertiz-bursa-mark.png",
   DEFAULT_OG_IMAGE: "/og-red.png",
   GA4_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim() || defaultGa4MeasurementId,
   GTM_CONTAINER_ID: process.env.NEXT_PUBLIC_GTM_ID?.trim() ?? "",
-  PACKAGE_PRICE_UPDATED_AT: "2026-07-13",
-  PACKAGE_TAX_STATUS: "unverified",
+  PACKAGE_PRICE_UPDATED_AT: "2026-07-14",
+  PACKAGE_TAX_STATUS: "included" as "included" | "unverified",
 } as const;
 
 export const siteConfig = {
@@ -50,10 +50,10 @@ export const siteConfig = {
   mapUrl: businessConfig.GOOGLE_MAPS_URL,
   legalName: businessConfig.LEGAL_BUSINESS_NAME,
   legalEntityNote:
-    "Resmî ticari unvan ve vergi bilgisi işletme tarafından doğrulandığında bu sayfada ayrıca gösterilecektir.",
-  privacyEmail: "info@ekspertizbursa.com",
+    `${businessConfig.LEGAL_BUSINESS_NAME} adına yayınlanır. Paket fiyatlarına KDV dahildir; randevu teyidinde nihai kapsam ve ödeme yöntemi netleştirilir.`,
+  privacyEmail: businessConfig.EMAIL,
   priceTaxNote:
-    "Fiyatlar bilgilendirme amaçlıdır; KDV, ödeme yöntemi ve nihai kapsam randevu teyidinde işletme tarafından netleştirilir.",
+    "Yayınlanan paket fiyatlarına KDV dahildir; nihai kapsam ve ödeme yöntemi randevu teyidinde işletme tarafından netleştirilir.",
   workingHours: `Her gün ${businessConfig.OPENING_HOURS.replace(/^Mo-Su\s+/, "").replace("-", "–")}`,
   openingHours: businessConfig.OPENING_HOURS,
   missingVerifiedFields: [
@@ -405,7 +405,7 @@ export const faqItems = [
   {
     question: "Paket fiyatlarına KDV dahil mi?",
     answer:
-      "Sitedeki Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatları bilgilendirme amaçlıdır. KDV, ödeme yöntemi ve nihai kapsam randevu teyidinde işletme tarafından netleştirilir.",
+      "Evet. Sitedeki Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatlarına KDV dahildir. Nihai kapsam ve ödeme yöntemi randevu teyidinde işletme tarafından netleştirilir.",
   },
 ];
 
