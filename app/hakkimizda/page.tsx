@@ -44,7 +44,7 @@ export default function AboutPage() {
           <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Hakkımızda" }]} />
           <p className="eyebrow eyebrow-light">Ekspertiz Bursa</p>
           <h1>Araç kararında daha açık ve kontrollü bir deneyim.</h1>
-          <p>Nilüfer&apos;de konumlanan Ekspertiz Bursa, ikinci el araç kontrolünü paket seçimi, randevu ve bulgu aktarımıyla tek bir anlaşılır akışta toplamayı hedefler.</p>
+          <p>Nilüfer&apos;de konumlanan Ekspertiz Bursa, {siteConfig.legalName} tarafından işletilen yerel oto ekspertiz markasıdır. Paket seçimi, randevu ve bulgu aktarımı tek bir anlaşılır akışta sunulur.</p>
         </div>
       </section>
       <section className="section section-paper">
@@ -54,6 +54,26 @@ export default function AboutPage() {
               <span>{String(index + 1).padStart(2, "0")}</span><h2>{item.title}</h2><p>{item.text}</p>
             </article>
           ))}
+        </div>
+      </section>
+      <section className="section section-white">
+        <div className="page-shell content-grid">
+          <article className="content-card">
+            <span>01</span>
+            <h2>Marka ve işletme bilgisi</h2>
+            <p><strong>Marka:</strong> {siteConfig.businessName}</p>
+            <p><strong>İşletme sahibi:</strong> {siteConfig.legalName}</p>
+          </article>
+          <article className="content-card">
+            <span>02</span>
+            <h2>İletişim tutarlılığı</h2>
+            <p>{siteConfig.businessIdentityNote}</p>
+          </article>
+          <article className="content-card">
+            <span>03</span>
+            <h2>Randevu ve fiyat notu</h2>
+            <p>{siteConfig.legalEntityNote}</p>
+          </article>
         </div>
       </section>
       <section className="final-cta">

@@ -21,9 +21,11 @@ export default function KvkkPage() {
 
           <section>
             <h2>1. Veri sorumlusu</h2>
-            <p><strong>Veri sorumlusu / marka:</strong> {siteConfig.legalName}</p>
+            <p><strong>Marka:</strong> {siteConfig.businessName}</p>
+            <p><strong>Veri sorumlusu / işletme sahibi:</strong> {siteConfig.legalName}</p>
             <p><strong>Adres:</strong> {siteConfig.address}</p>
             <p><strong>KVKK iletişim kanalı:</strong> {siteConfig.privacyEmail}</p>
+            <p>{siteConfig.businessIdentityNote}</p>
             <p>{siteConfig.legalEntityNote}</p>
           </section>
 

@@ -46,7 +46,7 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     relatedBlogSlugs: ["temiz-motor-her-zaman-iyi-haber-degil", "parlak-kaput-hizalama-farki"],
     faq: [
       { question: "Nilüfer şubesi hangi saatlerde açık?", answer: "Yayınlanan çalışma saati Pazartesi-Cuma 10:00–14:00'tür. Resmî tatil veya özel durumlar için gelmeden önce telefonla teyit önerilir." },
-      { question: "Yol tarifini nereden açabilirim?", answer: "İletişim alanındaki Google Haritalar yol tarifi bağlantısı EkspertizBursa harita profiliyle açılır." },
+      { question: "Yol tarifini nereden açabilirim?", answer: "İletişim alanındaki Google Haritalar yol tarifi bağlantısı, bu sitedeki adres ve telefon bilgileriyle aynı işletmeye ait olan Ekspertiz Bursa işletme profiline açılır." },
     ],
   },
   {

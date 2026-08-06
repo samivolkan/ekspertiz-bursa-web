@@ -42,6 +42,7 @@ function formatOpeningHours(value: string) {
 
 export const siteConfig = {
   name: businessConfig.SITE_NAME,
+  businessName: businessConfig.BUSINESS_NAME,
   shortName: "EB",
   tagline: "Aracınızı almadan önce, gerçeği görün.",
   description:
@@ -56,8 +57,10 @@ export const siteConfig = {
   address: `${businessConfig.STREET_ADDRESS}, ${businessConfig.DISTRICT}/${businessConfig.CITY}`,
   mapUrl: businessConfig.GOOGLE_MAPS_URL,
   legalName: businessConfig.LEGAL_BUSINESS_NAME,
+  businessIdentityNote:
+    `${businessConfig.BUSINESS_NAME} markasıyla yayınlanan bu web sitesi, ${businessConfig.LEGAL_BUSINESS_NAME} tarafından işletilir. Sitedeki telefon, adres, WhatsApp ve Google Haritalar bağlantıları aynı işletmeye aittir.`,
   legalEntityNote:
-    `${businessConfig.LEGAL_BUSINESS_NAME} adına yayınlanır. Paket fiyatlarına KDV dahildir; randevu teyidinde nihai kapsam ve ödeme yöntemi netleştirilir.`,
+    `${businessConfig.BUSINESS_NAME} markasıyla hizmet veren işletme sahibi ${businessConfig.LEGAL_BUSINESS_NAME}'dur. Paket fiyatlarına KDV dahildir; nihai kapsam ve ödeme yöntemi randevu teyidinde netleştirilir.`,
   privacyEmail: businessConfig.EMAIL,
   priceTaxNote:
     "Yayınlanan paket fiyatlarına KDV dahildir; nihai kapsam ve ödeme yöntemi randevu teyidinde işletme tarafından netleştirilir.",

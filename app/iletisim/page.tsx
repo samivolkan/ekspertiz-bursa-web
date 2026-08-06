@@ -46,11 +46,15 @@ export default function ContactPage() {
           <aside className="info-panel">
             <h2>Şube bilgileri</h2>
             <p>{siteConfig.workingHours} arasında telefon, WhatsApp ve e-posta üzerinden bize ulaşabilirsiniz. Gelmeden önce randevu teyidi almanız önerilir.</p>
+            <p>{siteConfig.businessIdentityNote}</p>
             <dl>
+              <div><dt>Marka</dt><dd>{siteConfig.businessName}</dd></div>
+              <div><dt>İşletme sahibi</dt><dd>{siteConfig.legalName}</dd></div>
               <div><dt>Adres</dt><dd>{siteConfig.address}</dd></div>
               <div><dt>Telefon</dt><dd><a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a></dd></div>
               <div><dt>E-posta</dt><dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd></div>
               <div><dt>Çalışma saatleri</dt><dd>{siteConfig.workingHours}</dd></div>
+              <div><dt>Harita bağlantısı</dt><dd><a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer">Google Haritalar işletme profili</a></dd></div>
             </dl>
             <div className="contact-actions">
               <a className="button button-primary button-full" href={siteConfig.phoneHref} data-event="contact_phone_click" data-analytics-event="phone_click" data-cta-location="contact_page">Hemen ara</a>

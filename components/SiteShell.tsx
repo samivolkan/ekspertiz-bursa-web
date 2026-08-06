@@ -127,6 +127,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <h2>Yasal</h2>
             <Link href="/kvkk">KVKK aydınlatma metni</Link>
             <Link href="/cerez-politikasi">Çerez politikası</Link>
+            <p><strong>Marka:</strong> {siteConfig.businessName}</p>
+            <p><strong>İşletme sahibi:</strong> {siteConfig.legalName}</p>
             <a href={siteConfig.phoneHref} data-event="footer_phone_click" data-analytics-event="phone_click" data-cta-location="footer">{siteConfig.phoneDisplay}</a>
             <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" data-event="footer_whatsapp_click" data-analytics-event="whatsapp_click" data-cta-location="footer">WhatsApp ile yazın</a>
             {businessConfig.INSTAGRAM_URL ? <a href={businessConfig.INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" data-event="footer_instagram_click" data-analytics-event="social_click" data-cta-location="footer">Instagram</a> : null}
