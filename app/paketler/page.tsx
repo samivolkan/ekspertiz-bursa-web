@@ -33,6 +33,35 @@ const packagesSchema = {
   })),
 };
 
+const packageFaqItems = [
+  {
+    question: "Bursa oto ekspertiz fiyatları KDV dahil mi?",
+    answer: "Evet. Sitede yayınlanan Mini Ekspertiz Kaporta, Mini Ekspertiz Motor-Mekanik, Mini, Orta, Tam ve Full paket fiyatlarına KDV dahildir.",
+  },
+  {
+    question: "Nilüfer oto ekspertiz için hangi paketle başlamalıyım?",
+    answer: "Yalnız kaporta-boya veya motor-mekanik kontrolü gerekiyorsa ilgili Mini Ekspertiz paketi; daha geniş satın alma kontrolü gerekiyorsa Mini, Orta, Tam veya Full paket karşılaştırılabilir.",
+  },
+  {
+    question: "Ekspertiz paketleri ne kadar sürer?",
+    answer: "Yayınlanan paket süreleri yaklaşık 15 ile 40 dakika arasındadır. Araç tipi, seçilen kapsam ve kontrol sırasında görülen bulgular süreyi etkileyebilir.",
+  },
+  {
+    question: "Online form kesin randevu oluşturur mu?",
+    answer: "Hayır. Form randevu talebinizi işletmeye iletir. Gün, saat, paket kapsamı ve ödeme yöntemi işletme teyidiyle kesinleşir.",
+  },
+];
+
+const packagesFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: packageFaqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 const packagesBreadcrumbSchema = breadcrumbSchema([
   { name: "Ana sayfa", path: "/" },
   { name: "Oto ekspertiz paketleri", path: "/paketler" },
@@ -42,8 +71,9 @@ export default function PackagesPage() {
   return (
     <SiteShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesFaqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesBreadcrumbSchema) }} />
-      <section className="subpage-hero" data-page-event="package_view">
+      <section className="subpage-hero packages-hero" data-page-event="package_view">
         <div className="page-shell">
           <Breadcrumbs items={[{ label: "Ana sayfa", href: "/" }, { label: "Paketler" }]} />
           <p className="eyebrow eyebrow-light">Oto ekspertiz paketleri</p>
@@ -51,12 +81,8 @@ export default function PackagesPage() {
           <p>Tek alana odaklanan kontrollerden airbag dahil en geniş pakete kadar tüm seçenekleri karşılaştırın.</p>
         </div>
       </section>
-      <section className="section section-paper">
+      <section className="section section-paper packages-section">
         <div className="page-shell">
-          <div className="package-scope-note">
-            <strong>Kontrol kapsamını açın</strong>
-            <p>Her karttaki “Paket özellikleri” alanından ana kontrol gruplarını ve alt başlıkları inceleyebilirsiniz. Başlıklar araç modeli, teknik uygunluk ve erişilebilirliğe göre uygulanır; parça sökümü yapılmaz. {siteConfig.priceTaxNote}</p>
-          </div>
           <div className="package-detail-grid">
             {packages.map((item) => {
               const controlHeadingCount = item.featureGroups.reduce((total, group) => total + group.items.length, 0);
@@ -97,6 +123,22 @@ export default function PackagesPage() {
                 </details>
               </article>;
             })}
+          </div>
+        </div>
+      </section>
+      <section className="section section-white">
+        <div className="page-shell faq-layout">
+          <div className="section-heading faq-heading">
+            <p className="eyebrow">Fiyat ve kapsam soruları</p>
+            <h2>Bursa oto ekspertiz fiyatlarını karşılaştırmadan önce bilinmesi gerekenler.</h2>
+          </div>
+          <div className="faq-list">
+            {packageFaqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

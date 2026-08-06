@@ -6,6 +6,17 @@ RewriteEngine On
 RewriteCond %{REQUEST_METHOD} ^TRACE [NC]
 RewriteRule .* - [F,L]
 
+# Retire every legacy PHP/WordPress surface from the previous site footprint.
+# This is a static export; no public PHP entry point is expected.
+RewriteRule ^(?:comments/feed|feed|tag/.*/feed)/?$ - [G,L,NC]
+RewriteRule ^(?:wp-admin(?:/.*)?|wp-content(?:/.*)?|wp-includes(?:/.*)?|wp-json(?:/.*)?)/?$ - [G,L,NC]
+RewriteRule ^(?:wp-sitemap\.xml|xmlrpc\.php|wp-login\.php|wp-cron\.php|wp-comments-post\.php|wp-trackback\.php|readme\.html|license\.txt)$ - [G,L,NC]
+RewriteRule ^.*\.(?:php[0-9]*|phtml|phar)(?:/.*)?$ - [G,L,NC]
+
+# Never serve source-control metadata, environment files, or backup archives.
+RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
+RewriteRule ^.*\.(?:bak|old|orig|sql|tar|tgz|zip)$ - [F,L,NC]
+
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\.bursaekspertiz\.com$ [NC]
 RewriteRule ^ https://www.bursaekspertiz.com%{REQUEST_URI} [R=301,L]

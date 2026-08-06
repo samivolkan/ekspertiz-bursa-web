@@ -11,7 +11,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/_sites-preview/"],
+      disallow: [
+        "/api/",
+        "/_sites-preview/",
+        "/wp-admin/",
+        "/wp-login.php",
+        "/xmlrpc.php",
+        "/*.php$",
+        "/*.zip$",
+      ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,

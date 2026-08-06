@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 const origin = "https://www.bursaekspertiz.com";
 
@@ -25,7 +26,9 @@ const sitemapResponse = await fetch(`${origin}/sitemap.xml`, { cache: "no-store"
 assert.equal(sitemapResponse.status, 200);
 const sitemap = await sitemapResponse.text();
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert.equal(urls.length, 17, "Live sitemap URL count differs from the verified build.");
+const verifiedBuildSitemap = readFileSync("out/sitemap.xml", "utf8");
+const verifiedBuildUrls = [...verifiedBuildSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+assert.deepEqual([...urls].sort(), [...verifiedBuildUrls].sort(), "Live sitemap URLs differ from the verified build.");
 
 const titles = new Set();
 const descriptions = new Set();
@@ -81,5 +84,10 @@ const notFoundHead = headOf(await notFound.text());
 assert.match(notFoundHead, /<meta name="robots" content="noindex(?:, nofollow)?"\/>/i);
 assert.doesNotMatch(notFoundHead, /<meta name="robots" content="index, follow"\/>/i);
 assert.doesNotMatch(notFoundHead, /<link rel="canonical"/i);
+
+for (const route of ["/comments/feed/", "/tag/bursa-en-iyi-ekspertiz/feed/", "/feed/", "/wp-sitemap.xml", "/xmlrpc.php"]) {
+  const response = await fetch(`${origin}${route}`, { cache: "no-store", redirect: "manual" });
+  assert.equal(response.status, 410, `${route}: legacy WordPress/feed URL must return 410 Gone.`);
+}
 
 console.log(`Live audit passed: ${urls.length} canonical pages, ${titles.size} unique titles, security headers and 404 controls verified.`);

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { ClientExperience } from "./ClientExperience";
-import { navItems, packages, siteConfig } from "@/lib/site";
+import { businessConfig, navItems, packages, siteConfig } from "@/lib/site";
 import { assetPath } from "@/lib/assets";
 
 export function Brand() {
@@ -123,21 +123,21 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <Link href="/randevu">Randevu talebi</Link>
             <Link href="/iletisim">İletişim</Link>
           </div>
-          <div>
+          <div className="footer-contact">
             <h2>Yasal</h2>
             <Link href="/kvkk">KVKK aydınlatma metni</Link>
             <Link href="/cerez-politikasi">Çerez politikası</Link>
             <a href={siteConfig.phoneHref} data-event="footer_phone_click" data-analytics-event="phone_click" data-cta-location="footer">{siteConfig.phoneDisplay}</a>
             <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" data-event="footer_whatsapp_click" data-analytics-event="whatsapp_click" data-cta-location="footer">WhatsApp ile yazın</a>
+            {businessConfig.INSTAGRAM_URL ? <a href={businessConfig.INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" data-event="footer_instagram_click" data-analytics-event="social_click" data-cta-location="footer">Instagram</a> : null}
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            <p>{siteConfig.workingHours}</p>
-            <p>{siteConfig.address}</p>
-            <p>{siteConfig.legalEntityNote}</p>
+            <p className="footer-hours">{siteConfig.workingHours}</p>
+            <p className="footer-address">{siteConfig.address}</p>
+            <p className="footer-legal-note">{siteConfig.legalEntityNote}</p>
           </div>
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Ekspertiz Bursa</span>
-          <span>Canonical alan adı: www.bursaekspertiz.com</span>
         </div>
       </footer>
       <PackagePriceDrawer />

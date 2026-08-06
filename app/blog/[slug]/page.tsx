@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
       description: post.description,
       publishedTime: post.publishedAt,
       url: canonicalPath(`/blog/${post.slug}`),
-      images: [{ url: image.src, alt: image.alt }],
+      images: [{ url: image.src, width: 1448, height: 1086, alt: image.alt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -55,6 +55,13 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   if (!post) notFound();
   const image = getBlogImage(post);
   const relatedPosts = blogPosts.filter((candidate) => candidate.slug !== post.slug).sort((a, b) => Number(b.category === post.category) - Number(a.category === post.category)).slice(0, 3);
+  const wordCount = [
+    post.title,
+    post.description,
+    post.introduction,
+    ...post.sections.flatMap((section) => [section.heading, ...section.paragraphs]),
+    ...post.takeaways,
+  ].join(" ").trim().split(/\s+/).length;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -74,6 +81,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     inLanguage: "tr-TR",
     articleSection: post.category,
     keywords: [post.category, "Bursa oto ekspertiz", "ikinci el araç kontrolü"].join(", "),
+    wordCount,
     isPartOf: { "@type": "Blog", name: "Ekspertiz Bursa Blog", url: `${siteConfig.canonicalUrl}/blog/` },
     mainEntityOfPage: `${siteConfig.canonicalUrl}/blog/${post.slug}/`,
     image: `${siteConfig.canonicalUrl}${image.src}`,

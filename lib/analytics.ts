@@ -10,6 +10,7 @@ export const analyticsEventNames = [
   "service_view",
   "service_to_appointment",
   "map_click",
+  "social_click",
   "report_example_view",
   "form_validation_error",
 ] as const;

@@ -6,7 +6,7 @@ export const businessConfig = {
   SITE_URL: "https://www.bursaekspertiz.com",
   SITE_NAME: "Ekspertiz Bursa",
   BUSINESS_NAME: "Ekspertiz Bursa",
-  LEGAL_BUSINESS_NAME: "Nezire Aslan Şahıs Şirketi",
+  LEGAL_BUSINESS_NAME: "Bahar Gacıroğlu",
   PHONE: "+905527415143",
   WHATSAPP_PHONE: "+905527415143",
   EMAIL: "info@bursaekspertiz.com",
@@ -15,15 +15,14 @@ export const businessConfig = {
   CITY: "Bursa",
   POSTAL_CODE: "16270",
   COUNTRY: "TR",
-  LATITUDE: "",
-  LONGITUDE: "",
-  GOOGLE_MAPS_URL:
-    "https://www.google.com/maps/search/?api=1&query=%C3%9C%C3%A7evler%20Mahallesi%20K%C3%BC%C3%A7%C3%BCk%20Sanayi%20Sitesi%2018.%20Blok%20No%2021%2F2%20Nil%C3%BCfer%20Bursa",
-  GOOGLE_BUSINESS_PROFILE_URL: "",
-  INSTAGRAM_URL: "",
+  LATITUDE: "40.203718",
+  LONGITUDE: "28.947035",
+  GOOGLE_MAPS_URL: "https://maps.app.goo.gl/fpM3NA8JbSv991SH8",
+  GOOGLE_BUSINESS_PROFILE_URL: "https://maps.app.goo.gl/fpM3NA8JbSv991SH8",
+  INSTAGRAM_URL: "https://www.instagram.com/bursa_ekspertiz/",
   FACEBOOK_URL: "",
   YOUTUBE_URL: "",
-  OPENING_HOURS: "Mo-Su 08:30-18:30",
+  OPENING_HOURS: "Mo-Fr 10:00-14:00",
   PRICE_RANGE: "3.500 TL - 12.500 TL (KDV dahil)",
   LOGO_URL: "/brand/ekspertiz-bursa-mark.png",
   DEFAULT_OG_IMAGE: "/og-red.png",
@@ -32,6 +31,14 @@ export const businessConfig = {
   PACKAGE_PRICE_UPDATED_AT: "2026-07-14",
   PACKAGE_TAX_STATUS: "included" as "included" | "unverified",
 } as const;
+
+function formatOpeningHours(value: string) {
+  const match = value.match(/^(Mo-Su|Mo-Fr)\s+(\d{2}:\d{2})-(\d{2}:\d{2})$/);
+  if (!match) return value;
+
+  const dayLabel = match[1] === "Mo-Fr" ? "Pazartesi-Cuma" : "Her gün";
+  return `${dayLabel} ${match[2]}–${match[3]}`;
+}
 
 export const siteConfig = {
   name: businessConfig.SITE_NAME,
@@ -54,7 +61,7 @@ export const siteConfig = {
   privacyEmail: businessConfig.EMAIL,
   priceTaxNote:
     "Yayınlanan paket fiyatlarına KDV dahildir; nihai kapsam ve ödeme yöntemi randevu teyidinde işletme tarafından netleştirilir.",
-  workingHours: `Her gün ${businessConfig.OPENING_HOURS.replace(/^Mo-Su\s+/, "").replace("-", "–")}`,
+  workingHours: formatOpeningHours(businessConfig.OPENING_HOURS),
   openingHours: businessConfig.OPENING_HOURS,
   missingVerifiedFields: [
     !businessConfig.LEGAL_BUSINESS_NAME ? "Resmî ticari unvan" : "",
@@ -347,8 +354,8 @@ export const localSeoTargets: LocalSeoTarget[] = [
     title: "Nilüfer oto ekspertiz",
     area: "Nilüfer / Bursa",
     description:
-      "Nilüfer ve Üçevler çevresinde araç almadan önce kaporta, motor-mekanik, OBD ve paket kapsamını netleştirmek isteyen kullanıcılar için randevu akışı.",
-    highlights: ["Nilüfer şube bilgisi", "Üçevler adres yönlendirmesi", "Aynı gün müsaitlik için telefon/WhatsApp"],
+      "Nilüfer Küçük Sanayi, Üçevler, Beşevler, Odunluk ve Ataevler çevresinde araç almadan önce kaporta, motor-mekanik, OBD ve paket kapsamını netleştirmek isteyen kullanıcılar için randevu akışı.",
+    highlights: ["Küçük Sanayi ve Üçevler konum bilgisi", "Beşevler, Odunluk ve Ataevler çevresinden ulaşım", "Aynı gün müsaitlik için telefon/WhatsApp"],
     href: "/nilufer-oto-ekspertiz",
     cta: "Nilüfer oto ekspertiz sayfasını gör",
   },

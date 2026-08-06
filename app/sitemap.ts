@@ -9,7 +9,7 @@ const siteUrl = process.env.NEXT_PUBLIC_GITHUB_PAGES === "true"
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-14T00:00:00+03:00");
+  const lastModified = new Date("2026-08-05T00:00:00+03:00");
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}/`,
     lastModified: new Date(`${post.publishedAt}T12:00:00+03:00`),

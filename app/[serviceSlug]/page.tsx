@@ -33,6 +33,22 @@ export default async function ServiceLandingPageRoute({ params }: { params: Prom
   const relatedPackages = packages.filter((item) => page.relatedPackageSlugs.includes(item.slug));
   const relatedPosts = blogPosts.filter((post) => page.relatedBlogSlugs.includes(post.slug));
   const url = absoluteUrl(`/${page.slug}`);
+  const relatedOfferCatalog = {
+    "@type": "OfferCatalog",
+    name: `${page.seoTitle} için ilgili ekspertiz paketleri`,
+    itemListElement: relatedPackages.map((item) => ({
+      "@type": "Offer",
+      url: `${absoluteUrl("/paketler")}#${item.slug}`,
+      ...(item.price ? { price: item.price.replace(/\D/g, ""), priceCurrency: "TRY" } : {}),
+      itemOffered: {
+        "@type": "Service",
+        name: item.name,
+        description: item.description,
+        provider: { "@id": `${siteConfig.canonicalUrl}/#business` },
+        areaServed: [{ "@type": "City", name: siteConfig.city }, { "@type": "AdministrativeArea", name: siteConfig.district }],
+      },
+    })),
+  };
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -46,6 +62,7 @@ export default async function ServiceLandingPageRoute({ params }: { params: Prom
       { "@type": "ServiceChannel", serviceUrl: absoluteUrl("/randevu") },
       { "@type": "ServiceChannel", servicePhone: siteConfig.phoneHref.replace("tel:", "") },
     ],
+    hasOfferCatalog: relatedOfferCatalog,
   };
   const faqSchema = {
     "@context": "https://schema.org",

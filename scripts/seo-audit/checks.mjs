@@ -215,8 +215,8 @@ export function runChecks(crawl) {
     ["nap_name", /Ekspertiz Bursa/i, "İşletme adı görünür değil", 2],
     ["nap_phone", /(?:\+90|0)552\s*741\s*51\s*43/i, "Telefon NAP alanlarında bulunamadı", 2],
     ["nap_address", /Üçevler Mahallesi/i, "Doğrulanmış adres görünür değil", 2],
-    ["opening_hours", /08:30[^<\n]{0,20}18:30/i, "Çalışma saatleri görünür değil", 1],
-    ["map_link", /google\.com\/maps/i, "Harita bağlantısı bulunamadı", 2],
+    ["opening_hours", /(?:Pazartesi-Cuma|Mo-Fr)[^<\n]{0,40}10:00[^<\n]{0,20}14:00/i, "Çalışma saatleri görünür değil", 1],
+    ["map_link", /(?:google\.com\/maps|maps\.app\.goo\.gl)/i, "Harita bağlantısı bulunamadı", 2],
   ]) {
     if (!pattern.test(homeAndContact)) addIssue({ category: "local", severity: "high", code, title, deduction, recommendation: "Yalnızca işletme tarafından doğrulanmış NAP bilgisini merkezi yapılandırmadan yayınlayın.", humanActionRequired: true });
   }
@@ -255,7 +255,7 @@ export function runChecks(crawl) {
   if (/<button\b(?![^>]*(?:aria-label|>\s*[^<\s]))[^>]*>\s*</i.test(combinedHtml)) addIssue({ category: "accessibility", severity: "medium", code: "button_name", title: "Erişilebilir adı olmayan buton olabilir", deduction: 1, recommendation: "İkon butonlara aria-label ekleyin." });
 
   const missingHumanFields = [
-    ["Google Business Profile", /google\.com\/(?:business|maps\/place)/i],
+    ["Google Business Profile", /(?:google\.com\/(?:business|maps\/place)|maps\.app\.goo\.gl)/i],
     ["Koordinatlar", /"geo"\s*:/i],
     ["Sosyal medya hesapları", /"sameAs"\s*:/i],
     ["GA4 veya GTM kimliği", /GTM-[A-Z0-9]+|G-[A-Z0-9]+/i],

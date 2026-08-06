@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { type AnalyticsEventName, analyticsEventNames, trackEvent } from "@/lib/analytics";
 
 const CONSENT_KEY = "eb_cookie_consent_v1";
@@ -131,7 +130,8 @@ export function ClientExperience() {
         <strong>Çerez tercihleri</strong>
         <p>
           Zorunlu çerezler randevu ve güvenlik için kullanılır. Analitik ve reklam ölçümü yalnız izninizle etkinleşir. Ayrıntılar için{" "}
-          <Link href="/cerez-politikasi">çerez politikasını</Link> inceleyin.
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- Keeps the cookie banner client bundle smaller than importing next/link. */}
+          <a href="/cerez-politikasi">çerez politikasını</a> inceleyin.
         </p>
       </div>
       <div className="cookie-actions">

@@ -10,6 +10,14 @@ function compact<T extends Record<string, unknown>>(value: T): Partial<T> {
   ) as Partial<T>;
 }
 
+function openingDays(value: string) {
+  if (value.startsWith("Mo-Fr")) {
+    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  }
+
+  return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+}
+
 export function organizationSchema() {
   const sameAs = [
     businessConfig.GOOGLE_BUSINESS_PROFILE_URL,
@@ -23,11 +31,19 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": `${siteConfig.canonicalUrl}/#organization`,
     name: businessConfig.BUSINESS_NAME,
+    alternateName: ["Bursa Ekspertiz", "EkspertizBursa"],
     legalName: businessConfig.LEGAL_BUSINESS_NAME,
     url: siteConfig.canonicalUrl,
     logo: `${siteConfig.canonicalUrl}${businessConfig.LOGO_URL}`,
     email: businessConfig.EMAIL,
     telephone: businessConfig.PHONE,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: businessConfig.PHONE,
+      contactType: "customer service",
+      areaServed: businessConfig.COUNTRY,
+      availableLanguage: ["tr"],
+    },
     sameAs,
     subOrganization: { "@id": `${siteConfig.canonicalUrl}/#business` },
   });
@@ -48,6 +64,7 @@ export function localBusinessSchema() {
     "@type": "AutoRepair",
     "@id": `${siteConfig.canonicalUrl}/#business`,
     name: businessConfig.BUSINESS_NAME,
+    alternateName: ["Bursa Ekspertiz", "EkspertizBursa"],
     legalName: businessConfig.LEGAL_BUSINESS_NAME,
     url: siteConfig.canonicalUrl,
     logo: `${siteConfig.canonicalUrl}${businessConfig.LOGO_URL}`,
@@ -60,7 +77,7 @@ export function localBusinessSchema() {
     openingHours: businessConfig.OPENING_HOURS,
     openingHoursSpecification: hourRange ? {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      dayOfWeek: openingDays(businessConfig.OPENING_HOURS),
       opens: hourRange[1],
       closes: hourRange[2],
     } : undefined,
@@ -80,9 +97,29 @@ export function localBusinessSchema() {
     areaServed: [
       { "@type": "City", name: businessConfig.CITY },
       { "@type": "AdministrativeArea", name: businessConfig.DISTRICT },
+      { "@type": "Place", name: "Küçük Sanayi" },
+      { "@type": "Place", name: "Üçevler" },
+      { "@type": "Place", name: "Beşevler" },
+      { "@type": "Place", name: "Odunluk" },
+      { "@type": "Place", name: "Ataevler" },
     ],
     hasMap: businessConfig.GOOGLE_MAPS_URL,
     sameAs,
+    knowsAbout: [
+      "Bursa oto ekspertiz",
+      "Nilüfer oto ekspertiz",
+      "Kaporta boya ekspertiz",
+      "Motor mekanik kontrol",
+      "OBD beyin kontrolü",
+      "İkinci el araç ekspertizi",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: businessConfig.PHONE,
+      contactType: "customer service",
+      areaServed: businessConfig.COUNTRY,
+      availableLanguage: ["tr"],
+    },
     parentOrganization: { "@id": `${siteConfig.canonicalUrl}/#organization` },
     hasOfferCatalog: {
       "@type": "OfferCatalog",

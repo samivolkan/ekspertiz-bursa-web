@@ -45,7 +45,7 @@ export default function ContactPage() {
         <div className="page-shell info-layout">
           <aside className="info-panel">
             <h2>Şube bilgileri</h2>
-            <p>Her gün 08:30–18:30 arasında telefon, WhatsApp ve e-posta üzerinden bize ulaşabilirsiniz.</p>
+            <p>{siteConfig.workingHours} arasında telefon, WhatsApp ve e-posta üzerinden bize ulaşabilirsiniz. Gelmeden önce randevu teyidi almanız önerilir.</p>
             <dl>
               <div><dt>Adres</dt><dd>{siteConfig.address}</dd></div>
               <div><dt>Telefon</dt><dd><a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a></dd></div>

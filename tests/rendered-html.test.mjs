@@ -22,7 +22,7 @@ before(async () => {
   server.stdout?.on("data", (chunk) => { serverLog += chunk.toString(); });
   server.stderr?.on("data", (chunk) => { serverLog += chunk.toString(); });
 
-  for (let attempt = 0; attempt < 80; attempt += 1) {
+  for (let attempt = 0; attempt < 160; attempt += 1) {
     if (server.exitCode !== null) {
       throw new Error(`Test server exited early.\n${serverLog}`);
     }
@@ -37,13 +37,18 @@ before(async () => {
   throw new Error(`Test server did not become ready.\n${serverLog}`);
 });
 
-after(() => {
+after(async () => {
   if (!server?.pid) return;
+  const exited = new Promise((resolve) => server.once("exit", resolve));
   if (process.platform === "win32") {
     spawnSync("taskkill", ["/PID", String(server.pid), "/T", "/F"], { windowsHide: true });
   } else {
     server.kill("SIGTERM");
   }
+  server.stdout?.destroy();
+  server.stderr?.destroy();
+  server.stdin?.destroy();
+  await Promise.race([exited, new Promise((resolve) => setTimeout(resolve, 1_000))]);
 });
 
 test("renders the Ekspertiz Bursa buyer flow with verified business data", async () => {
@@ -66,16 +71,19 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /10\.000 TL/);
   assert.match(html, /12\.500 TL/);
   assert.match(html, /0552 741 51 43/);
-  assert.match(html, /Mo-Su 08:30-18:30/);
+  assert.match(html, /Mo-Fr 10:00-14:00/);
   assert.match(html, /"telephone":"\+905527415143"/);
   assert.match(html, /"email":"info@bursaekspertiz\.com"/);
-  assert.match(html, /"legalName":"Nezire Aslan Şahıs Şirketi"/);
+  assert.match(html, /"legalName":"Bahar Gacıroğlu"/);
   assert.match(html, /"postalCode":"16270"/);
+  assert.match(html, /"geo":\{"@type":"GeoCoordinates","latitude":"40\.203718","longitude":"28\.947035"\}/);
+  assert.match(html, /https:\/\/maps\.app\.goo\.gl\/fpM3NA8JbSv991SH8/);
   assert.match(html, /3\.500 TL - 12\.500 TL \(KDV dahil\)/);
   assert.doesNotMatch(html, /Telefon, çalışma saatleri.*onay bekliyor/);
   assert.match(html, /Üçevler Mahallesi/);
   assert.match(html, /"@type":"AutoRepair"/);
   assert.match(html, /"@type":"Organization"/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/bursa_ekspertiz\//);
   assert.doesNotMatch(html, /"legalName":""|"priceRange":""|"geo":\{\}/);
   assert.match(html, /Sahte yorum yok/);
   assert.match(html, /doğrulanabilir kaynak/i);
@@ -86,6 +94,7 @@ test("renders the Ekspertiz Bursa buyer flow with verified business data", async
   assert.match(html, /__EB_GA4_ID='G-K6LBGJQ8T1'/);
   assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js\?id=G-K6LBGJQ8T1/);
   assert.match(html, /wa\.me\/905527415143/);
+  assert.match(html, /data-analytics-event="social_click"/);
   assert.match(html, /class="whatsapp-float"[\s\S]*?<svg/i);
   assert.match(html, /class="price-drawer"/);
   assert.match(html, /Ekspertiz fiyatları/);
@@ -176,8 +185,8 @@ test("renders verified contact channels and business hours", async () => {
   assert.match(html, /href="tel:\+905527415143"/);
   assert.match(html, /wa\.me\/905527415143/);
   assert.match(html, /info@bursaekspertiz\.com/);
-  assert.match(html, /Nezire Aslan Şahıs Şirketi/);
-  assert.match(html, /Her gün 08:30–18:30/);
+  assert.match(html, /Bahar Gacıroğlu/);
+  assert.match(html, /Pazartesi-Cuma 10:00–14:00/);
 });
 
 test("renders fixed professional theme and detailed package pages", async () => {
