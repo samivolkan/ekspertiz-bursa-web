@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { AdsTransparencyBar } from "./AdsTransparencyBar";
 import { ClientExperience } from "./ClientExperience";
 import { businessConfig, navItems, packages, siteConfig } from "@/lib/site";
 import { assetPath } from "@/lib/assets";
@@ -106,6 +107,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+      <AdsTransparencyBar />
       <main>{children}</main>
       <footer className="site-footer">
         <div className="footer-grid">
