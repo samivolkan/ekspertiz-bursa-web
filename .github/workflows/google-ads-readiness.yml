@@ -77,9 +77,9 @@ jobs:
             echo "Report file was not generated." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-          passed=$(node -p "require('./'$report).passed")
-          errors=$(node -p "require('./'$report).issueCount")
-          warnings=$(node -p "require('./'$report).warningCount")
+          passed=$(node -p "require('./${report}').passed")
+          errors=$(node -p "require('./${report}').issueCount")
+          warnings=$(node -p "require('./${report}').warningCount")
           echo "## Google Ads destination audit" >> "$GITHUB_STEP_SUMMARY"
           echo "- Passed: $passed" >> "$GITHUB_STEP_SUMMARY"
           echo "- Errors: $errors" >> "$GITHUB_STEP_SUMMARY"
