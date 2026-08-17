@@ -2,9 +2,7 @@ name: Google Ads Destination Readiness
 
 on:
   push:
-    branches:
-      - main
-      - fix/google-ads-readiness-20260817
+    branches: [main]
     paths:
       - "app/**"
       - "components/**"
@@ -61,7 +59,7 @@ jobs:
           retention-days: 14
 
   live-destination:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/fix/google-ads-readiness-20260817'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     needs: source-quality
     runs-on: ubuntu-latest
     steps:
