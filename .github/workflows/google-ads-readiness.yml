@@ -1,0 +1,100 @@
+name: Google Ads Destination Readiness
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "public/**"
+      - "scripts/audit-google-ads-destination.mjs"
+      - "tests/google-ads-readiness.test.mjs"
+      - "package.json"
+      - ".github/workflows/google-ads-readiness.yml"
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-ads-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Lint and type-check
+        run: |
+          npm run lint
+          npm run typecheck
+      - name: Build and run tests
+        run: npm test
+      - name: Verify static hosting export
+        run: |
+          npm run build:static-hosting
+          npm run seo:audit:local
+          test -f out/.htaccess
+          test -f out/.well-known/adsbot-health.txt
+      - name: Upload static hosting package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bursaekspertiz-google-ads-ready-${{ github.sha }}
+          path: out
+          include-hidden-files: true
+          retention-days: 14
+
+  live-destination:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: source-quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Audit production destination
+        run: npm run audit:google-ads
+      - name: Publish audit summary
+        if: always()
+        shell: bash
+        run: |
+          report="outputs/google-ads-destination/latest/report.json"
+          if [ ! -f "$report" ]; then
+            echo "## Google Ads destination audit" >> "$GITHUB_STEP_SUMMARY"
+            echo "Report file was not generated." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          passed=$(node -p "require('./${report}').passed")
+          errors=$(node -p "require('./${report}').issueCount")
+          warnings=$(node -p "require('./${report}').warningCount")
+          echo "## Google Ads destination audit" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Passed: $passed" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Errors: $errors" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Warnings: $warnings" >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload destination evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-ads-destination-${{ github.run_id }}
+          path: outputs/google-ads-destination
+          retention-days: 30

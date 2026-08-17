@@ -1,0 +1,8 @@
+status=ok
+site=Ekspertiz Bursa
+canonical=https://www.bursaekspertiz.com/
+physical_service_location=Nilüfer/Üçevler, Bursa
+bursa_service_scope=Appointment requests are accepted from Bursa districts; the advertised physical service address is Nilüfer/Üçevler
+service_location_disclosure=true
+business_operator=Bahar Gacıroğlu
+last_reviewed=2026-08-17
