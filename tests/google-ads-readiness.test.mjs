@@ -18,13 +18,14 @@ test("shows the physical branch and Bursa service scope site-wide", () => {
   assert.match(shell, /<AdsTransparencyBar \/>/);
   assert.match(compliance, /Nilüfer \/ Üçevler, Bursa/);
   assert.match(compliance, /Bursa geneli/);
-  assert.match(compliance, /mobil\/yerinde ekspertiz hizmeti/);
+  assert.match(compliance, /fiziksel hizmet konumunu değiştirmez/);
 });
 
 test("ships the health endpoint and destination audit", () => {
   const health = read("public/.well-known/adsbot-health.txt");
   const audit = read("scripts/audit-google-ads-destination.mjs");
   assert.match(health, /^status=ok$/m);
+  assert.match(health, /^service_location_disclosure=true$/m);
   assert.match(health, /^business_operator=Bahar Gacıroğlu$/m);
   assert.match(audit, /HEAD\/GET mismatch/);
   assert.match(audit, /AdsBot-Google-Mobile/);
