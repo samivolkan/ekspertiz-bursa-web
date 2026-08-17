@@ -50,6 +50,12 @@ jobs:
         run: |
           npm run build:static-hosting
           npm run seo:audit:local
+      - name: Upload static hosting package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bursaekspertiz-google-ads-ready-${{ github.sha }}
+          path: out
+          retention-days: 14
 
   live-destination:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/fix/google-ads-readiness-20260817'
