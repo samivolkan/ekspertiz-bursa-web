@@ -52,7 +52,7 @@ jobs:
           npm run seo:audit:local
 
   live-destination:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/fix/google-ads-readiness-20260817'
     needs: source-quality
     runs-on: ubuntu-latest
     steps:
