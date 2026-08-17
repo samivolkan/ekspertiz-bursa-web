@@ -1,0 +1,8 @@
+status=ok
+site=Ekspertiz Bursa
+canonical=https://www.bursaekspertiz.com/
+physical_service_location=Nilüfer/Üçevler, Bursa
+bursa_service_scope=Customers from Bursa districts visit the Nilüfer/Üçevler physical branch
+mobile_or_on_site_service_claim=false
+business_operator=Bahar Gacıroğlu
+last_reviewed=2026-08-17
