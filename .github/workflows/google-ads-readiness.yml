@@ -50,11 +50,14 @@ jobs:
         run: |
           npm run build:static-hosting
           npm run seo:audit:local
+          test -f out/.htaccess
+          test -f out/.well-known/adsbot-health.txt
       - name: Upload static hosting package
         uses: actions/upload-artifact@v4
         with:
           name: bursaekspertiz-google-ads-ready-${{ github.sha }}
           path: out
+          include-hidden-files: true
           retention-days: 14
 
   live-destination:
