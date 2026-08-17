@@ -1,8 +1,8 @@
 export const adsCompliance = {
   physicalServiceLocation: "Nilüfer / Üçevler, Bursa",
-  serviceAreaLabel: "Bursa geneli — fiziksel hizmet Nilüfer/Üçevler şubesinde",
+  serviceAreaLabel: "Bursa genelinden randevu — hizmet noktası Nilüfer/Üçevler",
   serviceAreaDisclosure:
-    "Tüm ekspertiz işlemleri, bu sitede belirtilen Nilüfer/Üçevler adresindeki fiziksel şubede gerçekleştirilir. “Bursa geneli” ifadesi, Bursa’nın farklı ilçelerinden bu şubeye randevu oluşturan müşterileri kapsar; başka bir ilçede şube bulunduğu veya mobil/yerinde ekspertiz hizmeti sunulduğu iddiası değildir.",
+    "Bursa’nın farklı ilçelerinden randevu talepleri kabul edilir. Ekspertiz işlemlerinin gerçekleştirildiği ve bu sitede ilan edilen açık adres Nilüfer/Üçevler şubesidir; reklam ve sayfalardaki “Bursa” veya “Bursa geneli” ifadeleri fiziksel hizmet konumunu değiştirmez.",
   bursaLandingPath: "/bursa-oto-ekspertiz/",
   niluferLandingPath: "/nilufer-oto-ekspertiz/",
   lastReviewedAt: "2026-08-17",
